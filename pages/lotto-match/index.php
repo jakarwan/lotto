@@ -346,7 +346,6 @@
                   <form class="forms-sample" action="upload.php" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                       <label>File upload</label>
-                      <!-- <input type="file" name="image" class="file-upload-default"> -->
                       <div class="input-group col-xs-12">
                         <input type="file" class="form-control file-upload-info" name="image" placeholder="Upload Image">
                         <span class="input-group-append">
