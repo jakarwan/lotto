@@ -6,7 +6,7 @@ include 'config/config.php';
 
 <!DOCTYPE html>
 <html lang="en">
-
+  <!-- Required meta tags -->
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
