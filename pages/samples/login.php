@@ -1,5 +1,25 @@
 <?php
 include '../../config/config.php';
+if(isset($_POST['txtUsername'])&&isset($_POST['txtPassword'])){
+	$rs = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST['txtUsername']."' AND password ='".$_POST['txtPassword']."'" );
+	$num = mysqli_num_rows($rs);
+	$row = mysqli_fetch_array($rs);
+	if ($num>0) {
+			$_SESSION["users"] = $row["username"];
+			$_SESSION["name"] = $row["user_name"];
+			$_SESSION["date"] = $row["date"];
+      $_SESSION["phone"] = $row["phone"];
+      $_SESSION["status"] = $row["status"];
+				if($row['image'] != null){
+					$_SESSION["pic"] = $row["image"];
+				}else{
+					$_SESSION["pic"] = "../images/faces/face1.jpg";
+				}
+			header('refresh: 0.1;../../index.php');
+	}else{
+		echo '<script>alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด \nไม่สามารถเข้าระบบได้");</script>';
+	}		
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,13 +44,13 @@ include '../../config/config.php';
 </head>
 
 <body>
+<form method="post">
   <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
       <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
-            <div class="auto-form-wrapper">
-              <form name="form1" method="post" action="check_login.php">
+            <div class="auto-form-wrapper">  
                 <div class="form-group">
                   <label class="label">Username</label>
                   <div class="input-group">
@@ -54,7 +74,7 @@ include '../../config/config.php';
                   </div>
                 </div>
                 <div class="form-group">
-                  <button class="btn btn-primary submit-btn btn-block">Login</button>
+                  <button type="submit" class="btn btn-primary submit-btn btn-block">Login</button>
                 </div>
                 <div class="form-group d-flex justify-content-between">
                   <div class="form-check form-check-flat mt-0">
@@ -64,28 +84,15 @@ include '../../config/config.php';
                   </div>
                   <a href="#" class="text-small forgot-password text-black">Forgot Password</a>
                 </div>
-                <div class="form-group">
-                  <p>
-
-<!-- <?php   If(isset($_GET['Username']) && $_GET['Password'] == 1){ ?>
-        <h3>Invalid username or password</h3>    
-  <?php } ?> -->
-
-                          <!-- <?php
-                  if(isset($_GET['Username'])){
-                    echo 'Login Fail!!';
-                  }
-                  
-                ?> -->
-                                </p>
+                <!-- <div class="form-group">
                   <button class="btn btn-block g-login">
                     <img class="mr-3" src="../../images/file-icons/icon-google.svg" alt="">Log in with Google</button>
-                </div>
+                </div> -->
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">Not a member ?</span>
                   <a href="register.php" class="text-black text-small">Create new account</a>
                 </div>
-              </form>
+              
             </div>
             <ul class="auth-footer">
               <li>
@@ -115,6 +122,7 @@ include '../../config/config.php';
   <script src="../../js/off-canvas.js"></script>
   <script src="../../js/misc.js"></script>
   <!-- endinject -->
+  </form>
 </body>
 
 </html>
