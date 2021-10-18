@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include '../../config/config.php';
+	include '../config/config.php';
 	$SQL = "SELECT * FROM member WHERE Username = '".mysqli_real_escape_string($conn,$_POST['txtUsername'])."' 
 	and Password = '".mysqli_real_escape_string($conn,$_POST['txtPassword'])."'";
 	$objQuery = mysqli_query($conn,$SQL);
@@ -18,7 +18,7 @@
 			
 			if($objResult["status"] == "USER")
 			{
-				header("location:../../index.php");
+				header("location:../index.php");
 			}
 			else
 			{

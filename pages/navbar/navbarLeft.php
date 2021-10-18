@@ -1,5 +1,4 @@
 
-<div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
@@ -7,7 +6,7 @@
             <div class="nav-link">
               <div class="user-wrapper">
                 <div class="profile-image">
-                  <img src="images/faces/face1.jpg" alt="profile image">
+                  <img src="../images/faces/face1.jpg" alt="profile image">
                 </div>
                 <div class="text-wrapper">
                   <p class="profile-name">Richard V.Welsh</p>
@@ -17,7 +16,7 @@
                   </div>
                 </div>
               </div>
-              <button onclick="location.href='pages/lotto-match/index.php'" class="btn btn-success btn-block">New Project
+              <button onclick="location.href='lottonumber.php'" class="btn btn-success btn-block">Lotto
                 <i class="mdi mdi-plus"></i>
               </button>
             </div>

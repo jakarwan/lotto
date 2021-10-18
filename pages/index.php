@@ -1,40 +1,42 @@
 <?php
 session_start();
-include 'config/config.php';
+include '../config/config.php';
 //include 'pages/samples/check_login.php';
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <!-- TEST -->
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="shortcut icon" href="../images/favicon.png" />
 </head>
 
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-    <?php 
-    include 'pages/navbar/navbar.php'
+    <?php
+    include 'navbar/navbar.php';
     ?>
     <!-- partial -->
-    <?php 
-    include 'pages/navbar/navbarLeft.php'
-    ?>
+    <div class="container-fluid page-body-wrapper">
+      <?php
+      include 'navbar/navbarLeft.php';
+      ?>
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -145,7 +147,8 @@ include 'config/config.php';
                   <div class="weather-data d-flex">
                     <div class="mr-auto">
                       <h4 class="display-3">21
-                        <span class="symbol">&deg;</span>C</h4>
+                        <span class="symbol">&deg;</span>C
+                      </h4>
                       <p>
                         Mostly Cloudy
                       </p>
@@ -250,8 +253,7 @@ include 'config/config.php';
                       <p class="mb-2 text-primary">88%</p>
                     </div>
                     <div class="progress">
-                      <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 88%" aria-valuenow="88"
-                        aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 88%" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                   <div class="wrapper mt-4">
@@ -260,8 +262,7 @@ include 'config/config.php';
                       <p class="mb-2 text-success">56%</p>
                     </div>
                     <div class="progress">
-                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 56%" aria-valuenow="56"
-                        aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                   </div>
                 </div>
@@ -332,8 +333,7 @@ include 'config/config.php';
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                                aria-valuemax="100"></div>
+                              <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </td>
                           <td>
@@ -355,8 +355,7 @@ include 'config/config.php';
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                                aria-valuemax="100"></div>
+                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </td>
                           <td>
@@ -378,8 +377,7 @@ include 'config/config.php';
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0"
-                                aria-valuemax="100"></div>
+                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </td>
                           <td>
@@ -401,8 +399,7 @@ include 'config/config.php';
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                aria-valuemax="100"></div>
+                              <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </td>
                           <td>
@@ -424,8 +421,7 @@ include 'config/config.php';
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0"
-                                aria-valuemax="100"></div>
+                              <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </td>
                           <td>
@@ -447,8 +443,7 @@ include 'config/config.php';
                           </td>
                           <td>
                             <div class="progress">
-                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-                                aria-valuemax="100"></div>
+                              <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                           </td>
                           <td>
@@ -609,9 +604,9 @@ include 'config/config.php';
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        <?php 
-         include 'pages/navbar/footer.php'
-        ?> 
+        <?php
+        include '../pages/navbar/footer.php'
+        ?>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
@@ -621,17 +616,17 @@ include 'config/config.php';
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
-  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- End plugin js for this page-->
   <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/misc.js"></script>
+  <script src="../js/off-canvas.js"></script>
+  <script src="../js/misc.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script src="js/dashboard.js"></script>
+  <script src="../js/dashboard.js"></script>
   <!-- End custom js for this page-->
 </body>
 
