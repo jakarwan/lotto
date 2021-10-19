@@ -55,9 +55,9 @@
                               <select class="form-control form-control-sm col-6" id="installment" name="installment">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
-                                <option value="3">3</option>
+                                <!-- <option value="3">3</option>
                                 <option value="4">4</option>
-                                <option value="5">5</option>
+                                <option value="5">5</option> -->
                               </select>
                               <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
                               <input type="text" class="form-control col-8" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>

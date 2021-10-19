@@ -1,6 +1,9 @@
 <?php
 session_start();
 include '../config/config.php';
+
+#echo $_SESSION['users'];
+CheckLogin();
 //include 'pages/samples/check_login.php';
 ?>
 

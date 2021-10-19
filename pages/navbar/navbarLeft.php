@@ -6,10 +6,10 @@
             <div class="nav-link">
               <div class="user-wrapper">
                 <div class="profile-image">
-                  <img src="../images/faces/face1.jpg" alt="profile image">
+                  <img src="<?php echo $_SESSION["pic"];?>" alt="profile image">
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Richard V.Welsh</p>
+                  <p class="profile-name"><?php echo $_SESSION['name'];?></p>
                   <div>
                     <small class="designation text-muted">Manager</small>
                     <span class="status-indicator online"></span>

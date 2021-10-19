@@ -2,7 +2,7 @@
 include '../config/config.php';
 
 
-if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_POST['txtName']) && !empty($_POST['txtdate']) && !empty($_POST['txtTel'])){	
+if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_POST['txtName']) && !empty($_POST['txtTel'])){	
   $rs = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST["txtUsername"]."'");
   $num = mysqli_num_rows($rs);
   if($num>0){
@@ -12,7 +12,7 @@ if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_PO
     $name= addslashes($_POST["txtName"]);
     $users = addslashes($_POST["txtUsername"]);
     $pass = addslashes($_POST["txtPassword"]);
-    $date = addslashes($_POST["txtdate"]);
+    $date = date('Y-m-d');
     $phone = addslashes($_POST["txtTel"]);
     $imgnull ="";
     $status = "users";
@@ -99,7 +99,7 @@ if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_PO
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="วันเกิด 1998-12-13" id="txtdate" name="txtdate" required="">
                     <div class="input-group-append">
@@ -108,7 +108,7 @@ if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_PO
                       </span>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="สกุล" id="txtLastname" name="txtLastname" required="">

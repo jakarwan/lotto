@@ -137,7 +137,7 @@
       <li class="nav-item dropdown d-none d-xl-inline-block">
         <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
           <span class="profile-text"></span>
-          <img class="img-xs rounded-circle" src="../images/faces/face1.jpg" alt="Profile image">
+          <img class="img-xs rounded-circle" src="<?php echo $_SESSION["pic"];?>" alt="Profile image">
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
           <a class="dropdown-item p-0">
@@ -153,16 +153,16 @@
               </div>
             </div>
           </a>
-          <a class="dropdown-item mt-2">
+          <a class="dropdown-item mt-2" href="editprofile.php">
             Manage Accounts
           </a>
-          <a class="dropdown-item">
+          <!-- <a class="dropdown-item">
             Change Password
           </a>
           <a class="dropdown-item">
             Check Inbox
-          </a>
-          <a class="dropdown-item">
+          </a> -->
+          <a class="dropdown-item" href="logout.php">
             Sign Out
           </a>
         </div>
