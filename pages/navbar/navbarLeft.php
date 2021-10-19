@@ -11,7 +11,7 @@
                 <div class="text-wrapper">
                   <p class="profile-name"><?php echo $_SESSION['name'];?></p>
                   <div>
-                    <small class="designation text-muted">Manager</small>
+                    <small class="designation text-muted"><?php echo $_SESSION['status'];?></small>
                     <span class="status-indicator online"></span>
                   </div>
                 </div>
@@ -25,6 +25,12 @@
             <a class="nav-link" href="index.php">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lottosearch.php">
+              <i class="menu-icon mdi mdi-television"></i>
+              <span class="menu-title">ค้นหาล็อตเตอรี่</span>
             </a>
           </li>
           <!-- <li class="nav-item">

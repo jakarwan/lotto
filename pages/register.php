@@ -2,27 +2,29 @@
 include '../config/config.php';
 
 
-if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_POST['txtName']) && !empty($_POST['txtTel'])){	
-  $rs = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST["txtUsername"]."'");
+if (!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_POST['txtName']) && !empty($_POST['txtTel'])) {
+  $rs = mysqli_query($conn, "SELECT * FROM users WHERE username ='" . $_POST["txtUsername"] . "'");
   $num = mysqli_num_rows($rs);
-  if($num>0){
-    echo '<script>alert("ชื่อผู้ใช้ซ้ำ");</script>';
-  }else{
-    $id = "";
-    $name= addslashes($_POST["txtName"]);
+  if ($num > 0) {
+    echo '<script>alert("ชื่อผู้ใช้มีในระบบแล้ว");</script>';
+  } else {
+    // $id = "";
+    $name = addslashes($_POST["txtName"]);
     $users = addslashes($_POST["txtUsername"]);
     $pass = addslashes($_POST["txtPassword"]);
+    $options = array("cost"=>4);
+    $hashed_password = password_hash($pass, PASSWORD_BCRYPT,$options);
     $date = date('Y-m-d');
     $phone = addslashes($_POST["txtTel"]);
-    $imgnull ="";
-    $status = "users";
-    $sql = "INSERT INTO users VALUES('".$id."','".$name."','".$users."','".$pass."','".$date."','".$phone."','".$imgnull."','".$status."')";
-      if (mysqli_query($conn,$sql)) {
-        echo '<script>alert("เพิ่มข้อมูลแล้ว");</script>';
-        header('refresh: 0.1;login.php');
-      }else{
-        echo '<script>alert("ไม่สามารถเพิ่มข้อมูลได้");</script>';
-      }
+    // $imgnull = "";
+    // $status = "users";
+    $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $hashed_password . "','" . $date . "','" . $phone . "','',0)";
+    if (mysqli_query($conn, $sql)) {
+      echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
+      header('refresh: 0;login.php');
+    } else {
+      echo '<script>alert("ไม่สามารถเพิ่มข้อมูลได้");</script>';
+    }
   }
 }
 
@@ -50,15 +52,15 @@ if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_PO
 </head>
 
 <body>
-<form method="post">
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
-      <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
-        <div class="row w-100">
-          <div class="col-lg-4 mx-auto">
-            <h2 class="text-center mb-4">Register</h2>
-            <div class="auto-form-wrapper">
-              <!-- <form method="post" action="login.php"> -->
+  <form method="post">
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
+        <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
+          <div class="row w-100">
+            <div class="col-lg-4 mx-auto">
+              <h2 class="text-center mb-4">Register</h2>
+              <div class="auto-form-wrapper">
+                <!-- <form method="post" action="login.php"> -->
                 <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Username" id="txtUsername" name="txtUsername" required="">
@@ -151,26 +153,26 @@ if(!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_PO
                 </div>
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">Already have and account ?</span>
-                  <a href="login.html" class="text-black text-small">Login</a>
+                  <a href="login.php" class="text-black text-small">Login</a>
                 </div>
-              
+
+              </div>
             </div>
           </div>
         </div>
+        <!-- content-wrapper ends -->
       </div>
-      <!-- content-wrapper ends -->
+      <!-- page-body-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="../vendors/js/vendor.bundle.base.js"></script>
-  <script src="../vendors/js/vendor.bundle.addons.js"></script>
-  <!-- endinject -->
-  <!-- inject:js -->
-  <script src="../js/off-canvas.js"></script>
-  <script src="../js/misc.js"></script>
-  <!-- endinject -->
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../vendors/js/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="../js/off-canvas.js"></script>
+    <script src="../js/misc.js"></script>
+    <!-- endinject -->
   </form>
 </body>
 

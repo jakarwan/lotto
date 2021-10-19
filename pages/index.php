@@ -4,6 +4,8 @@ include '../config/config.php';
 
 #echo $_SESSION['users'];
 CheckLogin();
+
+dashBoard();
 //include 'pages/samples/check_login.php';
 ?>
 
@@ -39,6 +41,7 @@ CheckLogin();
     <div class="container-fluid page-body-wrapper">
       <?php
       include 'navbar/navbarLeft.php';
+      // echo $_SESSION["status"];
       ?>
       <!-- partial -->
       <div class="main-panel">
@@ -124,7 +127,7 @@ CheckLogin();
                     <div class="float-right">
                       <p class="mb-0 text-right">Employees</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">246</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $userCount ?></h3>
                       </div>
                     </div>
                   </div>
@@ -474,7 +477,7 @@ CheckLogin();
                   <div class="fluid-container">
                     <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                       <div class="col-md-1">
-                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="images/faces/face1.jpg" alt="profile image">
+                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="../images/faces/face1.jpg" alt="profile image">
                       </div>
                       <div class="ticket-details col-md-9">
                         <div class="d-flex">
@@ -517,7 +520,7 @@ CheckLogin();
                     </div>
                     <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                       <div class="col-md-1">
-                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="images/faces/face2.jpg" alt="profile image">
+                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="../images/faces/face2.jpg" alt="profile image">
                       </div>
                       <div class="ticket-details col-md-9">
                         <div class="d-flex">
@@ -560,7 +563,7 @@ CheckLogin();
                     </div>
                     <div class="row ticket-card mt-3">
                       <div class="col-md-1">
-                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="images/faces/face3.jpg" alt="profile image">
+                        <img class="img-sm rounded-circle mb-4 mb-md-0" src="../images/faces/face3.jpg" alt="profile image">
                       </div>
                       <div class="ticket-details col-md-9">
                         <div class="d-flex">

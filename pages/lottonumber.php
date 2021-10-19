@@ -19,6 +19,7 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
@@ -38,7 +39,7 @@
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-md-6 d-flex align-items-stretch grid-margin">
+            <div class="col-md-12 d-flex align-items-stretch grid-margin">
               <div class="row flex-grow">
                 <div class="col-12">
                   <div class="card">
@@ -52,111 +53,28 @@
                           <div class="col-12">
                             <div class="form-group">
                               <label for="installment">งวดที่</label>
-                              <select class="form-control form-control-sm col-6" id="installment" name="installment">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
+                              <select class="form-control form-control-sm col-3" id="installment" name="installment">
+                                <?php
+                                // $ins = $_POST["installment"];
+                                for ($i = 1; $i < 25; $i++) {
+                                  $_SESSION["installment"] = $i;
+                                ?>
+                                  <option id="<?php echo $i ?>" value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php
+                                }
+                                ?>
+                                <!-- <option id="lotto2" value="2">2</option> -->
                                 <!-- <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option> -->
                               </select>
                               <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
-                              <input type="text" class="form-control col-8" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
+                              <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
                             </div>
                           </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2">Submit</button>
                       </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-6 d-flex align-items-stretch grid-margin">
-              <div class="row flex-grow">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-title">เปรียบเทียบล็อตเตอรี่</h4>
-                      <!-- <p class="card-description">
-                        Basic form layout
-                      </p> -->
-                      <form class="forms-sample" action="lottonumber.php" method="get" id="submitSearch">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="form-group">
-                              <!-- <label for="installment">งวดที่</label>
-                                  <select class="form-control form-control-sm col-6" id="installment" name="installment">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                  </select> -->
-                              <label class="mt-4">เลขล็อตเตอรี่</label>
-                              <input type="text" class="form-control col-8" id="lottosearch" name="lottosearch" placeholder="เลขล็อตเตอรี่" onkeypress="submitSearch()" autofocus>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-success mr-2">Search</button>
-                      </form>
-                      <div class="row flex-grow">
-                        <?php
-                        include '../config/config.php';
-                        $lottosearch = null;
-                        if (!empty($_GET["lottosearch"])) {
-                          $lottosearch = $_GET["lottosearch"];
-
-                          $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' ";
-                          $result = $conn->query($sql);
-                          $rowcount = mysqli_num_rows($result);
-
-                          // echo $rowcount;
-                          // print_r($result);
-                          if ($rowcount > 0) {
-                            while ($row = mysqli_fetch_array($result)) {
-                              // print_r($row);
-
-                        ?>
-                              <div class="col-4 mt-4">
-                                <div class="card shadow text-center">
-                                  <div>
-                                    <span class="badge badge-danger">
-                                      <h5>
-                                        <div class="m-2">
-                                          <?php
-                                          echo $row["lotto_number"];
-                                          ?>
-                                        </div>
-                                        <div class="m-2">
-                                          งวดที่ :
-                                          <?php
-                                          echo $row["installment"];
-                                          ?>
-                                        </div>
-                                        <div class="m-2">
-                                          <?php
-                                          echo $row["date"];
-                                          ?>
-                                        </div>
-                                      </h5>
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-
-                        <?php
-                            }
-                          } else {
-                            // echo "ไม่พบข้อมูล";
-                            echo '<script type="text/javascript">swal("", "ไม่พบข้อมูล !!", "warning"); document.getElementById("lottosearch").focus(); </script>';
-                          }
-                        }
-                        // else {
-                        //   echo '<script type="text/javascript">swal("", "ไม่พบข้อมูล !!", "warning"); </script>';
-                        // }
-                        ?>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -204,27 +122,32 @@
   </div>
   <script>
     function submitForm() {
-      let maxlen = 6;
+
+      let maxlen = 5;
       let len = document.getElementById("lottonumber").value.length;
       if (len == maxlen) {
-        document.getElementById("lottosubmit").submit();
-        // alert(len);
-        // alert('test');
+        // if ($_POST["installment"] == 1) {
+        //   document.getElementById("lotto1").setAttribute('selected', 'selected');
+        // } else if($_POST["installment"] == 2) {
+        //   document.getElementById("lotto2").setAttribute('selected', 'selected');
+        // }
+        // $_SESSION["installment"] = $_POST["installment"];
+        // document.getElementById('installment').value=Person_ID;
+
+        setTimeout(function() {
+          document.getElementById("lottosubmit").submit();
+        }, 100);
       } else {
         return false;
       }
     }
 
-    function submitSearch() {
-      let len = document.getElementById("lottosearch").value.length;
-      len + 1;
-      if (len == 6) {
-        document.getElementById("submitSearch").submit();
-        // alert('test');
-      } else {
-        return false;
-      }
-    }
+    // function selectInstallment() {
+    //   // console.log(document.getElementById("installment").value = );
+    //   var dop = document.getElementById("installment").value;
+    //   dop.setAttribute("selected", "");
+    //   console.log(dop);
+    // }
   </script>
   <!-- container-scroller -->
   <!-- plugins:js -->

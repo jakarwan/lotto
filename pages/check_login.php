@@ -1,10 +1,14 @@
 <?php
 	session_start();
 	include '../config/config.php';
-	$SQL = "SELECT * FROM member WHERE Username = '".mysqli_real_escape_string($conn,$_POST['txtUsername'])."' 
-	and Password = '".mysqli_real_escape_string($conn,$_POST['txtPassword'])."'";
+	$username = $_POST['txtUsername'];
+	$password = $_POST['txtPassword'];
+	$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+	$SQL = "SELECT * FROM member WHERE Username = '".mysqli_real_escape_string($conn,$username)."' 
+	and Password = '".mysqli_real_escape_string($conn,$hashed_password)."'";
 	$objQuery = mysqli_query($conn,$SQL);
 	$objResult = mysqli_fetch_array($objQuery);
+	print_r($objResult);
 	if(!$objResult)
 	{
 			//echo "Username and Password Incorrect!";
