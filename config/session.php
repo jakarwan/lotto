@@ -12,12 +12,4 @@ function CheckLogIn(){
 	printf('<meta Http-equiv="refresh" Content="0;Url = Login.php">');
 	}
 }
-
-function dashBoard(){
-	include 'config.php';
-	// global $config;
-	$sql = "SELECT * FROM users";
-	$result = $conn->query($sql);
-	$userCount = mysqli_num_rows($result);
-}
 ?>

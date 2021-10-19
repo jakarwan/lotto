@@ -5,7 +5,13 @@ include '../config/config.php';
 #echo $_SESSION['users'];
 CheckLogin();
 
-dashBoard();
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+$userCount = mysqli_num_rows($result);
+
+$sqlLotto = "SELECT * FROM lotto_number";
+$resultLotto = $conn->query($sqlLotto);
+$lottoCount = mysqli_num_rows($resultLotto);
 //include 'pages/samples/check_login.php';
 ?>
 
@@ -85,9 +91,9 @@ dashBoard();
                       <i class="mdi mdi-receipt text-warning icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Orders</p>
+                      <p class="mb-0 text-right">จำนวนล็อตเตอรี่ในระบบ</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">3455</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCount ?></h3>
                       </div>
                     </div>
                   </div>
@@ -125,7 +131,7 @@ dashBoard();
                       <i class="mdi mdi-account-location text-info icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Employees</p>
+                      <p class="mb-0 text-right">ผู้ใช้งานระบบ</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $userCount ?></h3>
                       </div>
