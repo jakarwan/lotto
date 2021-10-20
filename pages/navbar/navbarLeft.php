@@ -16,9 +16,9 @@
                   </div>
                 </div>
               </div>
-              <button onclick="location.href='lottonumber.php'" class="btn btn-success btn-block">Lotto
+              <a onclick="location.href='lottonumber.php'" class="btn btn-success btn-block text-white">Lotto
                 <i class="mdi mdi-plus"></i>
-              </button>
+              </a>
             </div>
           </li>
           <li class="nav-item">

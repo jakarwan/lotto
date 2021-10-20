@@ -12,6 +12,10 @@ $userCount = mysqli_num_rows($result);
 $sqlLotto = "SELECT * FROM lotto_number";
 $resultLotto = $conn->query($sqlLotto);
 $lottoCount = mysqli_num_rows($resultLotto);
+
+$sqlLottoNow = "SELECT * FROM lotto_number WHERE date='".date('Y-m-d')."'";
+$resultLottoNow = $conn->query($sqlLottoNow);
+$lottoCountNow = mysqli_num_rows($resultLottoNow);
 //include 'pages/samples/check_login.php';
 ?>
 
@@ -91,7 +95,7 @@ $lottoCount = mysqli_num_rows($resultLotto);
                       <i class="mdi mdi-receipt text-warning icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">จำนวนล็อตเตอรี่ในระบบ</p>
+                      <p class="mb-0 text-right">จำนวนล็อตเตอรี่รวม</p>
                       <div class="fluid-container">
                         <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCount ?></h3>
                       </div>
@@ -111,9 +115,9 @@ $lottoCount = mysqli_num_rows($resultLotto);
                       <i class="mdi mdi-poll-box text-success icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Sales</p>
+                      <p class="mb-0 text-right">จำนวนล็อตเตอรี่วันนี้</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">5693</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountNow ?></h3>
                       </div>
                     </div>
                   </div>

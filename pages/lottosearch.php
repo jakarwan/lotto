@@ -20,6 +20,7 @@
     <link rel="shortcut icon" href="../images/favicon.png" />
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </head>
 
@@ -48,9 +49,34 @@
                                             <form class="forms-sample" action="lottosearch.php" method="get" id="submitSearch">
                                                 <div class="row">
                                                     <div class="col-12">
+
                                                         <div class="form-group">
-                                                            <label class="mt-4">เลขล็อตเตอรี่</label>
-                                                            <input type="text" class="form-control col-8" id="lottosearch" name="lottosearch" placeholder="เลขล็อตเตอรี่" onkeypress="submitSearch()" autofocus>
+                                                            <div class="row">
+                                                                <div class="col-4">
+                                                                    <label for="installmentsearch">งวดที่</label>
+                                                                    <select class="form-control form-control-sm" id="installmentsearch" name="installmentsearch">
+                                                                        <option value="0">เลือก</option>
+                                                                        <?php
+                                                                        // $ins = $_POST["installment"];
+                                                                        for ($i = 1; $i < 25; $i++) {
+                                                                            $_SESSION["installment"] = $i;
+                                                                        ?>
+
+                                                                            <option <?= (!empty($_COOKIE["installmentsearch"]) ? ($_COOKIE["installmentsearch"] == $i  ? 'selected' : '') : '')  ?> id="<?php echo $i ?>" value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <label for="installment">วันที่</label>
+                                                                    <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label class="mt-4">เลขล็อตเตอรี่</label>
+                                                                    <input type="text" class="form-control col-4" id="lottosearch" name="lottosearch" placeholder="เลขล็อตเตอรี่" onkeypress="submitSearch()" autofocus>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -62,8 +88,16 @@
                                                 $lottosearch = null;
                                                 if (!empty($_GET["lottosearch"])) {
                                                     $lottosearch = $_GET["lottosearch"];
+                                                    $datesearch = $_GET["datelottosearch"];
+                                                    $installmentsearch = $_GET["installmentsearch"];
+                                                    if ($_GET["installmentsearch"] != 0) {
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND installment='" . $installmentsearch . "' ";
+                                                    } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND date='" . $datesearch . "' AND installment='" . $installmentsearch . "' ";
+                                                    } else if ($_GET["datelottosearch"] != null) {
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND date='" . $datesearch . "' ";
+                                                    }
 
-                                                    $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' ";
                                                     $result = $conn->query($sql);
                                                     $rowcount = mysqli_num_rows($result);
                                                     echo "<div class='col-12 mt-4 alert alert-primary'>";
@@ -167,6 +201,22 @@
         <!-- page-body-wrapper ends -->
     </div>
     <script>
+        $('#installmentsearch').on('change', function() {
+            // alert('test');
+            const d = new Date();
+            d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = 'installmentsearch' + "=" + $('#installmentsearch').val() + ";" + expires + ";path=/";
+        })
+
+        $('#datelottosearch').on('change', function() {
+            // console.log(document.getElementById("datelotto").value);
+            const d = new Date();
+            d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = 'datelottosearch' + "=" + $('#datelottosearch').val() + ";" + expires + ";path=/";
+        })
+
         function submitSearch() {
             let len = document.getElementById("lottosearch").value.length;
             if (len == 5) {

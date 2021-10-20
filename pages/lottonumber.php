@@ -20,6 +20,7 @@
   <link rel="shortcut icon" href="../images/favicon.png" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </head>
 
@@ -52,24 +53,34 @@
                         <div class="row">
                           <div class="col-12">
                             <div class="form-group">
-                              <label for="installment">งวดที่</label>
-                              <select class="form-control form-control-sm col-3" id="installment" name="installment">
-                                <?php
-                                // $ins = $_POST["installment"];
-                                for ($i = 1; $i < 25; $i++) {
-                                  $_SESSION["installment"] = $i;
-                                ?>
-                                  <option id="<?php echo $i ?>" value="<?php echo $i ?>"><?php echo $i ?></option>
-                                <?php
-                                }
-                                ?>
-                                <!-- <option id="lotto2" value="2">2</option> -->
-                                <!-- <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option> -->
-                              </select>
-                              <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
-                              <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
+                              <div class="row">
+                                <div class="col-3">
+                                  <label for="installment">งวดที่</label>
+                                  <select class="form-control form-control-sm" id="installment" name="installment">
+                                    <?php
+                                    // $ins = $_POST["installment"];
+                                    for ($i = 1; $i < 25; $i++) {
+                                      $_SESSION["installment"] = $i;
+                                    ?>
+                                      <option <?= (!empty($_COOKIE["installment"]) ? ($_COOKIE["installment"] == $i  ? 'selected' : '') : '')  ?> id="<?php echo $i ?>" value="<?php echo $i ?>"><?php echo $i ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                                <div class="col-3">
+                                  <label for="installment">วันที่</label>
+                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
+                                </div>
+                                <div class="col-3">
+                                  <label for="installment">หมายเหตุ</label>
+                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) == $i: '')  ?> type="text" class="form-control form-control-sm" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {echo $_COOKIE['lottoname']; } ?>">
+                                </div>
+                                <div class="col-12">
+                                  <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
+                                  <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -121,6 +132,27 @@
     <!-- page-body-wrapper ends -->
   </div>
   <script>
+    $('#installment').on('change', function() {
+      const d = new Date();
+      d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = 'installment' + "=" + $('#installment').val() + ";" + expires + ";path=/";
+    })
+
+    $('#datelotto').on('change', function() {
+      const d = new Date();
+      d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = 'datelotto' + "=" + $('#datelotto').val() + ";" + expires + ";path=/";
+    })
+
+    $('#lottoname').on('change', function() {
+      const d = new Date();
+      d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = 'lottoname' + "=" + $('#lottoname').val() + ";" + expires + ";path=/";
+    })
+
     function submitForm() {
 
       let maxlen = 5;

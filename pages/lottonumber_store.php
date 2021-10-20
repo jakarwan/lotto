@@ -2,11 +2,11 @@
 include '../config/config.php';
 $lottonumber = $_POST['lottonumber'];
 $installment = $_POST['installment'];
-$name = "test";
 $userId = 1;
-$timestamp = date('Y-m-d');
+$timestamp = $_POST["datelotto"];
+$lottoname = $_POST["lottoname"];
 
-$sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$name', '$timestamp', '$userId')";
+$sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
 
 $query = mysqli_query($conn, $sql);
 if ($query) {

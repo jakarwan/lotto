@@ -14,18 +14,9 @@ if (!$conn) {
 // echo "Connected successfully";
 
 function CheckLogin(){
-    if(!isset($_SESSION["users"])){
-      header('refresh: 0.1;logout.php');
-    }
-}
-function CheckLoginUser(){
-    if($_SESSION["groups"] == "admins") {
-        header('refresh: 0.1;logout.php');
-    }
-}
-function CheckLoginAdmin(){
-    if($_SESSION["groups"] != "admins") {
-        header('refresh: 0.1;logout.php');
+    if(!isset($_SESSION["status"])){
+        header("location: login.php");
+        exit;
     }
 }
 ?>

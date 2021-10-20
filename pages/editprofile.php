@@ -3,41 +3,15 @@ session_start();
 include '../config/config.php';
 CheckLogin();
 
-$rs = mysqli_query($conn, "SELECT * FROM users WHERE username='" . $_SESSION['users'] . "'");
-$num = mysqli_num_rows($rs);
-$row = mysqli_fetch_array($rs);
 
-$password = $row["password"];
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-#$checkpassword = password_verify($password, $hashed_password);
-#echo $hashed_password;
-#var_dump($hashed_password);
-#echo password_hash('".$_POST["txtpass"]."', PASSWORD_DEFAULT);
-if (isset($_POST["txtC_id"]) && (!empty($_POST["txtC_id"]))) {
-  $pic = "";
-  if (is_uploaded_file($_FILES['files']['tmp_name'])) {
-    move_uploaded_file($_FILES['files']['tmp_name'], "imgpf/" . $_FILES['files']['name']);
-    $pic .= "imgpf/" . $_FILES['files']['name'];
-    $_SESSION["pic"] = $pic;
-  }
-  if ($_POST["txtpass"] != null) {
-    $password = $_POST["txtpass"];
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET password = '" . $hashed_password . "',user_name = '" . $_POST["txtname"] . "',phone = '" . $_POST["txtphone"] . "'$pic WHERE user_id LIKE '" . $_POST["txtC_id"] . "'";
-    echo '<script>alert("แก้ไขข้อมูลสำเร็จ")</script>';
-  } else {
-    $sql = "UPDATE users SET user_name = '" . $_POST["txtname"] . "',phone = '" . $_POST["txtphone"] . "'$pic WHERE user_id LIKE '" . $_POST["txtC_id"] . "'";
-    echo '<script>alert("แก้ไขข้อมูลสำเร็จ")</script>';
-  }
-  // if (mysqli_query($conn, $sql)) {
-  //   echo '<script>alert("แก้ไขข้อมูลแล้ว")</script>';
-  //   //echo $sql;
-  //   //  header( "refresh: 0.1;index.php");
-  // } else {
-  //   //echo $sql;
-  //   echo '<script>alert("แก้ไขข้อมูลไม่ได้")</script>';
-  // }
-}
+// if (mysqli_query($conn, $sql)) {
+//   echo '<script>alert("แก้ไขข้อมูลแล้ว")</script>';
+//   //echo $sql;
+//   //  header( "refresh: 0.1;index.php");
+// } else {
+//   //echo $sql;
+//   echo '<script>alert("แก้ไขข้อมูลไม่ได้")</script>';
+// }
 
 ?>
 <!DOCTYPE html>
@@ -47,7 +21,7 @@ if (isset($_POST["txtC_id"]) && (!empty($_POST["txtC_id"]))) {
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap-4 Admin Dashboard Template</title>
+  <title>Lotto</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
@@ -60,10 +34,15 @@ if (isset($_POST["txtC_id"]) && (!empty($_POST["txtC_id"]))) {
   <link rel="stylesheet" href="../css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
 </head>
 
 <body>
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" id="form1" enctype="multipart/form-data">
     <div class="container-scroller">
       <!-- partial:../../partials/_navbar.html -->
       <?php
@@ -76,35 +55,72 @@ if (isset($_POST["txtC_id"]) && (!empty($_POST["txtC_id"]))) {
         include 'navbar/navbarLeft.php';
         ?>
         <!-- partial -->
+        <?php
+        $rs = mysqli_query($conn, "SELECT * FROM users WHERE username='" . $_SESSION['users'] . "'");
+        $num = mysqli_num_rows($rs);
+        $row = mysqli_fetch_array($rs);
+
+        $password = $row["password"];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        if (!empty($_POST)) {
+          $pic = "";
+          if (is_uploaded_file($_FILES['files']['tmp_name'])) {
+            move_uploaded_file($_FILES['files']['tmp_name'], "imgpf/" . $_FILES['files']['name']);
+            $pic .= "imgpf/" . $_FILES['files']['name'];
+            $_SESSION["pic"] = $pic;
+          }
+          if ($_POST["txtpass"] != null) {
+            $password = $_POST["txtpass"];
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET password = '" . $hashed_password . "',user_name = '" . $_POST["txtname"] . "',phone = '" . $_POST["txtphone"] . "'$pic WHERE user_id LIKE '" . $_POST["txtC_id"] . "'";
+            if (mysqli_query($conn, $sql)) {
+              echo '<script type="text/javascript">Swal.fire("Success!","You clicked the button!","success").then(function() {
+                window.location = "editprofile.php";
+            });</script>';
+            } else {
+              echo '<script type="text/javascript">Swal.fire("แก้ไขข้อมูลไม่สำเร็จ!","You clicked the button!","error")</script>';
+            }
+          } else {
+            $sql = "UPDATE users SET user_name = '" . $_POST["txtname"] . "',phone = '" . $_POST["txtphone"] . "'$pic WHERE user_id LIKE '" . $_POST["txtC_id"] . "'";
+            if (mysqli_query($conn, $sql)) {
+              echo '<script type="text/javascript">Swal.fire("Success!","You clicked the button!","success").then(function() {
+                window.location = "editprofile.php";
+            });</script>';
+            } else {
+              echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
+            }
+          }
+        }
+        ?>
         <div class="main-panel">
           <div class="content-wrapper">
             <div class="row">
               <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Manage Accounts</h4>
-                    <p class="card-description">
+                    <h4>ข้อมูลส่วนตัว</h4>
+                    <!-- <p class="card-description">
                       Edit Profile
-                    </p>
+                    </p> -->
 
                     <div class="form-group">
-                      <label for="exampleInputName1">Username</label>
-                      <input type="text" class="form-control" id="txtusername" name="txtusername" placeholder="Name" disabled="disabled" value="<?= $row['username'] ?>">
+                      <label for="exampleInputName1">ชื่อผู้ใช้</label>
+                      <input type="text" class="form-control" id="txtusername" name="txtusername" placeholder="ชื่อผู้ใช้" disabled="disabled" value="<?= $row['username'] ?>">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword4">Password</label>
-                      <input type="password" class="form-control" id="txtpass" name="txtpass" placeholder="Password">
+                      <label for="exampleInputPassword4">รหัสผ่าน</label>
+                      <input type="password" class="form-control" id="txtpass" name="txtpass" placeholder="รหัสผ่าน">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail3">Name</label>
-                      <input type="text" class="form-control" id="txtname" name="txtname" placeholder="Name" value="<?= $row['user_name'] ?>">
+                      <label for="exampleInputEmail3">ชื่อ</label>
+                      <input type="text" class="form-control" id="txtname" name="txtname" placeholder="ชื่อ" value="<?= $row['user_name'] ?>">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputCity1">Phone</label>
-                      <input type="text" class="form-control" id="txtphone" name="txtphone" placeholder="Phone" value="<?= $row['phone'] ?>">
+                      <label for="exampleInputCity1">เบอร์โทรศัพท์</label>
+                      <input type="text" class="form-control" id="txtphone" name="txtphone" placeholder="เบอร์โทรศัพท์" value="<?= $row['phone'] ?>">
                     </div>
                     <div class="form-group">
-                      <label>File upload</label>
+                      <label>รูปโปรไฟล์</label>
                       <!-- <input type="file" name="img[]" class="file-upload-default"> -->
                       <div class="input-group col-xs-12">
                         <!-- <input type="file" class="form-control" id="files" name="files" placeholder="รูปโปรไฟล์" value="">   -->
@@ -114,13 +130,11 @@ if (isset($_POST["txtC_id"]) && (!empty($_POST["txtC_id"]))) {
                         </span> -->
                       </div>
                     </div>
-
                     <!-- <div class="form-group">
                       <label for="exampleTextarea1">Textarea</label>
                       <textarea class="form-control" id="exampleTextarea1" rows="2"></textarea>
                     </div> -->
-                    <button type="submit" class="btn btn-success mr-2">Submit</button>
-                    <button class="btn btn-light" href="index.php">Cancel</button>
+                    <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                     <input type="hidden" name="txtC_id" id="txtC_id" value="<?= $row["user_id"] ?>">
                   </div>
                 </div>
@@ -130,7 +144,7 @@ if (isset($_POST["txtC_id"]) && (!empty($_POST["txtC_id"]))) {
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->
           <?php
-          include '../pages/navbar/footer.php'
+          include 'navbar/footer.php';
           ?>
           <!-- partial -->
         </div>
