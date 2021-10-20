@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -131,6 +134,11 @@
                                                                                 <div class="m-2">
                                                                                     <?php
                                                                                     echo $row["date"];
+                                                                                    ?>
+                                                                                </div>
+                                                                                <div class="m-2">
+                                                                                    <?php
+                                                                                    echo $row["lotto_name"];
                                                                                     ?>
                                                                                 </div>
                                                                             </h5>

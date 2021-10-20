@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,7 +57,7 @@
                           <div class="col-12">
                             <div class="form-group">
                               <div class="row">
-                                <div class="col-3">
+                                <div class="col-6 col-sm-6 col-md-2">
                                   <label for="installment">งวดที่</label>
                                   <select class="form-control form-control-sm" id="installment" name="installment">
                                     <?php
@@ -68,17 +71,17 @@
                                     ?>
                                   </select>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-sm-6 col-md-3">
                                   <label for="installment">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6 col-sm-6 col-md-3">
                                   <label for="installment">หมายเหตุ</label>
-                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) == $i: '')  ?> type="text" class="form-control form-control-sm" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {echo $_COOKIE['lottoname']; } ?>">
+                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]): '')  ?> type="text" class="form-control form-control-sm" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {echo $_COOKIE['lottoname']; } ?>">
                                 </div>
                                 <div class="col-12">
                                   <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
-                                  <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
+                                  <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus required>
                                 </div>
                               </div>
                             </div>

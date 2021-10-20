@@ -4,19 +4,6 @@ include '../config/config.php';
 
 #echo $_SESSION['users'];
 CheckLogin();
-
-$sql = "SELECT * FROM users";
-$result = $conn->query($sql);
-$userCount = mysqli_num_rows($result);
-
-$sqlLotto = "SELECT * FROM lotto_number";
-$resultLotto = $conn->query($sqlLotto);
-$lottoCount = mysqli_num_rows($resultLotto);
-
-$sqlLottoNow = "SELECT * FROM lotto_number WHERE date='".date('Y-m-d')."'";
-$resultLottoNow = $conn->query($sqlLottoNow);
-$lottoCountNow = mysqli_num_rows($resultLottoNow);
-//include 'pages/samples/check_login.php';
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +41,19 @@ $lottoCountNow = mysqli_num_rows($resultLottoNow);
       // echo $_SESSION["status"];
       ?>
       <!-- partial -->
+      <?php 
+      $sql = "SELECT * FROM users";
+      $result = $conn->query($sql);
+      $userCount = mysqli_num_rows($result);
+      
+      $sqlLotto = "SELECT * FROM lotto_number";
+      $resultLotto = $conn->query($sqlLotto);
+      $lottoCount = mysqli_num_rows($resultLotto);
+      
+      $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='".date('Y-m-d')."'";
+      $resultLottoNow = $conn->query($sqlLottoNow);
+      $lottoCountNow = mysqli_num_rows($resultLottoNow);
+      ?>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row purchace-popup">
