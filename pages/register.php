@@ -1,33 +1,6 @@
 <?php
 include '../config/config.php';
 
-
-if (!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_POST['txtName']) && !empty($_POST['txtTel'])) {
-  $rs = mysqli_query($conn, "SELECT * FROM users WHERE username ='" . $_POST["txtUsername"] . "'");
-  $num = mysqli_num_rows($rs);
-  if ($num > 0) {
-    echo '<script>alert("ชื่อผู้ใช้มีในระบบแล้ว");</script>';
-  } else {
-    // $id = "";
-    $name = addslashes($_POST["txtName"]);
-    $users = addslashes($_POST["txtUsername"]);
-    $pass = addslashes($_POST["txtPassword"]);
-    $options = array("cost"=>4);
-    $hashed_password = password_hash($pass, PASSWORD_BCRYPT,$options);
-    $date = date('Y-m-d');
-    $phone = addslashes($_POST["txtTel"]);
-    // $imgnull = "";
-    // $status = "users";
-    $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $hashed_password . "','" . $date . "','" . $phone . "','',0)";
-    if (mysqli_query($conn, $sql)) {
-      echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
-      header('refresh: 0;login.php');
-    } else {
-      echo '<script>alert("ไม่สามารถเพิ่มข้อมูลได้");</script>';
-    }
-  }
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -49,10 +22,42 @@ if (!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_P
   <link rel="stylesheet" href="../css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
   <form method="post">
+    <?php 
+    if (!empty($_POST['txtUsername']) && !empty($_POST['txtPassword']) && !empty($_POST['txtName']) && !empty($_POST['txtTel'])) {
+      $rs = mysqli_query($conn, "SELECT * FROM users WHERE username ='" . $_POST["txtUsername"] . "'");
+      $num = mysqli_num_rows($rs);
+      if ($num > 0) {
+        echo '<script>alert("ชื่อผู้ใช้มีในระบบแล้ว");</script>';
+      } else {
+        // $id = "";
+        $name = addslashes($_POST["txtName"]);
+        $users = addslashes($_POST["txtUsername"]);
+        $pass = addslashes($_POST["txtPassword"]);
+        // $options = array("cost"=>4);
+        // $hashed_password = password_hash($pass, PASSWORD_BCRYPT,$options);
+        $date = date('Y-m-d');
+        $phone = addslashes($_POST["txtTel"]);
+        // $imgnull = "";
+        // $status = "users";
+        $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $pass . "','" . $date . "','" . $phone . "','',0)";
+        // if (password_verify($pass, $hashed_password)) {
+        if (mysqli_query($conn, $sql)) {
+          // echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
+          echo '<script type="text/javascript">Swal.fire("Success!","You clicked the button!","success").then(function() {
+            window.location = "login.php";
+        });</script>';
+        } else {
+          echo '<script>alert("ไม่สามารถเพิ่มข้อมูลได้");</script>';
+        }
+      // }
+      }
+    }
+    ?>
     <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
         <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">

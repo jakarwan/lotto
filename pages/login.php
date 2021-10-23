@@ -9,14 +9,14 @@ if (isset($_POST['submit'])) {
   // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
   #$rs = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST['txtUsername']."' AND password ='".$_POST['txtPassword']."'" );
   // $sql = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST['txtUsername']."'" );
-  $sql = "SELECT * FROM users WHERE Username = '" . mysqli_real_escape_string($conn, $username) . "' ";
+  $sql = "SELECT * FROM users WHERE Username = '" . mysqli_real_escape_string($conn, $username) . "' AND password ='".mysqli_real_escape_string($conn, $password)."' ";
   $rs = mysqli_query($conn, $sql);
   $num = mysqli_num_rows($rs);
 
 
   if ($num > 0) {
     $row = mysqli_fetch_array($rs);
-    if (password_verify($password, $row['password'])) {
+    // if (password_verify($password, $row['password'])) {
       $_SESSION["users"] = $row["username"];
       $_SESSION["name"] = $row["user_name"];
       $_SESSION["date"] = $row["date"];
@@ -26,6 +26,8 @@ if (isset($_POST['submit'])) {
         $_SESSION["status"] = 'User';
       } else if ($row["status"] == 1) {
         $_SESSION["status"] = 'Admin';
+      } else {
+        session_destroy();
       }
       if ($row['image'] != null) {
         $_SESSION["pic"] = $row["image"];
@@ -33,9 +35,10 @@ if (isset($_POST['submit'])) {
         $_SESSION["pic"] = "../images/faces/face1.jpg";
       }
       header('refresh: 0;index.php');
-    } else {
-      echo '<script>alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด \nไม่สามารถเข้าระบบได้");</script>';
-    }
+    // }
+    //  else {
+    //   echo '<script>alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด \nไม่สามารถเข้าระบบได้");</script>';
+    // }
   } else {
     echo '<script>alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด \nไม่สามารถเข้าระบบได้");</script>';
   }
