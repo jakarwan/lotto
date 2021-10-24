@@ -4,6 +4,11 @@ $username = "root";
 $password = "";
 $dbname = "lotto";
 
+// $servername = "localhost";
+// $username = "takitsa_lotto";
+// $password = "11223344";
+// $dbname = "takitsa_lotto";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 

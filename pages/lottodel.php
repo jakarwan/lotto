@@ -56,7 +56,7 @@ session_start();
 
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-4">
+                                                                <div class="col-5 col-sm-6 col-md-4">
                                                                     <label for="installmentsearch">งวดที่</label>
                                                                     <select class="form-control form-control-xl" id="installmentsearch" name="installmentsearch">
                                                                         <option value="0">เลือก</option>
@@ -72,7 +72,7 @@ session_start();
                                                                         ?>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-4">
+                                                                <div class="col-7 col-sm-6 col-md-4">   
                                                                     <label for="installment">วันที่</label>
                                                                     <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-xl" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
                                                                 </div>
@@ -84,7 +84,7 @@ session_start();
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit" id="del" class="btn btn-danger mr-2" onkeypress="submitSearch()">Delete</button>
+                                                <button type="submit" id="del" class="btn btn-danger mr-2" onkeypress="submitSearch()">ลบข้อมูล</button>
                                             </form>
                                             <div class="row flex-grow">
                                                 <?php

@@ -59,7 +59,7 @@ CheckLogin();
                           <div class="col-12">
                             <div class="form-group">
                               <div class="row">
-                                <div class="col-6 col-sm-6 col-md-2">
+                                <div class="col-5 col-sm-6 col-md-2">
                                   <label for="installment">งวดที่</label>
                                   <select class="form-control form-control-lg" id="installment" name="installment">
                                     <?php
@@ -73,11 +73,11 @@ CheckLogin();
                                     ?>
                                   </select>
                                 </div>
-                                <div class="col-6 col-sm-6 col-md-3">
+                                <div class="col-7 col-sm-6 col-md-3">
                                   <label for="installment">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
                                 </div>
-                                <div class="col-6 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-3">
                                   <label for="installment">หมายเหตุ</label>
                                   <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-xl" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
                                                                                                                                                                                                           echo $_COOKIE['lottoname'];
@@ -85,7 +85,7 @@ CheckLogin();
                                 </div>
                                 <div class="col-12">
                                   <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
-                                  <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus required>
+                                  <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus required>
                                 </div>
                                 <?php
 
@@ -127,7 +127,7 @@ CheckLogin();
                             </div>
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
                         if (!empty($lottoId)) {
                           $sql = "SELECT lotto_match.*, lotto_number.*  FROM lotto_match 
