@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include '../config/config.php';
 CheckLogin();
@@ -54,7 +54,7 @@ CheckLogin();
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
-                      <form class="forms-sample" action="lottonumber_store.php" method="post" id="lottosubmit">
+                      <form class="forms-sample" action="lottonumber.php" method="post" id="lottosubmit">
                         <div class="row">
                           <div class="col-12">
                             <div class="form-group">
@@ -75,21 +75,112 @@ CheckLogin();
                                 </div>
                                 <div class="col-6 col-sm-6 col-md-3">
                                   <label for="installment">วันที่</label>
-                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
+                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-sm" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
                                 </div>
                                 <div class="col-6 col-sm-6 col-md-3">
                                   <label for="installment">หมายเหตุ</label>
-                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]): '')  ?> type="text" class="form-control form-control-sm" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {echo $_COOKIE['lottoname']; } ?>">
+                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-sm" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
+                                                                                                                                                                                                          echo $_COOKIE['lottoname'];
+                                                                                                                                                                                                        } ?>">
                                 </div>
                                 <div class="col-12">
                                   <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
                                   <input type="text" class="form-control col-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus required>
                                 </div>
+                                <?php
+
+
+                                // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+
+                                // $query = mysqli_query($conn, $sql);
+                                if (!empty($_POST["lottonumber"])) {
+                                  $lottonumber = $_POST['lottonumber'];
+                                  $installment = $_POST['installment'];
+                                  // $userId = 1;
+                                  $userId = $_SESSION["userId"];
+                                  $timestamp = $_POST["datelotto"];
+                                  $lottoname = $_POST["lottoname"];
+
+
+                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottonumber . "' ";
+                                  $queryCheck = $conn->query($sqlCheck);
+                                  $result = mysqli_fetch_array($queryCheck);
+                                  // $_SESSION["lottoId"] = $result["lotto_id"];
+
+                                  // print_r($result);
+                                  $count = mysqli_num_rows($queryCheck);
+                                  if ($count > 0) {
+                                    $lottoId = $result["lotto_id"];
+                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId')";
+                                    $query = mysqli_query($conn, $sql);
+                                    //     echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success").then(function() {
+                                    //     window.location = "lottonumber.php";
+                                    // });</script>';
+                                  } else {
+                                    $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                    $query = mysqli_query($conn, $sql);
+                                  }
+                                }
+                                ?>
                               </div>
                             </div>
                           </div>
                         </div>
                         <button type="submit" class="btn btn-success mr-2">Submit</button>
+                        <?php
+                        if (!empty($lottoId)) {
+                          $sql = "SELECT lotto_match.*, lotto_number.*  FROM lotto_match 
+                                  JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id
+                                  WHERE lotto_match.lotto_id='" . $lottoId . "' ";
+                                    $query = $conn->query($sql);
+                                    $fetch = mysqli_fetch_array($query);
+                                    $rowCount = mysqli_num_rows($query);
+                        ?>
+                          <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                              <div class="card-body">
+                                <h4 class="card-title">เลขล็อตเตอรี่ตรงกัน <?php echo $rowCount ?> รายการ</h4>
+                                <div class="table-responsive">
+                                  <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th>ลำดับ</th>
+                                        <th>เลขล็อตเตอรี่</th>
+                                        <th>งวด</th>
+                                        <th>วันที่</th>
+                                        <th>หมายเหตุ</th>
+                                      </tr>
+                                    </thead>
+
+                                    <?php
+                                    
+                                    if ($rowCount > 0) {
+                                      for ($i = 0; $i < $rowCount; $i++) {
+                                    ?>
+                                        <tbody>
+                                          <tr>
+                                            <td><?php echo $i + 1; ?></td>
+                                            <td><?php echo $fetch["lotto_number"]; ?></td>
+                                            <td><?php echo $fetch["installment"]; ?></td>
+                                            <td><?php echo $fetch["date"]; ?></td>
+                                            <td>
+                                              <label class="badge badge-danger"><?php echo $fetch["lotto_name"]; ?></label>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                    <?php
+                                      }
+                                    }
+
+                                    ?>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <?php
+                        }
+                        ?>
                       </form>
                     </div>
                   </div>
@@ -122,8 +213,8 @@ CheckLogin();
         <!-- content-wrapper ends -->
         <!-- partial:../../partials/_footer.html -->
         <?php
-          include 'navbar/footer.php';
-          ?>
+        include 'navbar/footer.php';
+        ?>
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
