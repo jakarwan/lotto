@@ -78,7 +78,7 @@ CheckLogin();
                 window.location = "editprofile.php";
             });</script>';
             } else {
-              echo '<script type="text/javascript">Swal.fire("แก้ไขข้อมูลไม่สำเร็จ!","You clicked the button!","error")</script>';
+              echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
             }
           } else {
             $sql = "UPDATE users SET user_name = '" . $_POST["txtname"] . "',phone = '" . $_POST["txtphone"] . "'$pic WHERE user_id LIKE '" . $_POST["txtC_id"] . "'";

@@ -24,6 +24,7 @@ session_start();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
 
 </head>
 
@@ -48,8 +49,8 @@ session_start();
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">ค้นหาล็อตเตอรี่</h4>
-                                            <form class="forms-sample" action="lottosearch.php" method="get" id="submitSearch">
+                                            <h4 class="card-title">เลือกลบล็อตเตอรี่</h4>
+                                            <form class="forms-sample" action="lottodel.php" method="get" id="submitSearch">
                                                 <div class="row">
                                                     <div class="col-12">
 
@@ -75,94 +76,86 @@ session_start();
                                                                     <label for="installment">วันที่</label>
                                                                     <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
                                                                 </div>
-                                                                <div class="col-12">
+                                                                <!-- <div class="col-12">
                                                                     <label class="mt-4">เลขล็อตเตอรี่</label>
                                                                     <input type="text" class="form-control col-4" id="lottosearch" name="lottosearch" placeholder="เลขล็อตเตอรี่" onkeypress="submitSearch()" autofocus>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-success mr-2">Search</button>
+                                                <button type="submit" id="del" class="btn btn-danger mr-2" onkeypress="submitSearch()">Delete</button>
                                             </form>
                                             <div class="row flex-grow">
                                                 <?php
                                                 include '../config/config.php';
                                                 CheckLogin();
                                                 $lottosearch = null;
-                                                if (!empty($_GET["lottosearch"])) {
-                                                    $lottosearch = $_GET["lottosearch"];
+                                                if (!empty($_GET)) {
+                                                    // $lottosearch = $_GET["lottosearch"];
+                                                    
                                                     $datesearch = $_GET["datelottosearch"];
                                                     $installmentsearch = $_GET["installmentsearch"];
                                                     if ($_GET["installmentsearch"] != 0 and $_GET["datelottosearch"] == null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND installment='" . $installmentsearch . "' ";
+                                                        $sqlcheck = "SELECT * FROM lotto_number WHERE installment='" . $installmentsearch . "' ";
+                                                        $rs = mysqli_query($conn,$sqlcheck);
+                                                        $num = mysqli_num_rows($rs);
+                                                        if($num > 0){
+                                                            $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' ";
+                                                            echo 'ลบตามงวด';
+                                                        }else{
+                                                            echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
+                                                        }                               
                                                     } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND date='" . $datesearch . "' AND installment='" . $installmentsearch . "' ";
+                                                        $sqlcheck = "SELECT * FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "' ";
+                                                        $rs = mysqli_query($conn,$sqlcheck);
+                                                        $num = mysqli_num_rows($rs);
+                                                        if($num > 0){
+                                                            $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "'   ";
+                                                            echo 'ลบตามงวด+วันที่';
+                                                        }else{
+                                                            echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
+                                                        }                                                   
                                                     } else if ($_GET["datelottosearch"] != null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND date='" . $datesearch . "' ";
+                                                        $sqlcheck = "SELECT * FROM lotto_number WHERE date='" . $datesearch . "' ";
+                                                        $rs = mysqli_query($conn,$sqlcheck);
+                                                        $num = mysqli_num_rows($rs);
+                                                        if($num > 0){
+                                                            $sql = "DELETE FROM lotto_number WHERE date='" . $datesearch . "' ";
+                                                            echo 'ลบตามวันที่';
+                                                        }else{
+                                                            echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
+                                                        }                       
+                                                    } else {
+                                                        echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
                                                     }
 
-                                                    $result = $conn->query($sql);
-                                                    $rowcount = mysqli_num_rows($result);
-                                                    echo "<div class='col-12 mt-4 alert alert-primary'>";
-                                                    echo "<div class='text-center'>";
-                                                    echo "<span>เลขตรงกัน $rowcount รายการ</span>";
-                                                    echo "</div>";
-                                                    echo "</div>";
+                                                    // $result = $conn->query($sql);
+                                                    // $rowcount = mysqli_num_rows($result);
+
+                                                    if (mysqli_query($conn, $sql)) {
+                                                        echo '<script type="text/javascript">Swal.fire("Success!","You clicked the button!","success").then(function() {
+                                                            window.location = "lottodel.php";
+                                                        });</script>';
+                                                      } else {
+                                                        echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error").then(function() {
+                                                            window.location = "lottodel.php";
+                                                        });</script>';
+                                                      }
+                                                }
+                                                    // echo "<div class='col-12 mt-4 alert alert-primary'>";
+                                                    // echo "<div class='text-center'>";
+                                                    // echo "<span>เลขตรงกัน $rowcount รายการ</span>";
+                                                    // echo "</div>";
+                                                    // echo "</div>";
                                                     // echo $rowcount;
                                                     // print_r($result);
-                                                    if ($rowcount > 0) {
-                                                        while ($row = mysqli_fetch_array($result)) {
+                                                    // if ($rowcount > 0) {
+                                                        //while ($row = mysqli_fetch_array($result)) {
                                                             // print_r($row);
 
                                                 ?>
-                                                            <div class="col-2 mt-4">
-                                                                <div class="card shadow text-center">
-                                                                    <div>
-                                                                        <span class="badge badge-danger">
-                                                                            <h5>
-                                                                                <div class="m-2">
-                                                                                    <?php
-                                                                                    echo $row["lotto_number"];
-                                                                                    ?>
-                                                                                </div>
-                                                                                <div class="m-2">
-                                                                                    งวดที่ :
-                                                                                    <?php
-                                                                                    echo $row["installment"];
-                                                                                    ?>
-                                                                                </div>
-                                                                                <div class="m-2">
-                                                                                    <?php
-                                                                                    echo $row["date"];
-                                                                                    ?>
-                                                                                </div>
-                                                                                <div class="m-2">
-                                                                                    <?php
-                                                                                    echo $row["lotto_name"];
-                                                                                    ?>
-                                                                                </div>
-                                                                            </h5>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                <?php
-                                                        }
-                                                    }
-                                                    //                         else {
-                                                    //                             // echo "ไม่พบข้อมูล";
-                                                    //                             echo '<script type="text/javascript">Swal.fire("Good job!",
-                                                    // "You clicked the button!",
-                                                    //   "success"
-                                                    // )</script>';
-                                                    //                         }
-                                                }
-                                                // else {
-                                                //   echo '<script type="text/javascript">swal("", "ไม่พบข้อมูล !!", "warning"); </script>';
-                                                // }
-                                                ?>
+                                                            
                                             </div>
                                         </div>
                                     </div>
@@ -227,8 +220,8 @@ session_start();
         })
 
         function submitSearch() {
-            let len = document.getElementById("lottosearch").value.length;
-            if (len == 5) {
+            //let len = document.getElementById("del").value.length;
+            if (document.getElementById("submitSearch").submit()) {
                 setTimeout(function() {
                     document.getElementById("submitSearch").submit();
                 }, 100);

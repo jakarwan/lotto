@@ -1,3 +1,29 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../images/favicon.png" />
+
+</head>
+
+<body>
+  <form method="post">
 <?php
 include '../config/config.php';
 
@@ -32,7 +58,7 @@ include '../config/config.php';
       $rs = mysqli_query($conn, "SELECT * FROM users WHERE username ='" . $_POST["txtUsername"] . "'");
       $num = mysqli_num_rows($rs);
       if ($num > 0) {
-        echo '<script>alert("ชื่อผู้ใช้มีในระบบแล้ว");</script>';
+        echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","มีชื่อผู้ใช้ในระบบแล้ว!","warning");</script>';
       } else {
         // $id = "";
         $name = addslashes($_POST["txtName"]);
@@ -48,11 +74,13 @@ include '../config/config.php';
         // if (password_verify($pass, $hashed_password)) {
         if (mysqli_query($conn, $sql)) {
           // echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
-          echo '<script type="text/javascript">Swal.fire("Success!","You clicked the button!","success").then(function() {
+          echo '<script type="text/javascript">Swal.fire("สำเร็จ!","สมัครสมาชิกสำเร็จ!","success").then(function() {
             window.location = "login.php";
         });</script>';
         } else {
-          echo '<script>alert("ไม่สามารถเพิ่มข้อมูลได้");</script>';
+          echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","สมัครสมาชิกไม่สำเร็จ!","warning").then(function() {
+            window.location = "login.php";
+        });</script>';
         }
       // }
       }
@@ -63,12 +91,12 @@ include '../config/config.php';
         <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
           <div class="row w-100">
             <div class="col-lg-4 mx-auto">
-              <h2 class="text-center mb-4">Register</h2>
+              <h2 class="text-center mb-4">สมัครสมาชิก</h2>
               <div class="auto-form-wrapper">
                 <!-- <form method="post" action="login.php"> -->
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Username" id="txtUsername" name="txtUsername" required="">
+                    <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="txtUsername" name="txtUsername" required="">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -78,7 +106,7 @@ include '../config/config.php';
                 </div>
                 <div class="form-group">
                   <div class="input-group">
-                    <input type="password" class="form-control" placeholder="Password" id="txtPassword" name="txtPassword" required="">
+                    <input type="password" class="form-control" placeholder="รหัสผ่าน" id="txtPassword" name="txtPassword" required="">
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -154,11 +182,11 @@ include '../config/config.php';
                   </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary submit-btn btn-block">Register</button>
+                  <button type="submit" class="btn btn-primary submit-btn btn-block">สมัครสมาชิก</button>
                 </div>
                 <div class="text-block text-center my-3">
-                  <span class="text-small font-weight-semibold">Already have and account ?</span>
-                  <a href="login.php" class="text-black text-small">Login</a>
+                  <span class="text-small font-weight-semibold">พร้อมเข้าใช้งานระบบแล้ว ?</span>
+                  <a href="login.php" class="text-black text-small">เข้าสู่ระบบ</a>
                 </div>
 
               </div>
