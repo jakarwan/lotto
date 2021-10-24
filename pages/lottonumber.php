@@ -61,7 +61,7 @@ CheckLogin();
                               <div class="row">
                                 <div class="col-6 col-sm-6 col-md-2">
                                   <label for="installment">งวดที่</label>
-                                  <select class="form-control form-control-sm" id="installment" name="installment">
+                                  <select class="form-control form-control-lg" id="installment" name="installment">
                                     <?php
                                     // $ins = $_POST["installment"];
                                     for ($i = 1; $i < 25; $i++) {
@@ -75,11 +75,11 @@ CheckLogin();
                                 </div>
                                 <div class="col-6 col-sm-6 col-md-3">
                                   <label for="installment">วันที่</label>
-                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-sm" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
+                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
                                 </div>
                                 <div class="col-6 col-sm-6 col-md-3">
                                   <label for="installment">หมายเหตุ</label>
-                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-sm" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
+                                  <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-xl" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
                                                                                                                                                                                                           echo $_COOKIE['lottoname'];
                                                                                                                                                                                                         } ?>">
                                 </div>
@@ -111,7 +111,8 @@ CheckLogin();
                                   $count = mysqli_num_rows($queryCheck);
                                   if ($count > 0) {
                                     $lottoId = $result["lotto_id"];
-                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId')";
+                                    $matchDate = date('Y-m-d H:i:s');
+                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate')";
                                     $query = mysqli_query($conn, $sql);
                                     //     echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success").then(function() {
                                     //     window.location = "lottonumber.php";
@@ -132,9 +133,9 @@ CheckLogin();
                           $sql = "SELECT lotto_match.*, lotto_number.*  FROM lotto_match 
                                   JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id
                                   WHERE lotto_match.lotto_id='" . $lottoId . "' ";
-                                    $query = $conn->query($sql);
-                                    $fetch = mysqli_fetch_array($query);
-                                    $rowCount = mysqli_num_rows($query);
+                          $query = $conn->query($sql);
+                          $fetch = mysqli_fetch_array($query);
+                          $rowCount = mysqli_num_rows($query);
                         ?>
                           <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
@@ -153,7 +154,7 @@ CheckLogin();
                                     </thead>
 
                                     <?php
-                                    
+
                                     if ($rowCount > 0) {
                                       for ($i = 0; $i < $rowCount; $i++) {
                                     ?>

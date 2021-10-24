@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -57,7 +57,7 @@ session_start();
                                                             <div class="row">
                                                                 <div class="col-4">
                                                                     <label for="installmentsearch">งวดที่</label>
-                                                                    <select class="form-control form-control-sm" id="installmentsearch" name="installmentsearch">
+                                                                    <select class="form-control form-control-xl" id="installmentsearch" name="installmentsearch">
                                                                         <option value="0">เลือก</option>
                                                                         <?php
                                                                         // $ins = $_POST["installment"];
@@ -73,7 +73,7 @@ session_start();
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <label for="installment">วันที่</label>
-                                                                    <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
+                                                                    <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <label class="mt-4">เลขล็อตเตอรี่</label>
@@ -83,7 +83,7 @@ session_start();
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-success mr-2">Search</button>
+                                                <button type="submit" class="btn btn-success mr-2">ค้นหา </button>
                                             </form>
                                             <div class="row flex-grow">
                                                 <?php
@@ -95,62 +95,67 @@ session_start();
                                                     $datesearch = $_GET["datelottosearch"];
                                                     $installmentsearch = $_GET["installmentsearch"];
                                                     if ($_GET["installmentsearch"] != 0 and $_GET["datelottosearch"] == null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND installment='" . $installmentsearch . "' ";
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND installment='" . $installmentsearch . "' ";
                                                     } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND date='" . $datesearch . "' AND installment='" . $installmentsearch . "' ";
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND date='" . $datesearch . "' AND installment='" . $installmentsearch . "' ";
                                                     } else if ($_GET["datelottosearch"] != null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='".$lottosearch."' AND date='" . $datesearch . "' ";
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND date='" . $datesearch . "' ";
                                                     }
 
                                                     $result = $conn->query($sql);
-                                                    $rowcount = mysqli_num_rows($result);
-                                                    echo "<div class='col-12 mt-4 alert alert-primary'>";
-                                                    echo "<div class='text-center'>";
-                                                    echo "<span>เลขตรงกัน $rowcount รายการ</span>";
-                                                    echo "</div>";
-                                                    echo "</div>";
+                                                    $row = mysqli_fetch_array($result);
+                                                    $rowCount = mysqli_num_rows($result);
                                                     // echo $rowcount;
                                                     // print_r($result);
-                                                    if ($rowcount > 0) {
-                                                        while ($row = mysqli_fetch_array($result)) {
+                                                    // if ($rowcount > 0) {
+                                                    //     while ($row = mysqli_fetch_array($result)) {
                                                             // print_r($row);
 
                                                 ?>
-                                                            <div class="col-2 mt-4">
-                                                                <div class="card shadow text-center">
-                                                                    <div>
-                                                                        <span class="badge badge-danger">
-                                                                            <h5>
-                                                                                <div class="m-2">
-                                                                                    <?php
-                                                                                    echo $row["lotto_number"];
-                                                                                    ?>
-                                                                                </div>
-                                                                                <div class="m-2">
-                                                                                    งวดที่ :
-                                                                                    <?php
-                                                                                    echo $row["installment"];
-                                                                                    ?>
-                                                                                </div>
-                                                                                <div class="m-2">
-                                                                                    <?php
-                                                                                    echo $row["date"];
-                                                                                    ?>
-                                                                                </div>
-                                                                                <div class="m-2">
-                                                                                    <?php
-                                                                                    echo $row["lotto_name"];
-                                                                                    ?>
-                                                                                </div>
-                                                                            </h5>
-                                                                        </span>
+                                                            <div class="col-lg-12 grid-margin stretch-card">
+                                                                <div class="card">
+                                                                    <div class="card-body">
+                                                                        <h4 class="card-title">เลขล็อตเตอรี่ค้นหาเจอ <?php echo $rowCount ?> รายการ</h4>
+                                                                        <div class="table-responsive">
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>ลำดับ</th>
+                                                                                        <th>เลขล็อตเตอรี่</th>
+                                                                                        <th>งวด</th>
+                                                                                        <th>วันที่</th>
+                                                                                        <th>หมายเหตุ</th>
+                                                                                    </tr>
+                                                                                </thead>
+
+                                                                                <?php
+
+                                                                                if ($rowCount > 0) {
+                                                                                    for ($i = 0; $i < $rowCount; $i++) {
+                                                                                ?>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td><?php echo $i + 1; ?></td>
+                                                                                                <td><?php echo $row["lotto_number"]; ?></td>
+                                                                                                <td><?php echo $row["installment"]; ?></td>
+                                                                                                <td><?php echo $row["date"]; ?></td>
+                                                                                                <td>
+                                                                                                    <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                <?php
+                                                                                    }
+                                                                                }
+
+                                                                                ?>
+                                                                            </table>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                 <?php
-                                                        }
-                                                    }
                                                     //                         else {
                                                     //                             // echo "ไม่พบข้อมูล";
                                                     //                             echo '<script type="text/javascript">Swal.fire("Good job!",

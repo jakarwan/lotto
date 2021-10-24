@@ -14,7 +14,7 @@ CheckLogin();
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <title>Lotto</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
@@ -53,10 +53,14 @@ CheckLogin();
       $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='".date('Y-m-d')."'";
       $resultLottoNow = $conn->query($sqlLottoNow);
       $lottoCountNow = mysqli_num_rows($resultLottoNow);
+
+      $sqlLottoMatch = "SELECT * FROM lotto_match";
+      $resultLottoMatch = $conn->query($sqlLottoMatch);
+      $lottoCountMatch = mysqli_num_rows($resultLottoMatch);
       ?>
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row purchace-popup">
+          <!-- <div class="row purchace-popup">
             <div class="col-12">
               <span class="d-block d-md-flex align-items-center">
                 <p>Like what you see? Check out our premium version for more.</p>
@@ -65,7 +69,7 @@ CheckLogin();
                 <i class="mdi mdi-close popup-dismiss d-none d-md-block"></i>
               </span>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
@@ -75,15 +79,15 @@ CheckLogin();
                       <i class="mdi mdi-cube text-danger icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">Total Revenue</p>
+                      <p class="mb-0 text-right">ล็อตเตอรี่ที่ตรงกันรวม</p>
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountMatch ?></h3>
                       </div>
                     </div>
                   </div>
-                  <p class="text-muted mt-3 mb-0">
+                  <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth
-                  </p>
+                  </p> -->
                 </div>
               </div>
             </div>
@@ -101,9 +105,9 @@ CheckLogin();
                       </div>
                     </div>
                   </div>
-                  <p class="text-muted mt-3 mb-0">
+                  <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales
-                  </p>
+                  </p> -->
                 </div>
               </div>
             </div>
@@ -121,9 +125,9 @@ CheckLogin();
                       </div>
                     </div>
                   </div>
-                  <p class="text-muted mt-3 mb-0">
+                  <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales
-                  </p>
+                  </p> -->
                 </div>
               </div>
             </div>
@@ -141,16 +145,15 @@ CheckLogin();
                       </div>
                     </div>
                   </div>
-                  <p class="text-muted mt-3 mb-0">
+                  <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales
-                  </p>
+                  </p> -->
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-7 grid-margin stretch-card">
-              <!--weather card-->
               <div class="card card-weather">
                 <div class="card-body">
                   <div class="weather-date-location">
@@ -239,7 +242,6 @@ CheckLogin();
                   </div>
                 </div>
               </div>
-              <!--weather card ends-->
             </div>
             <div class="col-lg-5 grid-margin stretch-card">
               <div class="card">
@@ -284,8 +286,8 @@ CheckLogin();
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <!-- <div class="row">
             <div class="col-md-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -309,8 +311,8 @@ CheckLogin();
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <!-- <div class="row">
             <div class="col-lg-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -478,8 +480,8 @@ CheckLogin();
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
+          </div> -->
+          <!-- <div class="row">
             <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -616,7 +618,7 @@ CheckLogin();
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

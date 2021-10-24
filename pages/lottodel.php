@@ -58,7 +58,7 @@ session_start();
                                                             <div class="row">
                                                                 <div class="col-4">
                                                                     <label for="installmentsearch">งวดที่</label>
-                                                                    <select class="form-control form-control-sm" id="installmentsearch" name="installmentsearch">
+                                                                    <select class="form-control form-control-xl" id="installmentsearch" name="installmentsearch">
                                                                         <option value="0">เลือก</option>
                                                                         <?php
                                                                         // $ins = $_POST["installment"];
@@ -74,7 +74,7 @@ session_start();
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <label for="installment">วันที่</label>
-                                                                    <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-sm" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
+                                                                    <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-xl" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
                                                                 </div>
                                                                 <!-- <div class="col-12">
                                                                     <label class="mt-4">เลขล็อตเตอรี่</label>
@@ -134,11 +134,11 @@ session_start();
                                                     // $rowcount = mysqli_num_rows($result);
 
                                                     if (mysqli_query($conn, $sql)) {
-                                                        echo '<script type="text/javascript">Swal.fire("Success!","You clicked the button!","success").then(function() {
+                                                        echo '<script type="text/javascript">Swal.fire("สำเร็จ!","ลบข้อมูลสำเร็จแล้ว").then(function() {
                                                             window.location = "lottodel.php";
                                                         });</script>';
                                                       } else {
-                                                        echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error").then(function() {
+                                                        echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","ลบข้อมูลไม่สำเร็จ!","error").then(function() {
                                                             window.location = "lottodel.php";
                                                         });</script>';
                                                       }

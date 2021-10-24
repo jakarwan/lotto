@@ -16,7 +16,7 @@
                   </div>
                 </div>
               </div>
-              <a onclick="location.href='lottonumber.php'" class="btn btn-success btn-block text-white">Lotto
+              <a onclick="location.href='lottonumber.php'" class="btn btn-success btn-block text-white">คีย์ล็อตเตอรี่
                 <i class="mdi mdi-plus"></i>
               </a>
             </div>
@@ -24,7 +24,7 @@
           <li class="nav-item">
             <a class="nav-link" href="index.php">
               <i class="menu-icon mdi mdi-television"></i>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">แดชบอร์ด</span>
             </a>
           </li>
           <li class="nav-item">
@@ -37,6 +37,12 @@
             <a class="nav-link" href="lottodel.php">
               <i class="menu-icon mdi mdi-delete-variant"></i>
               <span class="menu-title">ลบล็อตเตอรี่</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.php">
+              <i class="menu-icon mdi mdi-logout"></i>
+              <span class="menu-title">ออกจากระบบ</span>
             </a>
           </li>
           <!-- <li class="nav-item">
