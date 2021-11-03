@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ session_start();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    
+
 
 </head>
 
@@ -47,9 +47,9 @@ session_start();
                         <div class="col-md-12 d-flex align-items-stretch grid-margin">
                             <div class="row flex-grow">
                                 <div class="col-12">
-                                    <div class="card">
+                                    <div class="card bg-dark">
                                         <div class="card-body">
-                                            <h4 class="card-title">เลือกลบล็อตเตอรี่</h4>
+                                            <h4 class="text-white mb-4">เลือกลบล็อตเตอรี่</h4>
                                             <form class="forms-sample" action="lottodel.php" method="get" id="submitSearch">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -57,7 +57,7 @@ session_start();
                                                         <div class="form-group">
                                                             <div class="row">
                                                                 <div class="col-5 col-sm-6 col-md-4">
-                                                                    <label for="installmentsearch">งวดที่</label>
+                                                                    <label for="installmentsearch" class="text-white">งวดที่</label>
                                                                     <select class="form-control form-control-xl" id="installmentsearch" name="installmentsearch">
                                                                         <option value="0">เลือก</option>
                                                                         <?php
@@ -72,8 +72,8 @@ session_start();
                                                                         ?>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-7 col-sm-6 col-md-4">   
-                                                                    <label for="installment">วันที่</label>
+                                                                <div class="col-7 col-sm-6 col-md-4">
+                                                                    <label for="installment" class="text-white">วันที่</label>
                                                                     <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"] == $i) : '')  ?> type="date" class="form-control form-control-xl" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
                                                                 </div>
                                                                 <!-- <div class="col-12">
@@ -93,39 +93,39 @@ session_start();
                                                 $lottosearch = null;
                                                 if (!empty($_GET)) {
                                                     // $lottosearch = $_GET["lottosearch"];
-                                                    
+
                                                     $datesearch = $_GET["datelottosearch"];
                                                     $installmentsearch = $_GET["installmentsearch"];
                                                     if ($_GET["installmentsearch"] != 0 and $_GET["datelottosearch"] == null) {
                                                         $sqlcheck = "SELECT * FROM lotto_number WHERE installment='" . $installmentsearch . "' ";
-                                                        $rs = mysqli_query($conn,$sqlcheck);
+                                                        $rs = mysqli_query($conn, $sqlcheck);
                                                         $num = mysqli_num_rows($rs);
-                                                        if($num > 0){
+                                                        if ($num > 0) {
                                                             $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' ";
-                                                            echo 'ลบตามงวด';
-                                                        }else{
+                                                            // echo 'ลบตามงวด';
+                                                        } else {
                                                             echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
-                                                        }                               
+                                                        }
                                                     } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
                                                         $sqlcheck = "SELECT * FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "' ";
-                                                        $rs = mysqli_query($conn,$sqlcheck);
+                                                        $rs = mysqli_query($conn, $sqlcheck);
                                                         $num = mysqli_num_rows($rs);
-                                                        if($num > 0){
+                                                        if ($num > 0) {
                                                             $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "'   ";
-                                                            echo 'ลบตามงวด+วันที่';
-                                                        }else{
+                                                            // echo 'ลบตามงวด+วันที่';
+                                                        } else {
                                                             echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
-                                                        }                                                   
+                                                        }
                                                     } else if ($_GET["datelottosearch"] != null) {
                                                         $sqlcheck = "SELECT * FROM lotto_number WHERE date='" . $datesearch . "' ";
-                                                        $rs = mysqli_query($conn,$sqlcheck);
+                                                        $rs = mysqli_query($conn, $sqlcheck);
                                                         $num = mysqli_num_rows($rs);
-                                                        if($num > 0){
+                                                        if ($num > 0) {
                                                             $sql = "DELETE FROM lotto_number WHERE date='" . $datesearch . "' ";
-                                                            echo 'ลบตามวันที่';
-                                                        }else{
+                                                            // echo 'ลบตามวันที่';
+                                                        } else {
                                                             echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
-                                                        }                       
+                                                        }
                                                     } else {
                                                         echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
                                                     }
@@ -137,59 +137,38 @@ session_start();
                                                         echo '<script type="text/javascript">Swal.fire("สำเร็จ!","ลบข้อมูลสำเร็จแล้ว").then(function() {
                                                             window.location = "lottodel.php";
                                                         });</script>';
-                                                      } else {
+                                                    } else {
                                                         echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","ลบข้อมูลไม่สำเร็จ!","error").then(function() {
                                                             window.location = "lottodel.php";
                                                         });</script>';
-                                                      }
+                                                    }
                                                 }
-                                                    // echo "<div class='col-12 mt-4 alert alert-primary'>";
-                                                    // echo "<div class='text-center'>";
-                                                    // echo "<span>เลขตรงกัน $rowcount รายการ</span>";
-                                                    // echo "</div>";
-                                                    // echo "</div>";
-                                                    // echo $rowcount;
-                                                    // print_r($result);
-                                                    // if ($rowcount > 0) {
-                                                        //while ($row = mysqli_fetch_array($result)) {
-                                                            // print_r($row);
+                                                // echo "<div class='col-12 mt-4 alert alert-primary'>";
+                                                // echo "<div class='text-center'>";
+                                                // echo "<span>เลขตรงกัน $rowcount รายการ</span>";
+                                                // echo "</div>";
+                                                // echo "</div>";
+                                                // echo $rowcount;
+                                                // print_r($result);
+                                                // if ($rowcount > 0) {
+                                                //while ($row = mysqli_fetch_array($result)) {
+                                                // print_r($row);
 
                                                 ?>
-                                                            
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-md-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Basic form</h4>
-                  <p class="card-description">
-                    Basic form elements
-                  </p>
-                  <form class="forms-sample" action="upload.php" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <label>File upload</label>
-                      <div class="input-group col-xs-12">
-                        <input type="file" class="form-control file-upload-info" name="image" placeholder="Upload Image">
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-info" type="submit">Upload</button>
-                        </span>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div> -->
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:../../partials/_footer.html -->
                 <footer class="footer">
                     <div class="container-fluid clearfix">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2021
                             <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
                         <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
                             <i class="mdi mdi-heart text-danger"></i>

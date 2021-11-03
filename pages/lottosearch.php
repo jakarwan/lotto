@@ -109,51 +109,51 @@ session_start();
                                                     // print_r($result);
                                                     // if ($rowcount > 0) {
                                                     //     while ($row = mysqli_fetch_array($result)) {
-                                                            // print_r($row);
+                                                    // print_r($row);
 
                                                 ?>
-                                                            <div class="col-lg-12 grid-margin stretch-card">
-                                                                <div class="card">
-                                                                    <div class="card-body">
-                                                                        <h4 class="card-title">เลขล็อตเตอรี่ค้นหาเจอ <?php echo $rowCount ?> รายการ</h4>
-                                                                        <div class="table-responsive">
-                                                                            <table class="table">
-                                                                                <thead>
+                                                    <div class="col-lg-12 grid-margin stretch-card">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h4 class="card-title">เลขล็อตเตอรี่ค้นหาเจอ <?php echo $rowCount ?> รายการ</h4>
+                                                                <div class="table-responsive">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>ลำดับ</th>
+                                                                                <th>เลขล็อตเตอรี่</th>
+                                                                                <th>งวด</th>
+                                                                                <th>วันที่</th>
+                                                                                <th>หมายเหตุ</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <?php
+
+                                                                        if ($rowCount > 0) {
+                                                                            for ($i = 0; $i < $rowCount; $i++) {
+                                                                        ?>
+                                                                                <tbody>
                                                                                     <tr>
-                                                                                        <th>ลำดับ</th>
-                                                                                        <th>เลขล็อตเตอรี่</th>
-                                                                                        <th>งวด</th>
-                                                                                        <th>วันที่</th>
-                                                                                        <th>หมายเหตุ</th>
+                                                                                        <td><?php echo $i + 1; ?></td>
+                                                                                        <td><?php echo $row["lotto_number"]; ?></td>
+                                                                                        <td><?php echo $row["installment"]; ?></td>
+                                                                                        <td><?php echo $row["date"]; ?></td>
+                                                                                        <td>
+                                                                                            <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
+                                                                                        </td>
                                                                                     </tr>
-                                                                                </thead>
+                                                                                </tbody>
+                                                                        <?php
+                                                                            }
+                                                                        }
 
-                                                                                <?php
-
-                                                                                if ($rowCount > 0) {
-                                                                                    for ($i = 0; $i < $rowCount; $i++) {
-                                                                                ?>
-                                                                                        <tbody>
-                                                                                            <tr>
-                                                                                                <td><?php echo $i + 1; ?></td>
-                                                                                                <td><?php echo $row["lotto_number"]; ?></td>
-                                                                                                <td><?php echo $row["installment"]; ?></td>
-                                                                                                <td><?php echo $row["date"]; ?></td>
-                                                                                                <td>
-                                                                                                    <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                <?php
-                                                                                    }
-                                                                                }
-
-                                                                                ?>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
+                                                                        ?>
+                                                                    </table>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
 
                                                 <?php
                                                     //                         else {

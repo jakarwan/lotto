@@ -28,6 +28,11 @@ CheckLogin();
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 </head>
+<style>
+  .font-custom {
+    font-size: 15px;
+  }
+</style>
 
 <body>
   <div class="container-scroller">
@@ -48,9 +53,9 @@ CheckLogin();
             <div class="col-md-12 d-flex align-items-stretch grid-margin">
               <div class="row flex-grow">
                 <div class="col-12">
-                  <div class="card">
+                  <div class="card bg-dark">
                     <div class="card-body">
-                      <h4 class="card-title">เพิ่มเลขล็อตเตอรี่</h4>
+                      <h4 class="text-white mb-3">เพิ่มเลขล็อตเตอรี่</h4>
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
@@ -60,7 +65,7 @@ CheckLogin();
                             <div class="form-group">
                               <div class="row">
                                 <div class="col-5 col-sm-6 col-md-2">
-                                  <label for="installment">งวดที่</label>
+                                  <label for="installment" class="text-white">งวดที่</label>
                                   <select class="form-control form-control-lg" id="installment" name="installment">
                                     <?php
                                     // $ins = $_POST["installment"];
@@ -74,18 +79,18 @@ CheckLogin();
                                   </select>
                                 </div>
                                 <div class="col-7 col-sm-6 col-md-3">
-                                  <label for="installment">วันที่</label>
+                                  <label for="installment" class="text-white">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-3">
-                                  <label for="installment">หมายเหตุ</label>
+                                  <label for="installment" class="text-white">หมายเหตุ</label>
                                   <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-xl" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
                                                                                                                                                                                                           echo $_COOKIE['lottoname'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12">
-                                  <label for="lottonumber" class="mt-4">เลขล็อตเตอรี่</label>
-                                  <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus required>
+                                  <label for="lottonumber" class="mt-4 text-white">เลขล็อตเตอรี่</label>
+                                  <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
                                 </div>
                                 <?php
 
@@ -112,11 +117,9 @@ CheckLogin();
                                   if ($count > 0) {
                                     $lottoId = $result["lotto_id"];
                                     $matchDate = date('Y-m-d H:i:s');
-                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate')";
+                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId')";
                                     $query = mysqli_query($conn, $sql);
-                                    //     echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success").then(function() {
-                                    //     window.location = "lottonumber.php";
-                                    // });</script>';
+                                    echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                   } else {
                                     $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
                                     $query = mysqli_query($conn, $sql);
@@ -129,36 +132,37 @@ CheckLogin();
                         </div>
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
-                        if (!empty($lottoId)) {
-                          $sql = "SELECT lotto_match.*, lotto_number.*  FROM lotto_match 
-                                  JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id
-                                  WHERE lotto_match.lotto_id='" . $lottoId . "' ";
-                          $query = $conn->query($sql);
-                          $fetch = mysqli_fetch_array($query);
-                          $rowCount = mysqli_num_rows($query);
+                        $sql = "SELECT lotto_match.*, lotto_number.*  FROM lotto_match 
+                              JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id ";
+                        $query = $conn->query($sql);
+                        $fetch = mysqli_fetch_array($query);
+                        $rowCount = mysqli_num_rows($query);
                         ?>
-                          <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                              <div class="card-body">
-                                <h4 class="card-title">เลขล็อตเตอรี่ตรงกัน <?php echo $rowCount ?> รายการ</h4>
-                                <div class="table-responsive">
-                                  <table class="table">
-                                    <thead>
-                                      <tr>
-                                        <th>ลำดับ</th>
-                                        <th>เลขล็อตเตอรี่</th>
-                                        <th>งวด</th>
-                                        <th>วันที่</th>
-                                        <th>หมายเหตุ</th>
-                                      </tr>
-                                    </thead>
+                        <div class="row">
+                          <div class="mt-4 col-12 col-sm-6 col-md-9">
+                            <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"><?php echo $rowCount ?></span>
+                          </div>
+                          <div class="col-12 col-sm-6 col-md-3 float-end text-end">
+                            <button class="btn btn-danger text-end float-end" type="button" name="submitDel" onclick="submitDelete()">ลบเลขที่ตรงกันทั้งหมด</button>
+                          </div>
 
-                                    <?php
+                        </div>
 
-                                    if ($rowCount > 0) {
-                                      for ($i = 0; $i < $rowCount; $i++) {
-                                    ?>
-                                        <tbody>
+                        <hr style="background-color:white">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                          <!-- <div class="table-responsive"> -->
+                          <!-- <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>ลำดับ</th>
+                                      <th>เลขล็อตเตอรี่</th>
+                                      <th>งวด</th>
+                                      <th>วันที่</th>
+                                      <th>หมายเหตุ</th>
+                                    </tr>
+                                  </thead> -->
+
+                          <!-- <tbody>
                                           <tr>
                                             <td><?php echo $i + 1; ?></td>
                                             <td><?php echo $fetch["lotto_number"]; ?></td>
@@ -168,20 +172,47 @@ CheckLogin();
                                               <label class="badge badge-danger"><?php echo $fetch["lotto_name"]; ?></label>
                                             </td>
                                           </tr>
-                                        </tbody>
-                                    <?php
-                                      }
-                                    }
+                                        </tbody> -->
+                          <!-- </table> -->
+                          <div class="row mt-4">
+                            <?php
+                            if ($rowCount > 0) {
+                              for ($i = 0; $i < $rowCount; $i++) {
+                            ?>
 
-                                    ?>
-                                  </table>
+                                <div class="col-4 col-sm-2 col-md">
+                                  <h1>
+                                    <span class="badge badge-primary font-custom">
+                                      <?php echo $fetch["lotto_number"]; ?>
+                                      <!-- <div class="m-2">
+                                          <?php echo $fetch["installment"]; ?>
+                                          </div>
+                                          <div>
+                                          <?php echo $fetch["date"]; ?>
+                                          </div>
+                                          <div class="mt-2">
+                                          <?php echo $fetch["lotto_name"]; ?>
+                                          </div> -->
+                                    </span>
+                                  </h1>
                                 </div>
-                              </div>
-                            </div>
+
+                            <?php
+                              }
+                            }
+                            ?>
                           </div>
+                          <!-- </div> -->
+                        </div>
+
+                      </form>
+                      <form action="lottonumber.php" method="get">
                         <?php
+                        if (isset($_GET["submitDel"])) {
+                          $sql = "DELETE FROM lotto_match WHERE user_id=$userId ";
                         }
                         ?>
+
                       </form>
                     </div>
                   </div>
@@ -243,6 +274,32 @@ CheckLogin();
       let expires = "expires=" + d.toUTCString();
       document.cookie = 'lottoname' + "=" + $('#lottoname').val() + ";" + expires + ";path=/";
     })
+
+    function submitDelete() {
+      //let len = document.getElementById("del").value.length;
+      // if (document.getElementById("submitDel").submit()) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setTimeout(function() {
+            document.getElementsByName("submitDel").submit();
+          }, 1000);
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+    }
+    // }
 
     function submitForm() {
 

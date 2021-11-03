@@ -27,12 +27,12 @@
               <span class="menu-title">แดชบอร์ด</span>
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="lottosearch.php">
               <i class="menu-icon mdi mdi-account-search"></i>
               <span class="menu-title">ค้นหาล็อตเตอรี่</span>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="lottodel.php">
               <i class="menu-icon mdi mdi-delete-variant"></i>
