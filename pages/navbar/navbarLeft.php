@@ -9,7 +9,7 @@
                   <img src="<?php echo $_SESSION["pic"];?>" alt="profile image">
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name"><?php echo $_SESSION['name'];?></p>
+                  <p class="profile-name text-white"><?php echo $_SESSION['name'];?></p>
                   <div>
                     <small class="designation text-muted"><?php echo $_SESSION['status'];?></small>
                     <span class="status-indicator online"></span>
@@ -23,8 +23,8 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="index.php">
-              <i class="menu-icon mdi mdi-television"></i>
-              <span class="menu-title">แดชบอร์ด</span>
+              <i class="menu-icon mdi mdi-television text-white"></i>
+              <span class="menu-title text-white">แดชบอร์ด</span>
             </a>
           </li>
           <!-- <li class="nav-item">
@@ -35,14 +35,14 @@
           </li> -->
           <li class="nav-item">
             <a class="nav-link" href="lottodel.php">
-              <i class="menu-icon mdi mdi-delete-variant"></i>
-              <span class="menu-title">ลบล็อตเตอรี่</span>
+              <i class="menu-icon mdi mdi-delete-variant text-white"></i>
+              <span class="menu-title text-white">ลบล็อตเตอรี่</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">
-              <i class="menu-icon mdi mdi-logout"></i>
-              <span class="menu-title">ออกจากระบบ</span>
+              <i class="menu-icon mdi mdi-logout text-white"></i>
+              <span class="menu-title text-white">ออกจากระบบ</span>
             </a>
           </li>
           <!-- <li class="nav-item">

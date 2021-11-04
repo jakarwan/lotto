@@ -34,7 +34,7 @@ CheckLogin();
   }
 </style>
 
-<body>
+<body background="../images/lotto.jpeg">
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <?php
@@ -123,6 +123,7 @@ CheckLogin();
                                   } else {
                                     $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
                                     $query = mysqli_query($conn, $sql);
+                                    // echo 'test';
                                   }
                                 }
                                 ?>
@@ -132,86 +133,66 @@ CheckLogin();
                         </div>
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
-                        $sql = "SELECT lotto_match.*, lotto_number.*  FROM lotto_match 
-                              JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id ";
+                        $sql = "SELECT lotto_number.* FROM lotto_match 
+                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE user_id='". $_SESSION["userId"] ."' ";
                         $query = $conn->query($sql);
-                        $fetch = mysqli_fetch_array($query);
                         $rowCount = mysqli_num_rows($query);
                         ?>
                         <div class="row">
                           <div class="mt-4 col-12 col-sm-6 col-md-9">
-                            <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"><?php echo $rowCount ?></span>
+                            <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                           </div>
-                          <div class="col-12 col-sm-6 col-md-3 float-end text-end">
-                            <button class="btn btn-danger text-end float-end" type="button" name="submitDel" onclick="submitDelete()">ลบเลขที่ตรงกันทั้งหมด</button>
-                          </div>
+                          <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
+                            <div class="col-12 col-sm-6 col-md-3 float-end text-end">
+                              <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
+                            </div>
+                          </form>
+                          <?php
+                          if ($_GET) {
+                            $sql = "DELETE FROM lotto_match WHERE user_id='". $_SESSION["userId"] . "' ";
+                            $conn->query($sql);
+                          }
+                          ?>
 
                         </div>
 
-                        <hr style="background-color:white">
+                        <!-- <hr style="background-color:white"> -->
                         <div class="col-lg-12 grid-margin stretch-card">
-                          <!-- <div class="table-responsive"> -->
-                          <!-- <table class="table">
-                                  <thead>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th class="text-white">ลำดับ</th>
+                                  <th class="text-white">เลขล็อตเตอรี่</th>
+                                  <th class="text-white">งวด</th>
+                                  <th class="text-white">วันที่</th>
+                                  <th class="text-white">หมายเหตุ</th>
+                                </tr>
+                              </thead>
+                              <?php
+                              // $rowCount = mysqli_num_rows($query);
+                              if ($query->num_rows > 0) {
+                                $i = 1;
+                                while ($row = $query->fetch_assoc()) {
+                              ?>
+                                  <tbody>
                                     <tr>
-                                      <th>ลำดับ</th>
-                                      <th>เลขล็อตเตอรี่</th>
-                                      <th>งวด</th>
-                                      <th>วันที่</th>
-                                      <th>หมายเหตุ</th>
+                                      <td class="text-white"><?php echo $i++; ?></td>
+                                      <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
+                                      <td class="text-white"><?php echo $row["installment"]; ?></td>
+                                      <td class="text-white"><?php echo $row["date"]; ?></td>
+                                      <td class="text-white">
+                                        <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
+                                      </td>
                                     </tr>
-                                  </thead> -->
-
-                          <!-- <tbody>
-                                          <tr>
-                                            <td><?php echo $i + 1; ?></td>
-                                            <td><?php echo $fetch["lotto_number"]; ?></td>
-                                            <td><?php echo $fetch["installment"]; ?></td>
-                                            <td><?php echo $fetch["date"]; ?></td>
-                                            <td>
-                                              <label class="badge badge-danger"><?php echo $fetch["lotto_name"]; ?></label>
-                                            </td>
-                                          </tr>
-                                        </tbody> -->
-                          <!-- </table> -->
-                          <div class="row mt-4">
-                            <?php
-                            if ($rowCount > 0) {
-                              for ($i = 0; $i < $rowCount; $i++) {
-                            ?>
-
-                                <div class="col-4 col-sm-2 col-md">
-                                  <h1>
-                                    <span class="badge badge-primary font-custom">
-                                      <?php echo $fetch["lotto_number"]; ?>
-                                      <!-- <div class="m-2">
-                                          <?php echo $fetch["installment"]; ?>
-                                          </div>
-                                          <div>
-                                          <?php echo $fetch["date"]; ?>
-                                          </div>
-                                          <div class="mt-2">
-                                          <?php echo $fetch["lotto_name"]; ?>
-                                          </div> -->
-                                    </span>
-                                  </h1>
-                                </div>
-
-                            <?php
+                                  </tbody>
+                              <?php
+                                }
                               }
-                            }
-                            ?>
+                              ?>
+                            </table>
                           </div>
-                          <!-- </div> -->
                         </div>
-
-                      </form>
-                      <form action="lottonumber.php" method="get">
-                        <?php
-                        if (isset($_GET["submitDel"])) {
-                          $sql = "DELETE FROM lotto_match WHERE user_id=$userId ";
-                        }
-                        ?>
 
                       </form>
                     </div>
@@ -219,27 +200,6 @@ CheckLogin();
                 </div>
               </div>
             </div>
-            <!-- <div class="col-md-6 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Basic form</h4>
-                  <p class="card-description">
-                    Basic form elements
-                  </p>
-                  <form class="forms-sample" action="upload.php" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                      <label>File upload</label>
-                      <div class="input-group col-xs-12">
-                        <input type="file" class="form-control file-upload-info" name="image" placeholder="Upload Image">
-                        <span class="input-group-append">
-                          <button class="file-upload-browse btn btn-info" type="submit">Upload</button>
-                        </span>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -275,28 +235,40 @@ CheckLogin();
       document.cookie = 'lottoname' + "=" + $('#lottoname').val() + ";" + expires + ";path=/";
     })
 
+    // $(document).ready(function() {
+    //   $('.delete-row').click(function() {
+    //     $.post('lottonumber.php?mode=delete', {
+    //       row_id: $(this).data('row_id')
+    //     }).done(function(data) {
+    //       // Reload your table/data display
+    //     });
+    //   });
+    // });
+
     function submitDelete() {
-      //let len = document.getElementById("del").value.length;
-      // if (document.getElementById("submitDel").submit()) {
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'ต้องการลบข้อมูลหรือไม่?',
+        text: "ต้องการลบข้อมูลล็อตเตอรี่ที่ตรงกันทั้งหมดหรือไม่!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'ใช่, ต้องการลบ!'
       }).then((result) => {
         if (result.isConfirmed) {
           setTimeout(function() {
-            document.getElementsByName("submitDel").submit();
+            window.location.href='lottonumber.php?mode=delete';
           }, 1000);
           Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'สำเร็จ!',
+            'ลบข้อมูลเรียบร้อยแล้ว.',
             'success'
           )
         }
+      }).then((response) => {
+        setTimeout(function() {
+            window.location.href='lottonumber.php';
+          }, 1000);
       })
     }
     // }

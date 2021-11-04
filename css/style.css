@@ -13679,7 +13679,7 @@ input:focus {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 63px);
-  background: #ffffff;
+  background: #7f8082;
   font-family: "Poppins", sans-serif;
   padding: 0;
   width: 255px;
@@ -13786,7 +13786,7 @@ input:focus {
           .sidebar .nav .nav-item.nav-profile .nav-link .user-wrapper .text-wrapper .designation {
             margin-right: 3px; }
     .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
-      background: #fafbfc;
+      background: #727171;
       color: #4a4a4a; }
     .sidebar .nav.sub-menu {
       margin-bottom: 0;
@@ -13880,7 +13880,7 @@ input:focus {
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
     -ms-transition: width 0.25s ease, background 0.25s ease;
-    background: #ffffff;
+    background: #7f8081;
     width: 255px;
     height: 63px; }
     .sidebar-dark .navbar.default-layout .navbar-brand-wrapper {
@@ -14217,7 +14217,9 @@ html {
       width: 100%; } }
 
 .content-wrapper {
-  background: #f2f8f9;
+  /* background: #f2f8f9; */
+  background-image: url("../images/lotto.jpeg");
+  /* opacity: 0.3; */
   padding: 1.5rem 1.7rem;
   width: 100%;
   -webkit-flex-grow: 1;
@@ -16105,11 +16107,11 @@ ul {
 /* === Landing screens === */
 /* Auth */
 .auth.auth-bg-1 {
-  background: url("../images/auth/login_1.jpg");
+  background: url("../images/lotto.jpeg");
   background-size: cover; }
 
 .auth.register-bg-1 {
-  background: url("../images/auth/register.jpg") center center no-repeat;
+  background: url("../images/lotto.jpeg") center center no-repeat;
   background-size: cover; }
 
 .auth.theme-one .auto-form-wrapper {
@@ -16158,20 +16160,20 @@ ul {
     margin-right: 10px;
     line-height: 1;
     padding-right: 10px;
-    border-right: 1px solid rgba(255, 255, 255, 0.4); }
+    border-right: 1px solid rgba(255, 255, 255, 0.9); }
     .auth.theme-one .auth-footer li:last-child {
       margin-right: 0;
       border-right: none; }
     .auth.theme-one .auth-footer li a {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.4); }
+      color: rgba(255, 255, 255, 0.9); }
   @media (max-width: 767.98px) {
     .auth.theme-one .auth-footer {
       -webkit-justify-content: center;
       justify-content: center; } }
 
 .auth.theme-one .footer-text {
-  color: rgba(255, 255, 255, 0.4); }
+  color: rgba(255, 255, 255, 0.9); }
 
 .auth.theme-two .auto-form-wrapper {
   position: relative;
