@@ -27,6 +27,19 @@ CheckLogin();
   <!-- endinject -->
   <link rel="shortcut icon" href="../images/favicon.png" />
 </head>
+<style>
+  a:link,
+  a:visited {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:active {
+    background-color: #d3d3d3;
+  }
+</style>
 
 <body>
   <div class="container-scroller">
@@ -41,16 +54,16 @@ CheckLogin();
       // echo $_SESSION["status"];
       ?>
       <!-- partial -->
-      <?php 
+      <?php
       $sql = "SELECT * FROM users";
       $result = $conn->query($sql);
       $userCount = mysqli_num_rows($result);
-      
+
       $sqlLotto = "SELECT * FROM lotto_number";
       $resultLotto = $conn->query($sqlLotto);
       $lottoCount = mysqli_num_rows($resultLotto);
-      
-      $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='".date('Y-m-d')."'";
+
+      $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "'";
       $resultLottoNow = $conn->query($sqlLottoNow);
       $lottoCountNow = mysqli_num_rows($resultLottoNow);
 
@@ -72,63 +85,71 @@ CheckLogin();
           </div> -->
           <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+
               <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <div class="float-left">
-                      <i class="mdi mdi-cube text-danger icon-lg"></i>
-                    </div>
-                    <div class="float-right">
-                      <p class="mb-0 text-right">ล็อตเตอรี่ที่ตรงกันรวม</p>
-                      <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountMatch ?></h3>
+                <a href="lottomatchall.php">
+                  <div class="card-body">
+                    <div class="clearfix">
+                      <div class="float-left">
+                        <i class="mdi mdi-cube text-danger icon-lg"></i>
+                      </div>
+                      <div class="float-right">
+                        <p class="mb-0 text-right">ล็อตเตอรี่ที่ตรงกันทั้งหมด</p>
+                        <div class="fluid-container">
+                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountMatch ?></h3>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- <p class="text-muted mt-3 mb-0">
+                    <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth
                   </p> -->
-                </div>
+                  </div>
+                </a>
               </div>
+
             </div>
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <div class="float-left">
-                      <i class="mdi mdi-receipt text-warning icon-lg"></i>
-                    </div>
-                    <div class="float-right">
-                      <p class="mb-0 text-right">จำนวนล็อตเตอรี่รวม</p>
-                      <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCount ?></h3>
+                <a href="lottoall.php">
+                  <div class="card-body">
+                    <div class="clearfix">
+                      <div class="float-left">
+                        <i class="mdi mdi-receipt text-warning icon-lg"></i>
+                      </div>
+                      <div class="float-right">
+                        <p class="mb-0 text-right">จำนวนล็อตเตอรี่ทั้งหมด</p>
+                        <div class="fluid-container">
+                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCount ?></h3>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- <p class="text-muted mt-3 mb-0">
+                    <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales
                   </p> -->
-                </div>
+                  </div>
+                </a>
               </div>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
               <div class="card card-statistics">
-                <div class="card-body">
-                  <div class="clearfix">
-                    <div class="float-left">
-                      <i class="mdi mdi-poll-box text-success icon-lg"></i>
-                    </div>
-                    <div class="float-right">
-                      <p class="mb-0 text-right">จำนวนล็อตเตอรี่วันนี้</p>
-                      <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountNow ?></h3>
+                <a href="lottotoday.php">
+                  <div class="card-body">
+                    <div class="clearfix">
+                      <div class="float-left">
+                        <i class="mdi mdi-poll-box text-success icon-lg"></i>
+                      </div>
+                      <div class="float-right">
+                        <p class="mb-0 text-right">จำนวนล็อตเตอรี่วันนี้</p>
+                        <div class="fluid-container">
+                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountNow ?></h3>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <!-- <p class="text-muted mt-3 mb-0">
+                    <!-- <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales
                   </p> -->
-                </div>
+                  </div>
+                </a>
               </div>
             </div>
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">

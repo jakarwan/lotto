@@ -117,7 +117,7 @@ CheckLogin();
                                   if ($count > 0) {
                                     $lottoId = $result["lotto_id"];
                                     $matchDate = date('Y-m-d H:i:s');
-                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId')";
+                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId', '$lottoname', '$installment')";
                                     $query = mysqli_query($conn, $sql);
                                     echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                   } else {
@@ -133,8 +133,8 @@ CheckLogin();
                         </div>
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
-                        $sql = "SELECT lotto_number.* FROM lotto_match 
-                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='". $_SESSION["userId"] ."' ";
+                        $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
+                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ";
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);
                         ?>
@@ -149,7 +149,7 @@ CheckLogin();
                           </form>
                           <?php
                           if ($_GET) {
-                            $sql = "DELETE FROM lotto_match WHERE user_id='". $_SESSION["userId"] . "' ";
+                            $sql = "DELETE FROM lotto_match WHERE user_id='" . $_SESSION["userId"] . "' ";
                             $conn->query($sql);
                           }
                           ?>
@@ -180,7 +180,7 @@ CheckLogin();
                                       <td class="text-white"><?php echo $i++; ?></td>
                                       <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
                                       <td class="text-white"><?php echo $row["installment"]; ?></td>
-                                      <td class="text-white"><?php echo $row["date"]; ?></td>
+                                      <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
                                       <td class="text-white">
                                         <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                       </td>
@@ -257,7 +257,7 @@ CheckLogin();
       }).then((result) => {
         if (result.isConfirmed) {
           setTimeout(function() {
-            window.location.href='lottonumber.php?mode=delete';
+            window.location.href = 'lottonumber.php?mode=delete';
           }, 1000);
           Swal.fire(
             'สำเร็จ!',
@@ -267,8 +267,8 @@ CheckLogin();
         }
       }).then((response) => {
         setTimeout(function() {
-            window.location.href='lottonumber.php';
-          }, 1000);
+          window.location.href = 'lottonumber.php';
+        }, 1000);
       })
     }
     // }
