@@ -85,9 +85,15 @@ CheckLogin();
                                                     <div class="mt-4 col-12 col-sm-6 col-md-9">
                                                         <span class="text-white">ล็อตเตอรี่ทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                                                     </div>
-                                                    <div class="col-12 m-4">
-                                                        <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
-                                                    </div>
+                                                    <?php
+                                                    if ($_SESSION['status'] == 'Admin') {
+                                                    ?>
+                                                        <div class="col-12 m-4">
+                                                            <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                     <!-- <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
                                                         <div class="col-12 col-sm-6 col-md-3 float-end text-end">
                                                             <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
@@ -125,7 +131,13 @@ CheckLogin();
                                                                         <th class="text-white">งวด</th>
                                                                         <th class="text-white">วันที่</th>
                                                                         <th class="text-white">หมายเหตุ</th>
-                                                                        <th class="text-white">ลบ</th>
+                                                                        <?php
+                                                                        if ($_SESSION['status'] == 'Admin') {
+                                                                        ?>
+                                                                            <th class="text-white">ลบ</th>
+                                                                        <?php
+                                                                        }
+                                                                        ?>
                                                                     </tr>
                                                                 </thead>
 
@@ -138,7 +150,7 @@ CheckLogin();
                                                                 ?>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td class="text-center"><input name="checkbox[]" id="checkbox<?php echo $i;?>" type="checkbox" value="<?php echo $row['lotto_id']; ?>"></td>
+                                                                                <td class="text-center"><input name="checkbox[]" id="checkbox<?php echo $i; ?>" type="checkbox" value="<?php echo $row['lotto_id']; ?>"></td>
                                                                                 <td class="text-white"><?php echo $i++; ?></td>
                                                                                 <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
                                                                                 <td class="text-white"><?php echo $row["installment"]; ?></td>
@@ -146,8 +158,13 @@ CheckLogin();
                                                                                 <td class="text-white">
                                                                                     <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                                                                 </td>
-                                                                                <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall.php?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall.php';}">ลบ</a></td>
-
+                                                                                <?php
+                                                                                if ($_SESSION['status'] == 'Admin') {
+                                                                                ?>
+                                                                                    <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall.php?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall.php';}">ลบ</a></td>
+                                                                                <?php
+                                                                                }
+                                                                                ?>
                                                                             </tr>
                                                                         </tbody>
                                                                 <?php
@@ -174,7 +191,7 @@ CheckLogin();
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <input type="hidden" name="hdnCount" value="<?php echo $i;?>">
+                                                    <input type="hidden" name="hdnCount" value="<?php echo $i; ?>">
                                                 </form>
                                         </div>
                                     </div>

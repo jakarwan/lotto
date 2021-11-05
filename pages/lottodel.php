@@ -32,7 +32,12 @@ session_start();
     <div class="container-scroller">
         <!-- partial:../../partials/_navbar.html -->
         <?php
-        include 'navbar/navbar.php'
+        include 'navbar/navbar.php';
+        if($_SESSION['status'] != 'Admin') {
+            echo '<script type="text/javascript">Swal.fire("Error!","ไม่มีสิทธิ์เข้าใช้งานในหน้านี้","error").then(function() {
+                window.location = "lottonumber.php";
+            });</script>';
+        }
         ?>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">

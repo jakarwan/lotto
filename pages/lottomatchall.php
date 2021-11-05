@@ -110,9 +110,15 @@ CheckLogin();
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
                                                                             </td>
                                                                             <td class="text-white">
-                                                                                <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
+                                                                                <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
                                                                             </td>
+                                                                            <?php
+                                                                            if ($_SESSION['status'] == 'Admin') {
+                                                                            ?>
                                                                             <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottomatchall.php?match_id=<?php echo $row["match_id"]; ?>'; window.location.href = 'lottomatchall.php';}">ลบ</a></td>
+                                                                            <?php 
+                                                                            }
+                                                                            ?>
                                                                         </tr>
                                                                     </tbody>
                                                             <?php

@@ -82,7 +82,7 @@ CheckLogin();
                                   <label for="installment" class="text-white">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php if (!empty($_COOKIE['datelotto'])) {
                                                                                                                                                                                                           echo $_COOKIE['datelotto'];
-                                                                                                                                                                                                          } ?>">
+                                                                                                                                                                                                        } ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">หมายเหตุ</label>
@@ -153,9 +153,15 @@ CheckLogin();
                             <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                           </div>
                           <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
-                            <div class="col-12 col-sm-6 col-md-3 float-end text-end">
-                              <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
-                            </div>
+                            <?php
+                            if ($_SESSION['status'] == 'Admin') {
+                            ?>
+                              <div class="col-12 col-sm-6 col-md-3 float-end text-end">
+                                <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
+                              </div>
+                            <?php
+                            }
+                            ?>
                           </form>
                           <?php
                           if ($_GET) {
@@ -196,7 +202,7 @@ CheckLogin();
                                         <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
                                       </td>
                                       <td class="text-white">
-                                        <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
+                                        <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
                                       </td>
                                     </tr>
                                   </tbody>

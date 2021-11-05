@@ -107,7 +107,13 @@ CheckLogin();
                                                                             <td class="text-white">
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                                                             </td>
-                                                                            <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottotoday.php?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottotoday.php';}">ลบ</a></td>
+                                                                            <?php
+                                                                            if ($_SESSION['status'] == 'Admin') {
+                                                                            ?>
+                                                                                <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottotoday.php?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottotoday.php';}">ลบ</a></td>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
                                                                         </tr>
                                                                     </tbody>
                                                             <?php
