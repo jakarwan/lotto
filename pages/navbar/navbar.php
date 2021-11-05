@@ -1,9 +1,9 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-    <a class="navbar-brand brand-logo" href="index.php">
+    <a class="navbar-brand brand-logo" href="index">
       <img src="../images/logo.png" alt="logo" />
     </a>
-    <a class="navbar-brand brand-logo-mini" href="index.php">
+    <a class="navbar-brand brand-logo-mini" href="index">
       <img src="../images/logo-mini.svg" alt="logo" />
     </a>
   </div>
@@ -153,7 +153,7 @@
               </div>
             </div>
           </a>
-          <a class="dropdown-item mt-2" href="editprofile.php">
+          <a class="dropdown-item mt-2" href="editprofile">
             โปรไฟล์
           </a>
           <!-- <a class="dropdown-item">
@@ -162,7 +162,7 @@
           <a class="dropdown-item">
             Check Inbox
           </a> -->
-          <a class="dropdown-item" href="logout.php">
+          <a class="dropdown-item" href="logout">
             ออกจากระบบ
           </a>
         </div>

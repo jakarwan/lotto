@@ -59,7 +59,7 @@ CheckLogin();
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
-                      <form class="forms-sample" action="lottonumber.php" method="post" id="lottosubmit">
+                      <form class="forms-sample" action="lottonumber" method="post" id="lottosubmit">
                         <div class="row">
                           <div class="col-12">
                             <div class="form-group">
@@ -152,7 +152,7 @@ CheckLogin();
                           <div class="mt-4 col-12 col-sm-6 col-md-9">
                             <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                           </div>
-                          <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
+                          <form action="lottonumber?mode=delete" method="POST" id="submitDel">
                             <?php
                             if ($_SESSION['status'] == 'Admin') {
                             ?>
@@ -277,7 +277,7 @@ CheckLogin();
       }).then((result) => {
         if (result.isConfirmed) {
           setTimeout(function() {
-            window.location.href = 'lottonumber.php?mode=delete';
+            window.location.href = 'lottonumber?mode=delete';
           }, 1000);
           Swal.fire(
             'สำเร็จ!',
@@ -287,7 +287,7 @@ CheckLogin();
         }
       }).then((response) => {
         setTimeout(function() {
-          window.location.href = 'lottonumber.php';
+          window.location.href = 'lottonumber';
         }, 1000);
       })
     }

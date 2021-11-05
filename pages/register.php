@@ -75,11 +75,11 @@ include '../config/config.php';
         if (mysqli_query($conn, $sql)) {
           // echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
           echo '<script type="text/javascript">Swal.fire("สำเร็จ!","สมัครสมาชิกสำเร็จ!","success").then(function() {
-            window.location = "login.php";
+            window.location = "login";
         });</script>';
         } else {
           echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","สมัครสมาชิกไม่สำเร็จ!","warning").then(function() {
-            window.location = "login.php";
+            window.location = "login";
         });</script>';
         }
       // }
@@ -186,7 +186,7 @@ include '../config/config.php';
                 </div>
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">พร้อมเข้าใช้งานระบบแล้ว ?</span>
-                  <a href="login.php" class="text-black text-small">เข้าสู่ระบบ</a>
+                  <a href="login" class="text-black text-small">เข้าสู่ระบบ</a>
                 </div>
 
               </div>

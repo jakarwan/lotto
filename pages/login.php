@@ -80,7 +80,7 @@ session_start();
           } else {
             $_SESSION["pic"] = "../images/faces/face1.jpg";
           }
-          header('refresh: 0;index.php');
+          header('refresh: 0;index');
         // }
         //  else {
         //   echo '<script>alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด \nไม่สามารถเข้าระบบได้");</script>';
@@ -135,7 +135,7 @@ session_start();
                 </div> -->
                 <div class="text-block text-center my-3">
                   <span class="text-small font-weight-semibold">ยังไม่มีชื่อผู้ใช้งานเพื่อเข้าสู่ระบบ ?</span>
-                  <a href="register.php" class="text-black text-small">สมัครสมาชิก</a>
+                  <a href="register" class="text-black text-small">สมัครสมาชิก</a>
                 </div>
 
               </div>

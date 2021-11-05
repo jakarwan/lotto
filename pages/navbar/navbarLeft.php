@@ -16,13 +16,13 @@
                   </div>
                 </div>
               </div>
-              <a onclick="location.href='lottonumber.php'" class="btn btn-success btn-block text-white">คีย์ล็อตเตอรี่
+              <a onclick="location.href='lottonumber'" class="btn btn-success btn-block text-white">คีย์ล็อตเตอรี่
                 <i class="mdi mdi-plus"></i>
               </a>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.php">
+            <a class="nav-link" href="index">
               <i class="menu-icon mdi mdi-television text-white"></i>
               <span class="menu-title text-white">แดชบอร์ด</span>
             </a>
@@ -37,7 +37,7 @@
             if($_SESSION['status'] == 'Admin'){
           ?>
           <li class="nav-item">
-            <a class="nav-link" href="lottodel.php">
+            <a class="nav-link" href="lottodel">
               <i class="menu-icon mdi mdi-delete-variant text-white"></i>
               <span class="menu-title text-white">ลบล็อตเตอรี่</span>
             </a>
@@ -46,7 +46,7 @@
           }
           ?>
           <li class="nav-item">
-            <a class="nav-link" href="logout.php">
+            <a class="nav-link" href="logout">
               <i class="menu-icon mdi mdi-logout text-white"></i>
               <span class="menu-title text-white">ออกจากระบบ</span>
             </a>

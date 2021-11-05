@@ -35,7 +35,7 @@ session_start();
         include 'navbar/navbar.php';
         if($_SESSION['status'] != 'Admin') {
             echo '<script type="text/javascript">Swal.fire("Error!","ไม่มีสิทธิ์เข้าใช้งานในหน้านี้","error").then(function() {
-                window.location = "lottonumber.php";
+                window.location = "lottonumber";
             });</script>';
         }
         ?>
@@ -55,7 +55,7 @@ session_start();
                                     <div class="card bg-dark">
                                         <div class="card-body">
                                             <h4 class="text-white mb-4">เลือกลบล็อตเตอรี่</h4>
-                                            <form class="forms-sample" action="lottodel.php" method="get" id="submitSearch">
+                                            <form class="forms-sample" action="lottodel" method="get" id="submitSearch">
                                                 <div class="row">
                                                     <div class="col-12">
 
@@ -140,11 +140,11 @@ session_start();
 
                                                     if (mysqli_query($conn, $sql)) {
                                                         echo '<script type="text/javascript">Swal.fire("สำเร็จ!","ลบข้อมูลสำเร็จแล้ว").then(function() {
-                                                            window.location = "lottodel.php";
+                                                            window.location = "lottodel";
                                                         });</script>';
                                                     } else {
                                                         echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","ลบข้อมูลไม่สำเร็จ!","error").then(function() {
-                                                            window.location = "lottodel.php";
+                                                            window.location = "lottodel";
                                                         });</script>';
                                                     }
                                                 }

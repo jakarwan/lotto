@@ -74,7 +74,7 @@ CheckLogin();
                                     <div class="card bg-dark">
                                         <div class="card-body">
                                             <h4 class="text-white mb-4">ล็อตเตอรี่ทั้งหมด</h4>
-                                            <form class="forms-sample" action="lottoall.php" method="POST" id="submitDel" name="frmMain">
+                                            <form class="forms-sample" action="lottoall" method="POST" id="submitDel" name="frmMain">
 
                                                 <?php
                                                 $sql = "SELECT * FROM lotto_number ";
@@ -108,7 +108,7 @@ CheckLogin();
                                                     ?>
 
                                                 </div>
-                                                <form class="forms-sample" action="lottoall.php?test" method="POST" id="submitDel">
+                                                <form class="forms-sample" action="lottoall?test" method="POST" id="submitDel">
                                                     <!-- <div class="m-3">
                                                     <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottosearch" name="lottosearch" value="<?= !empty($_GET["lottosearch"]); ?>" placeholder="ค้นหาเลขล็อตเตอรี่" autofocus>
                                                     <button class="btn btn-primary mt-2" type="submit">ค้นหา</button>
@@ -161,7 +161,7 @@ CheckLogin();
                                                                                 <?php
                                                                                 if ($_SESSION['status'] == 'Admin') {
                                                                                 ?>
-                                                                                    <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall.php?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall.php';}">ลบ</a></td>
+                                                                                    <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
                                                                                 <?php
                                                                                 }
                                                                                 ?>
@@ -184,7 +184,7 @@ CheckLogin();
                                                                     }
                                                                     // if successful redirect to delete_multiple.php 
                                                                     if ($query) {
-                                                                        echo "<meta http-equiv=\"refresh\" content=\"0;URL=lottoall.php\">";
+                                                                        echo "<meta http-equiv=\"refresh\" content=\"0;URL=lottoall\">";
                                                                     }
                                                                 }
                                                                 ?>

@@ -52,7 +52,7 @@ CheckLogin();
                                     <div class="card bg-dark">
                                         <div class="card-body">
                                             <h4 class="text-white mb-4">ล็อตเตอรี่ที่ตรงกันทั้งหมด</h4>
-                                            <form class="forms-sample" action="lottomatchall.php" method="POST" id="submitDel">
+                                            <form class="forms-sample" action="lottomatchall" method="POST" id="submitDel">
 
                                                 <?php
                                                 $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
@@ -115,7 +115,7 @@ CheckLogin();
                                                                             <?php
                                                                             if ($_SESSION['status'] == 'Admin') {
                                                                             ?>
-                                                                            <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottomatchall.php?match_id=<?php echo $row["match_id"]; ?>'; window.location.href = 'lottomatchall.php';}">ลบ</a></td>
+                                                                            <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottomatchall?match_id=<?php echo $row["match_id"]; ?>'; window.location.href = 'lottomatchall';}">ลบ</a></td>
                                                                             <?php 
                                                                             }
                                                                             ?>

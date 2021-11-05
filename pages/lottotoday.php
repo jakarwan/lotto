@@ -52,7 +52,7 @@ CheckLogin();
                                     <div class="card bg-dark">
                                         <div class="card-body">
                                             <h4 class="text-white mb-4">ล็อตเตอรี่วันนี้ทั้งหมด</h4>
-                                            <form class="forms-sample" action="lottomatchall.php" method="POST" id="submitDel">
+                                            <form class="forms-sample" action="lottomatchall" method="POST" id="submitDel">
 
                                                 <?php
                                                 $sql = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "'";
@@ -110,7 +110,7 @@ CheckLogin();
                                                                             <?php
                                                                             if ($_SESSION['status'] == 'Admin') {
                                                                             ?>
-                                                                                <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottotoday.php?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottotoday.php';}">ลบ</a></td>
+                                                                                <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottotoday?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottotoday';}">ลบ</a></td>
                                                                             <?php
                                                                             }
                                                                             ?>
