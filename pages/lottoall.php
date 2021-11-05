@@ -163,7 +163,6 @@ CheckLogin();
 
                                                                         $del_id = $checkbox[$i];
                                                                         $sql = "DELETE FROM lotto_number WHERE lotto_id=$del_id ";
-                                                                        echo $sql;
                                                                         $query = $conn->query($sql);
                                                                     }
                                                                     // if successful redirect to delete_multiple.php 
