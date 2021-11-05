@@ -80,7 +80,9 @@ CheckLogin();
                                 </div>
                                 <div class="col-7 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">วันที่</label>
-                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php echo $_COOKIE['datelotto'] ?>">
+                                  <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php if (!empty($_COOKIE['datelotto'])) {
+                                                                                                                                                                                                          echo $_COOKIE['datelotto'];
+                                                                                                                                                                                                          } ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">หมายเหตุ</label>
@@ -121,7 +123,14 @@ CheckLogin();
                                     $query = mysqli_query($conn, $sql);
                                     echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                   } else {
-                                    $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                    if (!empty($_COOKIE['datelotto'])) {
+                                      $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                    } else {
+                                      $datetoday = date('Y-m-d');
+                                      $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                    }
+                                    // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                    // echo $sql;
                                     $query = mysqli_query($conn, $sql);
                                     // echo 'test';
                                   }
