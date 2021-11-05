@@ -1,4 +1,6 @@
 ErrorDocument 404 http://lotto-test.tk/pages/404
+ErrorDocument 403 http://lotto-test.tk/pages/index
+
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
