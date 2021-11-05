@@ -90,6 +90,7 @@ CheckLogin();
                                                                     <th class="text-white">งวด</th>
                                                                     <th class="text-white">วันที่</th>
                                                                     <th class="text-white">หมายเหตุ</th>
+                                                                    <th class="text-white">ตรงกับ</th>
                                                                 </tr>
                                                             </thead>
                                                             <?php
@@ -105,6 +106,9 @@ CheckLogin();
                                                                             <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
                                                                             <td class="text-white"><?php echo $row["installment"]; ?></td>
                                                                             <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
+                                                                            <td class="text-white">
+                                                                                <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
+                                                                            </td>
                                                                             <td class="text-white">
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                                                             </td>

@@ -119,7 +119,7 @@ CheckLogin();
                                                             <table class="table">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th><input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onclick="ClickCheckAll(this);"></th>
+                                                                        <th class="text-center"><input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onclick="ClickCheckAll(this);"></th>
                                                                         <th class="text-white">ลำดับ</th>
                                                                         <th class="text-white">เลขล็อตเตอรี่</th>
                                                                         <th class="text-white">งวด</th>
