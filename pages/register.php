@@ -93,7 +93,6 @@ include '../config/config.php';
             <div class="col-lg-4 mx-auto">
               <h2 class="text-center mb-4">สมัครสมาชิก</h2>
               <div class="auto-form-wrapper">
-                <!-- <form method="post" action="login.php"> -->
                 <div class="form-group">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" id="txtUsername" name="txtUsername" required="">
