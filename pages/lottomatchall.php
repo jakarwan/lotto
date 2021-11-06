@@ -26,6 +26,18 @@ CheckLogin();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        function ClickCheckAll(vol) {
+            var i = 1;
+            for (i = 1; i <= document.frmMain.hdnCount.value; i++) {
+                if (vol.checked == true) {
+                    eval("document.frmMain.checkbox" + i + ".checked=true");
+                } else {
+                    eval("document.frmMain.checkbox" + i + ".checked=false");
+                }
+            }
+        }
+    </script>
 
 
 </head>
@@ -52,7 +64,7 @@ CheckLogin();
                                     <div class="card bg-dark">
                                         <div class="card-body">
                                             <h4 class="text-white mb-4">ล็อตเตอรี่ที่ตรงกันทั้งหมด</h4>
-                                            <form class="forms-sample" action="lottomatchall" method="POST" id="submitDel">
+                                            <form class="forms-sample" action="lottomatchall" method="POST" id="submitDel" name="frmMain">
 
                                                 <?php
                                                 $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
@@ -64,6 +76,15 @@ CheckLogin();
                                                     <div class="mt-4 col-12 col-sm-6 col-md-9">
                                                         <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                                                     </div>
+                                                    <?php
+                                                    if ($_SESSION['status'] == 'Admin') {
+                                                    ?>
+                                                        <div class="col-12 m-4">
+                                                            <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                     <!-- <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
                                                         <div class="col-12 col-sm-6 col-md-3 float-end text-end">
                                                             <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
@@ -85,6 +106,7 @@ CheckLogin();
                                                         <table class="table">
                                                             <thead>
                                                                 <tr>
+                                                                    <th class="text-center"><input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onclick="ClickCheckAll(this);"></th>
                                                                     <th class="text-white">ลำดับ</th>
                                                                     <th class="text-white">เลขล็อตเตอรี่</th>
                                                                     <th class="text-white">งวด</th>
@@ -102,6 +124,7 @@ CheckLogin();
                                                             ?>
                                                                     <tbody>
                                                                         <tr>
+                                                                            <td class="text-center"><input name="checkbox[]" id="checkbox<?php echo $i; ?>" type="checkbox" value="<?php echo $row['match_id']; ?>"></td>
                                                                             <td class="text-white"><?php echo $i++; ?></td>
                                                                             <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
                                                                             <td class="text-white"><?php echo $row["installment"]; ?></td>
@@ -115,8 +138,8 @@ CheckLogin();
                                                                             <?php
                                                                             if ($_SESSION['status'] == 'Admin') {
                                                                             ?>
-                                                                            <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottomatchall?match_id=<?php echo $row["match_id"]; ?>'; window.location.href = 'lottomatchall';}">ลบ</a></td>
-                                                                            <?php 
+                                                                                <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottomatchall?match_id=<?php echo $row["match_id"]; ?>'; window.location.href = 'lottomatchall';}">ลบ</a></td>
+                                                                            <?php
                                                                             }
                                                                             ?>
                                                                         </tr>
@@ -125,9 +148,28 @@ CheckLogin();
                                                                 }
                                                             }
                                                             ?>
+
+                                                            <?php
+                                                            if (isset($_POST['delete']) && !empty($_POST['checkbox'])) {
+
+                                                                $checkbox = $_POST['checkbox'];
+                                                                for ($i = 0; $i < count($checkbox); $i++) {
+
+                                                                    $del_id = $checkbox[$i];
+                                                                    $sql = "DELETE FROM lotto_match WHERE match_id=$del_id ";
+                                                                    echo $sql;
+                                                                    $query = $conn->query($sql);
+                                                                }
+                                                                // if successful redirect to delete_multiple.php 
+                                                                if ($query) {
+                                                                    echo "<meta http-equiv=\"refresh\" content=\"0;URL=lottomatchall\">";
+                                                                }
+                                                            }
+                                                            ?>
                                                         </table>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" name="hdnCount" value="<?php echo $i; ?>">
                                             </form>
                                         </div>
                                     </div>

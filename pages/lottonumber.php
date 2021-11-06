@@ -101,6 +101,7 @@ CheckLogin();
 
                                 // $query = mysqli_query($conn, $sql);
                                 if (!empty($_POST["lottonumber"])) {
+                                  // if (strlen($_POST["lottonumber"]) == 6) {
                                   $lottonumber = $_POST['lottonumber'];
                                   $installment = $_POST['installment'];
                                   // $userId = 1;
@@ -115,24 +116,32 @@ CheckLogin();
                                   // $_SESSION["lottoId"] = $result["lotto_id"];
 
                                   // print_r($result);
-                                  $count = mysqli_num_rows($queryCheck);
-                                  if ($count > 0) {
-                                    $lottoId = $result["lotto_id"];
-                                    $matchDate = date('Y-m-d H:i:s');
-                                    $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId', '$lottoname', '$installment')";
-                                    $query = mysqli_query($conn, $sql);
-                                    echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
-                                  } else {
-                                    if (!empty($_COOKIE['datelotto'])) {
-                                      $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                  if (strlen($_POST["lottonumber"]) == 6) {
+                                    $count = mysqli_num_rows($queryCheck);
+                                    // echo strlen($_POST["lottonumber"]);
+                                    if ($count > 0) {
+                                      $lottoId = $result["lotto_id"];
+                                      $matchDate = date('Y-m-d H:i:s');
+                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                      $query = mysqli_query($conn, $sql);
+                                      // echo strlen($_POST["lottonumber"]);
+                                      echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                     } else {
-                                      $datetoday = date('Y-m-d');
-                                      $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                      if (!empty($_COOKIE['datelotto'])) {
+                                        // echo 'false cookie';
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                      } else {
+                                        // echo 'false date';
+                                        $datetoday = date('Y-m-d');
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                      }
+                                      // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                      // echo $sql;
+                                      $query = mysqli_query($conn, $sql);
+                                      // echo 'test';
                                     }
-                                    // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
-                                    // echo $sql;
-                                    $query = mysqli_query($conn, $sql);
-                                    // echo 'test';
+                                  } else {
+                                    echo '<script type="text/javascript">Swal.fire("Error!","กรุณากรอกเลขล็อตเตอรี่ให้ครบ 6 หลัก!","error")</script>';
                                   }
                                 }
                                 ?>
