@@ -70,7 +70,8 @@ include '../config/config.php';
         $phone = addslashes($_POST["txtTel"]);
         // $imgnull = "";
         // $status = "users";
-        $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $pass . "','" . $date . "','" . $phone . "','',0)";
+        $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $pass . "','" . $date . "','" . $phone . "','',0,0)";
+        echo $sql;
         // if (password_verify($pass, $hashed_password)) {
         if (mysqli_query($conn, $sql)) {
           // echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
@@ -78,9 +79,9 @@ include '../config/config.php';
             window.location = "login";
         });</script>';
         } else {
-          echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","สมัครสมาชิกไม่สำเร็จ!","warning").then(function() {
-            window.location = "login";
-        });</script>';
+        //   echo '<script type="text/javascript">Swal.fire("เกิดข้อผิดพลาด!","สมัครสมาชิกไม่สำเร็จ!","warning").then(function() {
+        //     window.location = "login";
+        // });</script>';
         }
       // }
       }
