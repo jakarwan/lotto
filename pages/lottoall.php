@@ -108,17 +108,18 @@ CheckLogin();
                                                     ?>
 
                                                 </div>
-                                                <form class="forms-sample" action="lottoall?test" method="POST" id="submitDel">
-                                                    <!-- <div class="m-3">
+                                                    <div class="m-3">
                                                     <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottosearch" name="lottosearch" value="<?= !empty($_GET["lottosearch"]); ?>" placeholder="ค้นหาเลขล็อตเตอรี่" autofocus>
-                                                    <button class="btn btn-primary mt-2" type="submit">ค้นหา</button>
-                                                </div> -->
-                                                    <!-- <?php
-                                                            if (!empty($_GET["lottosearch"])) {
-                                                                $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $_GET["lottosearch"] . "' ";
+                                                    <input name="search" class="btn btn-primary mt-2" type="submit" value="ค้นหา">
+                                                </div>
+                                                    <?php
+                                                            if (!empty($_POST["lottosearch"])) {
+                                                                echo $_POST["lottosearch"];
+                                                                $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $_POST["lottosearch"] . "' ";
+                                                                echo $sql;
                                                                 $query = $conn->query($sql);
                                                             }
-                                                            ?> -->
+                                                            ?>
                                                     <!-- <hr style="background-color:white"> -->
                                                     <div class="col-lg-12 grid-margin stretch-card">
                                                         <div class="table-responsive">
