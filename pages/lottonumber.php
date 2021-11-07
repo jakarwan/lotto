@@ -26,6 +26,9 @@ CheckLogin();
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
 </head>
 <style>
@@ -130,10 +133,13 @@ CheckLogin();
                                       if (!empty($_COOKIE['datelotto'])) {
                                         // echo 'false cookie';
                                         $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+
+                                        echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       } else {
                                         // echo 'false date';
                                         $datetoday = date('Y-m-d');
                                         $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                        echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       }
                                       // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
                                       // echo $sql;
