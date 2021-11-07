@@ -15,6 +15,8 @@ CheckLogin();
     <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 
     <!-- endinject -->
     <!-- plugin css for this page -->
@@ -104,14 +106,14 @@ CheckLogin();
                                                     <input name="search" class="btn btn-primary mt-2" type="submit" value="ค้นหา">
                                                 </div>
                                                 <?php
-                                                    if ($_SESSION['status'] == 'Admin') {
-                                                    ?>
-                                                        <div class="col-12 m-4">
-                                                            <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
-                                                        </div>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                                if ($_SESSION['status'] == 'Admin') {
+                                                ?>
+                                                    <div class="col-12 m-4">
+                                                        <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                    </div>
+                                                <?php
+                                                }
+                                                ?>
                                                 <?php
                                                 if (!empty($_POST["lottosearch"])) {
                                                     $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $_POST["lottosearch"] . "' ";
@@ -120,8 +122,8 @@ CheckLogin();
                                                 ?>
                                                 <!-- <hr style="background-color:white"> -->
                                                 <div class="col-lg-12 grid-margin stretch-card">
-                                                    <div class="table-responsive">
-                                                        <table class="table">
+                                                    <div class="table-responsive text-white">
+                                                        <table id="example" class="table" style="width:100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center"><input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onclick="ClickCheckAll(this);"></th>
@@ -139,15 +141,15 @@ CheckLogin();
                                                                     ?>
                                                                 </tr>
                                                             </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                // $rowCount = mysqli_num_rows($query);
+                                                                if ($query->num_rows > 0) {
+                                                                    $i = 1;
+                                                                    while ($row = $query->fetch_assoc()) {
+                                                                        // print_r($row);
+                                                                ?>
 
-                                                            <?php
-                                                            // $rowCount = mysqli_num_rows($query);
-                                                            if ($query->num_rows > 0) {
-                                                                $i = 1;
-                                                                while ($row = $query->fetch_assoc()) {
-                                                                    // print_r($row);
-                                                            ?>
-                                                                    <tbody>
                                                                         <tr>
                                                                             <td class="text-center"><input name="checkbox[]" id="checkbox<?php echo $i; ?>" type="checkbox" value="<?php echo $row['lotto_id']; ?>"></td>
                                                                             <td class="text-white"><?php echo $i++; ?></td>
@@ -160,16 +162,17 @@ CheckLogin();
                                                                             <?php
                                                                             if ($_SESSION['status'] == 'Admin') {
                                                                             ?>
-                                                                                <td><a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
+                                                                                <td><a class="btn btn-danger text-start" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
                                                                             <?php
                                                                             }
                                                                             ?>
                                                                         </tr>
-                                                                    </tbody>
-                                                            <?php
+
+                                                                <?php
+                                                                    }
                                                                 }
-                                                            }
-                                                            ?>
+                                                                ?>
+                                                            </tbody>
 
                                                             <?php
                                                             if (isset($_POST['delete']) && !empty($_POST['checkbox'])) {
@@ -212,6 +215,11 @@ CheckLogin();
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
     <script src="../vendors/js/vendor.bundle.base.js"></script>
     <script src="../vendors/js/vendor.bundle.addons.js"></script>
     <!-- endinject -->
