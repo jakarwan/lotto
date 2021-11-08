@@ -46,7 +46,7 @@ CheckLogin();
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
-                        <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="col-md-12">
                             <div class="row flex-grow">
                                 <div class="col-12">
                                     <div class="card bg-dark">

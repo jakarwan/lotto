@@ -68,6 +68,7 @@ session_start();
           $_SESSION["phone"] = $row["phone"];
           $_SESSION["status"] = $row["status"];
           $_SESSION["userId"] = $row["user_id"];
+          $_SESSION["isActive"] = $row["isActive"];
           if($row["status"] == 0){
             $_SESSION["status"] = 'User';
           } else if ($row["status"] == 1) {
@@ -75,6 +76,12 @@ session_start();
           } else {
             session_destroy();
           }
+          if($_SESSION["isActive"] == 0){
+            echo '<script type="text/javascript">Swal.fire("Error!","เกิดข้อผิดพลาดกรุณาติดต่อแอดมินเพื่อใช้บริการ FB:Jakarwan Borkaew","error").then(function() {
+                window.location = "login";
+            });</script>';
+            exit;
+        }
           if ($row['image'] != null) {
             $_SESSION["pic"] = $row["image"];
           } else {

@@ -71,7 +71,6 @@ include '../config/config.php';
         // $imgnull = "";
         // $status = "users";
         $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $pass . "','" . $date . "','" . $phone . "','',0,0)";
-        echo $sql;
         // if (password_verify($pass, $hashed_password)) {
         if (mysqli_query($conn, $sql)) {
           // echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
