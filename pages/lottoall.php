@@ -79,7 +79,7 @@ CheckLogin();
                                             <form class="forms-sample" action="lottoall" method="POST" id="submitDel" name="frmMain">
 
                                                 <?php
-                                                $sql = "SELECT * FROM lotto_number ORDER BY lotto_id DESC ";
+                                                $sql = "SELECT * FROM lotto_number ORDER BY lotto_id DESC LIMIT 1000 ";
                                                 $query = $conn->query($sql);
                                                 $rowCount = mysqli_num_rows($query);
                                                 ?>
@@ -101,10 +101,10 @@ CheckLogin();
                                                     ?>
 
                                                 </div>
-                                                <div class="m-3">
+                                                <!-- <div class="m-3">
                                                     <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottosearch" name="lottosearch" value="<?= !empty($_GET["lottosearch"]); ?>" placeholder="ค้นหาเลขล็อตเตอรี่" autofocus>
                                                     <input name="search" class="btn btn-primary mt-2" type="submit" value="ค้นหา">
-                                                </div>
+                                                </div> -->
                                                 <?php
                                                 if ($_SESSION['status'] == 'Admin') {
                                                 ?>
