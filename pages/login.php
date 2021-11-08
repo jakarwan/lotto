@@ -81,6 +81,7 @@ session_start();
                 window.location = "login";
             });</script>';
             exit;
+            session_destroy();
         }
           if ($row['image'] != null) {
             $_SESSION["pic"] = $row["image"];
