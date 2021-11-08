@@ -1,5 +1,7 @@
 <?php
 session_start();
+include '../config/config.php';
+CheckLogin();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,8 +89,6 @@ session_start();
                                             </form>
                                             <div class="row flex-grow">
                                                 <?php
-                                                include '../config/config.php';
-                                                CheckLogin();
                                                 $lottosearch = null;
                                                 if (!empty($_GET["lottosearch"])) {
                                                     $lottosearch = $_GET["lottosearch"];
