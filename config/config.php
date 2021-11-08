@@ -24,5 +24,9 @@ function CheckLogin(){
         header("location: login");
         exit;
     }
+    if($_SESSION["isActive"] == 0){
+        header("location: login");
+        exit;
+    }
 }
 ?>
