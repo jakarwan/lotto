@@ -55,7 +55,7 @@ CheckLogin();
                                             <form class="forms-sample" action="lottomatchall" method="POST" id="submitDel">
 
                                                 <?php
-                                                $sql = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "' ORDER BY lotto_id DESC ";
+                                                $sql = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "' AND lotto_number.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_id DESC ";
                                                 $query = $conn->query($sql);
                                                 $rowCount = mysqli_num_rows($query);
                                                 ?>

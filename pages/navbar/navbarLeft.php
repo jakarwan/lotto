@@ -27,6 +27,18 @@
               <span class="menu-title text-white">แดชบอร์ด</span>
             </a>
           </li>
+          <?php 
+            if($_SESSION['status'] == 'Admin'){
+          ?>
+          <li class="nav-item">
+            <a class="nav-link" href="qrcodescanlotto">
+              <i class="menu-icon mdi mdi-qrcode text-white"></i>
+              <span class="menu-title text-white">สแกนคิวอาร์โค้ด</span>
+            </a>
+          </li>
+          <?php 
+          }
+          ?>
           <!-- <li class="nav-item">
             <a class="nav-link" href="lottosearch.php">
               <i class="menu-icon mdi mdi-account-search"></i>

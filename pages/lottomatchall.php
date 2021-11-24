@@ -68,7 +68,8 @@ CheckLogin();
 
                                                 <?php
                                                 $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
-                                                JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id ";
+                                                JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_number
+                                                WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
                                                 $query = $conn->query($sql);
                                                 $rowCount = mysqli_num_rows($query);
                                                 ?>
@@ -157,7 +158,6 @@ CheckLogin();
 
                                                                     $del_id = $checkbox[$i];
                                                                     $sql = "DELETE FROM lotto_match WHERE match_id=$del_id ";
-                                                                    echo $sql;
                                                                     $query = $conn->query($sql);
                                                                 }
                                                                 // if successful redirect to delete_multiple.php 

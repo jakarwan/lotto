@@ -59,15 +59,15 @@ CheckLogin();
       $result = $conn->query($sql);
       $userCount = mysqli_num_rows($result);
 
-      $sqlLotto = "SELECT * FROM lotto_number";
+      $sqlLotto = "SELECT * FROM lotto_number WHERE lotto_number.user_id='" . $_SESSION["userId"] . "' ";
       $resultLotto = $conn->query($sqlLotto);
       $lottoCount = mysqli_num_rows($resultLotto);
 
-      $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "'";
+      $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "' AND lotto_number.user_id='" . $_SESSION["userId"] . "' ";
       $resultLottoNow = $conn->query($sqlLottoNow);
       $lottoCountNow = mysqli_num_rows($resultLottoNow);
 
-      $sqlLottoMatch = "SELECT * FROM lotto_match";
+      $sqlLottoMatch = "SELECT * FROM lotto_match WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'";
       $resultLottoMatch = $conn->query($sqlLottoMatch);
       $lottoCountMatch = mysqli_num_rows($resultLottoMatch);
       ?>

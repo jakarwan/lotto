@@ -58,11 +58,11 @@ CheckLogin();
                 <div class="col-12">
                   <div class="card bg-dark">
                     <div class="card-body">
-                      <h4 class="text-white mb-3">เพิ่มเลขล็อตเตอรี่</h4>
+                      <h4 class="text-white mb-3">สแกนคิวอาร์โค้ด</h4>
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
-                      <form class="forms-sample" action="lottonumber" method="post" id="lottosubmit">
+                      <form class="forms-sample" action="qrcodescanlotto" method="post" id="lottosubmit">
                         <div class="row">
                           <div class="col-12">
                             <div class="form-group">
@@ -93,17 +93,80 @@ CheckLogin();
                                                                                                                                                                                                           echo $_COOKIE['lottoname'];
                                                                                                                                                                                                         } ?>">
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 col-sm-6 col-md-6">
                                   <label for="lottonumber" class="mt-4 text-white">เลขล็อตเตอรี่</label>
-                                  <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
+                                  <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" onkeypress="submitForm()" autofocus>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-7">
+                                  <label for="lottonumber" class="mt-4 text-danger">** สำหรับสแกน QR CODE</label>
+                                  <textarea class="form-control" id="lottonumall" name="lottonumall" rows="10"></textarea>
                                 </div>
                                 <?php
 
 
                                 // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                if (!empty($_POST["lottonumall"])) {
 
+                                  $qrcode = preg_split('/([\n]+)/', $_POST["lottonumall"], 0, PREG_SPLIT_DELIM_CAPTURE);
+                                  // echo $_POST["lottonumall"];
+                                  // print_r($qrcode);
+                                  foreach ($qrcode as $item) {
+                                    if (strlen($item) == 21) {
+                                      // echo $item."<br>";
+                                      $lottoallsub = substr($item, 9, 6);
+                                      $lottoname = $_POST["lottoname"];
+                                      $userId = $_SESSION["userId"];
+                                      $installment = $_POST['installment'];
+                                      $matchDate = date('Y-m-d H:i:s');
+
+                                      $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottoallsub . "' ";
+                                      $queryCheck = $conn->query($sqlCheck);
+                                      $result = mysqli_fetch_array($queryCheck);
+                                      $count = mysqli_num_rows($queryCheck);
+                                      if ($count > 0) {
+                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoallsub', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                        $query = mysqli_query($conn, $sql);
+                                        echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
+                                      } else {
+                                        if (!empty($_COOKIE['datelotto'])) {
+                                          // echo 'false cookie';
+                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$timestamp', '$userId')";
+
+                                          echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
+                                        } else {
+                                          // echo 'false date';
+                                          $datetoday = date('Y-m-d');
+                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                          echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
+                                        }
+                                        $query = mysqli_query($conn, $sql);
+                                      }
+                                      // echo $lottoallsub . "<br>";
+                                    }
+                                    //  else if (strlen($item) < 21) {
+                                    //     echo '<script type="text/javascript">Swal.fire("Error!","ข้อมูลไม่ตรงตามเงื่อนไขสแกนคิวอาร์โค้ด! <br>'. $item.' ","error")</script>';
+                                    // }
+                                  }
+                                  // print_r(explode(' ', $_POST["lottonumall"]));
+                                  // $lottosubbb = substr($getQr, 9, 6);
+                                  // for ($i = 0; $i < count($getQr); $i++) {
+                                  //   $qrAll = $getQr[$i];
+                                  //   echo $getQr[$i];
+                                  // $lottosuball = substr($getQr[$i], 9, 6);
+                                  // $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $getQr[$i] . "' ";
+                                  // echo $sqlCheck;
+                                  // $queryCheck = $conn->query($sqlCheck);
+                                  // $result = mysqli_fetch_array($queryCheck);
+
+                                  // $sql = "INSERT INTO FROM lotto_match WHERE match_id=$qrAll ";
+                                  // $query = $conn->query($sql);
+                                  // echo $qrAll;
+                                  // }
+                                  // echo $lottosubbb;
+                                }
                                 // $query = mysqli_query($conn, $sql);
                                 if (!empty($_POST["lottonumber"])) {
+
                                   // if (strlen($_POST["lottonumber"]) == 6) {
                                   $lottonumber = $_POST['lottonumber'];
                                   $installment = $_POST['installment'];
@@ -111,15 +174,16 @@ CheckLogin();
                                   $userId = $_SESSION["userId"];
                                   $timestamp = $_POST["datelotto"];
                                   $lottoname = $_POST["lottoname"];
+                                  $lottosub = substr($lottonumber, 9, 6);
 
 
-                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottonumber . "' ";
+                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosub . "' ";
                                   $queryCheck = $conn->query($sqlCheck);
                                   $result = mysqli_fetch_array($queryCheck);
                                   // $_SESSION["lottoId"] = $result["lotto_id"];
 
                                   // print_r($result);
-                                  if (strlen($_POST["lottonumber"]) == 6) {
+                                  if (strlen($_POST["lottonumber"]) == 20) {
                                     $count = mysqli_num_rows($queryCheck);
                                     // echo strlen($_POST["lottonumber"]);
                                     if ($count > 0) {
@@ -132,13 +196,13 @@ CheckLogin();
                                     } else {
                                       if (!empty($_COOKIE['datelotto'])) {
                                         // echo 'false cookie';
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$timestamp', '$userId')";
 
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       } else {
                                         // echo 'false date';
                                         $datetoday = date('Y-m-d');
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$datetoday', '$userId')";
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       }
                                       // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
@@ -147,7 +211,7 @@ CheckLogin();
                                       // echo 'test';
                                     }
                                   } else {
-                                    echo '<script type="text/javascript">Swal.fire("Error!","กรุณากรอกเลขล็อตเตอรี่ให้ครบ 6 หลัก!","error")</script>';
+                                    echo '<script type="text/javascript">Swal.fire("Error!","ข้อมูลไม่ตรงตามเงื่อนไขสแกนคิวอาร์โค้ด!","error")</script>';
                                   }
                                 }
                                 ?>
@@ -158,7 +222,7 @@ CheckLogin();
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
                         $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
-                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
+                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_number WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);
@@ -167,7 +231,7 @@ CheckLogin();
                           <div class="mt-4 col-12 col-sm-6 col-md-9">
                             <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                           </div>
-                          <form action="lottonumber?mode=delete" method="POST" id="submitDel">
+                          <form action="qrcodescanlotto?mode=delete" method="POST" id="submitDel">
                             <?php
                             if ($_SESSION['status'] == 'Admin') {
                             ?>
@@ -292,7 +356,7 @@ CheckLogin();
       }).then((result) => {
         if (result.isConfirmed) {
           setTimeout(function() {
-            window.location.href = 'lottonumber?mode=delete';
+            window.location.href = 'qrcodescanlotto?mode=delete';
           }, 1000);
           Swal.fire(
             'สำเร็จ!',
@@ -302,7 +366,7 @@ CheckLogin();
         }
       }).then((response) => {
         setTimeout(function() {
-          window.location.href = 'lottonumber';
+          window.location.href = 'qrcodescanlotto';
         }, 1000);
       })
     }
@@ -310,9 +374,11 @@ CheckLogin();
 
     function submitForm() {
 
-      let maxlen = 5;
+      let maxlen = 19;
       let len = document.getElementById("lottonumber").value.length;
+      console.log(len);
       if (len == maxlen) {
+
         // if ($_POST["installment"] == 1) {
         //   document.getElementById("lotto1").setAttribute('selected', 'selected');
         // } else if($_POST["installment"] == 2) {

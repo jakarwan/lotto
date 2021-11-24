@@ -79,7 +79,7 @@ CheckLogin();
                                             <form class="forms-sample" action="lottoall" method="POST" id="submitDel" name="frmMain">
 
                                                 <?php
-                                                $sql = "SELECT * FROM lotto_number ORDER BY lotto_id DESC LIMIT 1000 ";
+                                                $sql = "SELECT * FROM lotto_number WHERE lotto_number.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_id DESC LIMIT 1000 ";
                                                 $query = $conn->query($sql);
                                                 $rowCount = mysqli_num_rows($query);
                                                 ?>
