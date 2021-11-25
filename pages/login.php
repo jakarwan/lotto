@@ -47,48 +47,60 @@ session_start();
 
 <body>
   <form method="post">
-    <?php 
+    <?php
     if (isset($_POST['submit'])) {
       $username = $_POST["txtUsername"];
       $password = trim($_POST['txtPassword']);
       // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
       #$rs = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST['txtUsername']."' AND password ='".$_POST['txtPassword']."'" );
       // $sql = mysqli_query($conn,"SELECT * FROM users WHERE username ='".$_POST['txtUsername']."'" );
-      $sql = "SELECT * FROM users WHERE Username = '" . mysqli_real_escape_string($conn, $username) . "' AND password ='".mysqli_real_escape_string($conn, $password)."' ";
+      $sql = "SELECT * FROM users WHERE Username = '" . mysqli_real_escape_string($conn, $username) . "' AND password ='" . mysqli_real_escape_string($conn, $password) . "' ";
       $rs = mysqli_query($conn, $sql);
       $num = mysqli_num_rows($rs);
-    
-    
+
+
       if ($num > 0) {
         $row = mysqli_fetch_array($rs);
         // if (password_verify($password, $row['password'])) {
-          $_SESSION["users"] = $row["username"];
-          $_SESSION["name"] = $row["user_name"];
-          $_SESSION["date"] = $row["date"];
-          $_SESSION["phone"] = $row["phone"];
-          $_SESSION["status"] = $row["status"];
-          $_SESSION["userId"] = $row["user_id"];
-          $_SESSION["isActive"] = $row["isActive"];
-          if($row["status"] == 0){
-            $_SESSION["status"] = 'User';
-          } else if ($row["status"] == 1) {
-            $_SESSION["status"] = 'Admin';
-          } else {
-            session_destroy();
-          }
-          if($_SESSION["isActive"] == 0){
-            echo '<script type="text/javascript">Swal.fire("Error!","เกิดข้อผิดพลาดกรุณาติดต่อแอดมินเพื่อใช้บริการ FB:Jakarwan Borkaew","error").then(function() {
+        $_SESSION["users"] = $row["username"];
+        $_SESSION["name"] = $row["user_name"];
+        $_SESSION["date"] = $row["date"];
+        $_SESSION["phone"] = $row["phone"];
+        $_SESSION["status"] = $row["status"];
+        $_SESSION["userId"] = $row["user_id"];
+        $_SESSION["isActive"] = $row["isActive"];
+        $_SESSION["online"] = $row["online"];
+        $sqlOnline = "UPDATE users SET online = 1 WHERE user_id = '" . $_SESSION["userId"] . "' ";
+        $query = $conn->query($sqlOnline);
+        if ($row["status"] == 0) {
+          $_SESSION["status"] = 'User';
+        } else if ($row["status"] == 1) {
+          $_SESSION["status"] = 'Admin';
+        } else {
+          session_destroy();
+        }
+        if ($_SESSION["isActive"] == 0) {
+          echo '<script type="text/javascript">Swal.fire("Error!","เกิดข้อผิดพลาดกรุณาติดต่อแอดมินเพื่อใช้บริการ FB:Jakarwan Borkaew","error").then(function() {
                 window.location = "login";
             });</script>';
-            exit;
-            session_destroy();
+          exit;
+          session_destroy();
         }
-          if ($row['image'] != null) {
-            $_SESSION["pic"] = $row["image"];
-          } else {
-            $_SESSION["pic"] = "../images/faces/face1.jpg";
-          }
-          header('refresh: 0;index');
+        if ($_SESSION["online"] == 1) {
+          echo '<script type="text/javascript">Swal.fire("Error!","มีการล็อกอินเข้าระบบซ้อนกัน","error").then(function() {
+            window.location = "login";
+        });</script>';
+          $sqlOnline = "UPDATE users SET online = 0 WHERE user_id = '" . $_SESSION["userId"] . "' ";
+          $query = $conn->query($sqlOnline);
+          session_destroy();
+          exit;
+        }
+        if ($row['image'] != null) {
+          $_SESSION["pic"] = $row["image"];
+        } else {
+          $_SESSION["pic"] = "../images/faces/face1.jpg";
+        }
+        header('refresh: 0;index');
         // }
         //  else {
         //   echo '<script>alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด \nไม่สามารถเข้าระบบได้");</script>';

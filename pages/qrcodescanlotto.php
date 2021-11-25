@@ -111,6 +111,7 @@ CheckLogin();
                                   // echo $_POST["lottonumall"];
                                   // print_r($qrcode);
                                   foreach ($qrcode as $item) {
+                                    // echo strlen($item);
                                     if (strlen($item) == 21) {
                                       // echo $item."<br>";
                                       $lottoallsub = substr($item, 9, 6);

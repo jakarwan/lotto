@@ -1,9 +1,10 @@
 <?php
+// session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "lotto";
-
+date_default_timezone_set("Asia/Bangkok");
 // $servername = "localhost";
 // $username = "takitsa_lotto";
 // $password = "11223344";
@@ -20,7 +21,7 @@ if (!$conn) {
 
 function CheckLogin(){
     if(!isset($_SESSION["status"])){
-        header("location: login.php");
+        header("location: login");
         exit;
     }
 }

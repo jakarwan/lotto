@@ -55,21 +55,21 @@ CheckLogin();
       ?>
       <!-- partial -->
       <?php
-      $sql = "SELECT * FROM users";
+      $sql = "SELECT count(online) as online FROM users WHERE online=1";
       $result = $conn->query($sql);
-      $userCount = mysqli_num_rows($result);
+      $userCount = mysqli_fetch_assoc($result);
 
-      $sqlLotto = "SELECT * FROM lotto_number WHERE lotto_number.user_id='" . $_SESSION["userId"] . "' ";
+      $sqlLotto = "SELECT count(lotto_number) as lottonumber FROM lotto_number WHERE lotto_number.user_id='" . $_SESSION["userId"] . "' ";
       $resultLotto = $conn->query($sqlLotto);
-      $lottoCount = mysqli_num_rows($resultLotto);
+      $lottoCount = mysqli_fetch_assoc($resultLotto);
 
-      $sqlLottoNow = "SELECT * FROM lotto_number WHERE date='" . date('Y-m-d') . "' AND lotto_number.user_id='" . $_SESSION["userId"] . "' ";
+      $sqlLottoNow = "SELECT count(lotto_number) as lottonow FROM lotto_number WHERE date='" . date('Y-m-d') . "' AND lotto_number.user_id='" . $_SESSION["userId"] . "' ";
       $resultLottoNow = $conn->query($sqlLottoNow);
-      $lottoCountNow = mysqli_num_rows($resultLottoNow);
+      $lottoCountNow = mysqli_fetch_assoc($resultLottoNow);
 
-      $sqlLottoMatch = "SELECT * FROM lotto_match WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'";
+      $sqlLottoMatch = "SELECT count(lotto_id) as lottomatch FROM lotto_match WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'";
       $resultLottoMatch = $conn->query($sqlLottoMatch);
-      $lottoCountMatch = mysqli_num_rows($resultLottoMatch);
+      $lottoCountMatch = mysqli_fetch_assoc($resultLottoMatch);
       ?>
       <div class="main-panel">
         <div class="content-wrapper">
@@ -96,7 +96,7 @@ CheckLogin();
                       <div class="float-right">
                         <p class="mb-0 text-right">ล็อตเตอรี่ที่ตรงกันทั้งหมด</p>
                         <div class="fluid-container">
-                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountMatch ?></h3>
+                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountMatch["lottomatch"] ?></h3>
                         </div>
                       </div>
                     </div>
@@ -119,7 +119,7 @@ CheckLogin();
                       <div class="float-right">
                         <p class="mb-0 text-right">จำนวนล็อตเตอรี่ทั้งหมด</p>
                         <div class="fluid-container">
-                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCount ?></h3>
+                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCount["lottonumber"]; ?></h3>
                         </div>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ CheckLogin();
                       <div class="float-right">
                         <p class="mb-0 text-right">จำนวนล็อตเตอรี่วันนี้</p>
                         <div class="fluid-container">
-                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountNow ?></h3>
+                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountNow["lottonow"]; ?></h3>
                         </div>
                       </div>
                     </div>
@@ -160,14 +160,20 @@ CheckLogin();
                       <i class="mdi mdi-account-location text-info icon-lg"></i>
                     </div>
                     <div class="float-right">
-                      <p class="mb-0 text-right">ผู้ใช้งานระบบ</p>
+                      <p class="mb-0 text-right">ออนไลน์</p>
+                      <!-- <p class="text-muted mt-3 mb-0">
+                        <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Online
+                      </p> -->
                       <div class="fluid-container">
-                        <h3 class="font-weight-medium text-right mb-0"><?php echo $userCount ?></h3>
+                        <h3 class="font-weight-medium text-right mb-0"><?php echo $userCount["online"] ?></h3>
                       </div>
                     </div>
                   </div>
                   <!-- <p class="text-muted mt-3 mb-0">
-                    <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales
+                    <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Online 
+                    <div>
+                      
+                    </div>
                   </p> -->
                 </div>
               </div>
