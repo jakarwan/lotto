@@ -105,15 +105,11 @@ CheckLogin();
                                                     <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottosearch" name="lottosearch" value="<?= !empty($_GET["lottosearch"]); ?>" placeholder="ค้นหาเลขล็อตเตอรี่" autofocus>
                                                     <input name="search" class="btn btn-primary mt-2" type="submit" value="ค้นหา">
                                                 </div> -->
-                                                <?php
-                                                if ($_SESSION['status'] == 'Admin') {
-                                                ?>
-                                                    <div class="col-12 m-4">
-                                                        <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
-                                                    </div>
-                                                <?php
-                                                }
-                                                ?>
+
+                                                <div class="col-12 m-4">
+                                                    <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                </div>
+
                                                 <?php
                                                 if (!empty($_POST["lottosearch"])) {
                                                     $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $_POST["lottosearch"] . "' ";
@@ -132,13 +128,9 @@ CheckLogin();
                                                                     <th class="text-white">งวด</th>
                                                                     <th class="text-white">วันที่</th>
                                                                     <th class="text-white">หมายเหตุ</th>
-                                                                    <?php
-                                                                    if ($_SESSION['status'] == 'Admin') {
-                                                                    ?>
-                                                                        <th class="text-white">ลบ</th>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
+
+                                                                    <th class="text-white">ลบ</th>
+
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -159,13 +151,9 @@ CheckLogin();
                                                                             <td class="text-white">
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                                                             </td>
-                                                                            <?php
-                                                                            if ($_SESSION['status'] == 'Admin') {
-                                                                            ?>
+                                                                            
                                                                                 <td><a class="btn btn-danger text-start" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
-                                                                            <?php
-                                                                            }
-                                                                            ?>
+                                                                            
                                                                         </tr>
 
                                                                 <?php

@@ -113,7 +113,7 @@ CheckLogin();
                                   $lottoname = $_POST["lottoname"];
 
 
-                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottonumber . "' ";
+                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottonumber . "' AND user_id='" . $_SESSION["userId"] . "' ";
                                   $queryCheck = $conn->query($sqlCheck);
                                   $result = mysqli_fetch_array($queryCheck);
                                   // $_SESSION["lottoId"] = $result["lotto_id"];
@@ -158,8 +158,9 @@ CheckLogin();
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
                         $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
-                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_number WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
+                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
+                        echo $sql;
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);
                         ?>

@@ -125,7 +125,7 @@ CheckLogin();
                                       $result = mysqli_fetch_array($queryCheck);
                                       $count = mysqli_num_rows($queryCheck);
                                       if ($count > 0) {
-                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoallsub', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '". $result["lotto_id"]. "', '$matchDate', '$userId', '$lottoname', '$installment')";
                                         $query = mysqli_query($conn, $sql);
                                         echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                       } else {
@@ -197,13 +197,13 @@ CheckLogin();
                                     } else {
                                       if (!empty($_COOKIE['datelotto'])) {
                                         // echo 'false cookie';
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoId', '$installment', '$lottoname', '$timestamp', '$userId')";
 
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       } else {
                                         // echo 'false date';
                                         $datetoday = date('Y-m-d');
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoId', '$installment', '$lottoname', '$datetoday', '$userId')";
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       }
                                       // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
@@ -223,7 +223,7 @@ CheckLogin();
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
                         $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
-                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_number WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
+                        INNER JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);

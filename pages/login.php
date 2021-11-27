@@ -69,7 +69,21 @@ session_start();
         $_SESSION["status"] = $row["status"];
         $_SESSION["userId"] = $row["user_id"];
         $_SESSION["isActive"] = $row["isActive"];
-        $_SESSION["online"] = $row["online"];
+        // $_SESSION["online"] = $row["online"];
+        // $sqlOnlinechk = "SELECT * FROM users WHERE user_id = '" . $_SESSION["userId"] . "' ";
+        // $querychk = $conn->query($sqlOnlinechk);
+        // $chkonline = mysqli_fetch_array($querychk);
+        // if ($chkonline["online"] == 1) {
+        //   echo '<script type="text/javascript">Swal.fire("Error!","มีการล็อกอินเข้าระบบซ้อนกัน","error").then(function() {
+        //     window.location = "login";
+        // });</script>';
+        //   // $sqlOnline = "UPDATE users SET online = 0 WHERE user_id = '" . $_SESSION["userId"] . "' ";
+        //   // $query = $conn->query($sqlOnline);
+        //   session_destroy();
+        //   // exit;
+        // } else {
+        //   header('refresh: 0;index');
+        // }
         $sqlOnline = "UPDATE users SET online = 1 WHERE user_id = '" . $_SESSION["userId"] . "' ";
         $query = $conn->query($sqlOnline);
         if ($row["status"] == 0) {
@@ -86,15 +100,7 @@ session_start();
           exit;
           session_destroy();
         }
-        if ($_SESSION["online"] == 1) {
-          echo '<script type="text/javascript">Swal.fire("Error!","มีการล็อกอินเข้าระบบซ้อนกัน","error").then(function() {
-            window.location = "login";
-        });</script>';
-          $sqlOnline = "UPDATE users SET online = 0 WHERE user_id = '" . $_SESSION["userId"] . "' ";
-          $query = $conn->query($sqlOnline);
-          session_destroy();
-          exit;
-        }
+        
         if ($row['image'] != null) {
           $_SESSION["pic"] = $row["image"];
         } else {

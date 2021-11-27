@@ -106,17 +106,17 @@ session_start();
                                                         $rs = mysqli_query($conn, $sqlcheck);
                                                         $num = mysqli_num_rows($rs);
                                                         if ($num > 0) {
-                                                            $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' ";
+                                                            $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' AND user_id='" . $_SESSION["userId"] . "' ";
                                                             // echo 'ลบตามงวด';
                                                         } else {
                                                             echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
                                                         }
                                                     } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
-                                                        $sqlcheck = "SELECT * FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "' ";
+                                                        $sqlcheck = "SELECT * FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "' AND user_id='" . $_SESSION["userId"] . "' ";
                                                         $rs = mysqli_query($conn, $sqlcheck);
                                                         $num = mysqli_num_rows($rs);
                                                         if ($num > 0) {
-                                                            $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "'   ";
+                                                            $sql = "DELETE FROM lotto_number WHERE installment='" . $installmentsearch . "' AND date='" . $datesearch . "' AND user_id='" . $_SESSION["userId"] . "' ";
                                                             // echo 'ลบตามงวด+วันที่';
                                                         } else {
                                                             echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
@@ -126,7 +126,7 @@ session_start();
                                                         $rs = mysqli_query($conn, $sqlcheck);
                                                         $num = mysqli_num_rows($rs);
                                                         if ($num > 0) {
-                                                            $sql = "DELETE FROM lotto_number WHERE date='" . $datesearch . "' ";
+                                                            $sql = "DELETE FROM lotto_number WHERE date='" . $datesearch . "' AND user_id='" . $_SESSION["userId"] . "' ";
                                                             // echo 'ลบตามวันที่';
                                                         } else {
                                                             echo '<script type="text/javascript">Swal.fire("Fail!","You clicked the button!","error")</script>';
