@@ -160,7 +160,6 @@ CheckLogin();
                         $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
                         JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
-                        echo $sql;
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);
                         ?>

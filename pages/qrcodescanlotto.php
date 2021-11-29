@@ -125,7 +125,7 @@ CheckLogin();
                                       $result = mysqli_fetch_array($queryCheck);
                                       $count = mysqli_num_rows($queryCheck);
                                       if ($count > 0) {
-                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '". $result["lotto_id"]. "', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment')";
                                         $query = mysqli_query($conn, $sql);
                                         echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                       } else {
@@ -178,7 +178,7 @@ CheckLogin();
                                   $lottosub = substr($lottonumber, 9, 6);
 
 
-                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosub . "' ";
+                                  $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosub . "' AND user_id='" . $_SESSION["userId"] . "' ";
                                   $queryCheck = $conn->query($sqlCheck);
                                   $result = mysqli_fetch_array($queryCheck);
                                   // $_SESSION["lottoId"] = $result["lotto_id"];
@@ -188,22 +188,22 @@ CheckLogin();
                                     $count = mysqli_num_rows($queryCheck);
                                     // echo strlen($_POST["lottonumber"]);
                                     if ($count > 0) {
-                                      $lottoId = $result["lotto_id"];
+                                      // $lottoId = $result["lotto_id"];
                                       $matchDate = date('Y-m-d H:i:s');
-                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment')";
                                       $query = mysqli_query($conn, $sql);
                                       // echo strlen($_POST["lottonumber"]);
                                       echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                     } else {
                                       if (!empty($_COOKIE['datelotto'])) {
                                         // echo 'false cookie';
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoId', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$timestamp', '$userId')";
 
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       } else {
                                         // echo 'false date';
                                         $datetoday = date('Y-m-d');
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoId', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$datetoday', '$userId')";
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       }
                                       // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
