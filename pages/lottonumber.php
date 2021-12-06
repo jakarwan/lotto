@@ -168,15 +168,9 @@ CheckLogin();
                             <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                           </div>
                           <form action="lottonumber?mode=delete" method="POST" id="submitDel">
-                            <?php
-                            if ($_SESSION['status'] == 'Admin') {
-                            ?>
                               <div class="col-12 col-sm-6 col-md-3 float-end text-end">
                                 <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
                               </div>
-                            <?php
-                            }
-                            ?>
                           </form>
                           <?php
                           if ($_GET) {

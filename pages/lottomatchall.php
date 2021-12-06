@@ -77,15 +77,11 @@ CheckLogin();
                                                     <div class="mt-4 col-12 col-sm-6 col-md-9">
                                                         <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                                                     </div>
-                                                    <?php
-                                                    if ($_SESSION['status'] == 'Admin') {
-                                                    ?>
+                                                    
                                                         <div class="col-12 m-4">
                                                             <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
                                                         </div>
-                                                    <?php
-                                                    }
-                                                    ?>
+                                            
                                                     <!-- <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
                                                         <div class="col-12 col-sm-6 col-md-3 float-end text-end">
                                                             <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
