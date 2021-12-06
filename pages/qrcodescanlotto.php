@@ -120,7 +120,7 @@ CheckLogin();
                                       $installment = $_POST['installment'];
                                       $matchDate = date('Y-m-d H:i:s');
 
-                                      $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottoallsub . "' ";
+                                      $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottoallsub . "' AND user_id=$userId ";
                                       $queryCheck = $conn->query($sqlCheck);
                                       $result = mysqli_fetch_array($queryCheck);
                                       $count = mysqli_num_rows($queryCheck);
@@ -131,7 +131,7 @@ CheckLogin();
                                       } else {
                                         if (!empty($_COOKIE['datelotto'])) {
                                           // echo 'false cookie';
-                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$matchDate', '$userId')";
 
                                           echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                         } else {
