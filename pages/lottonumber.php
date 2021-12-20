@@ -84,19 +84,27 @@ CheckLogin();
                                 <div class="col-7 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php if (!empty($_COOKIE['datelotto'])) {
-                                                                                                                                                                                                          echo $_COOKIE['datelotto'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">หมายเหตุ</label>
                                   <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-xl" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
-                                                                                                                                                                                                          echo $_COOKIE['lottoname'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12">
-                                  <label for="lottonumber" class="mt-4 text-white">เลขล็อตเตอรี่</label>
+                                  <label for="lottonumber" class="mt-4 text-white">เลขลอตเตอรี่</label>
                                   <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
                                 </div>
+                                <?php
+                                if ($_SESSION['status'] == 'Admin') {
+                                ?>
+                                  <div class="col-12 col-sm-12 col-md-7">
+                                    <label for="lottonumber" class="mt-4 text-danger">** เลขลอตเตอรี่ (สำหรับสแกนจากรูปภาพ)</label>
+                                    <textarea class="form-control" id="lottonumall" name="lottonumall" rows="10"></textarea>
+                                  </div>
+                                <?php
+                                }
+                                ?>
                                 <?php
 
 
@@ -151,6 +159,82 @@ CheckLogin();
                                   }
                                 }
                                 ?>
+                                <?php
+                                if ($_SESSION['status'] == 'Admin') {
+                                ?>
+                                  <div class="col-12 col-sm-12 col-md-5">
+                                    <h4 class="text-white">รายการบันทึกไม่สำเร็จ</h4>
+                                    <span class="text-white">
+                                      <?php
+                                      if (!empty($_POST["lottonumall"])) {
+                                        $lottonumber = $_POST['lottonumber'];
+                                        $installment = $_POST['installment'];
+                                        // $userId = 1;
+                                        $userId = $_SESSION["userId"];
+                                        $timestamp = $_POST["datelotto"];
+                                        $lottoname = $_POST["lottoname"];
+                                        $lottoArray = array();
+                                        // $lotto = preg_replace('/\s*/m' , '' , $_POST["lottonumall"]);
+                                        $lottoall = preg_split('/([\n]+)/', $_POST["lottonumall"], 0, PREG_SPLIT_DELIM_CAPTURE);
+                                        // print_r($lottoall);
+                                        // $trimmed_array = array_map('trim', $lottoall);
+                                        // print_r($trimmed_array);
+                                        foreach ($lottoall as $item) {
+                                          // if (preg_match('/^[a-z0-9]+$/i', $item)) {
+                                          $lotto = preg_replace('/\s*/m', '', $item);
+                                          array_push($lottoArray, $lotto);
+
+
+                                          // }
+                                        }
+                                        // $a = " ";
+                                        foreach ($lottoArray as $data) {
+                                          if (strlen($data) > 6 || strlen($data) < 6 || !is_numeric($data)) {
+                                            $a = " ";
+                                            $a .= $data;
+                                            echo $a;
+                                            // echo $data;
+                                            echo '<script type="text/javascript">Swal.fire("Error!","มีรายการที่บันทึกไม่สำเร็จ","warning")</script>';
+                                            // echo '<script type="text/javascript">alert('.strval($a).')</script>';
+                                          } else {
+                                            $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $data . "' AND user_id='" . $_SESSION["userId"] . "' ";
+                                            $queryCheck = $conn->query($sqlCheck);
+                                            $result = mysqli_fetch_array($queryCheck);
+                                            $count = mysqli_num_rows($queryCheck);
+                                            if ($count > 0) {
+                                              $matchDate = date('Y-m-d H:i:s');
+                                              $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                              $query = mysqli_query($conn, $sql);
+                                              // echo strlen($_POST["lottonumber"]);
+                                              echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
+                                            } else {
+                                              if (!empty($_COOKIE['datelotto'])) {
+                                                // echo 'false cookie';
+                                                $sql = "INSERT INTO lotto_number VALUES (NULL, '$data', '$installment', '$lottoname', '$timestamp', '$userId')";
+
+                                                echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
+                                              } else {
+                                                // echo 'false date';
+                                                $datetoday = date('Y-m-d');
+                                                $sql = "INSERT INTO lotto_number VALUES (NULL, '$data', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                                echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
+                                              }
+                                              // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                              // echo $sql;
+                                              $query = mysqli_query($conn, $sql);
+                                              // echo 'test';
+                                            }
+                                          }
+                                        }
+                                        // var_dump($lottoArray);
+
+                                      }
+                                      ?>
+                                    </span>
+                                  </div>
+                                <?php
+                                }
+                                ?>
                               </div>
                             </div>
                           </div>
@@ -168,9 +252,9 @@ CheckLogin();
                             <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                           </div>
                           <form action="lottonumber?mode=delete" method="POST" id="submitDel">
-                              <div class="col-12 col-sm-6 col-md-3 float-end text-end">
-                                <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
-                              </div>
+                            <div class="col-12 col-sm-6 col-md-3 float-end text-end">
+                              <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
+                            </div>
                           </form>
                           <?php
                           if ($_GET) {
