@@ -39,6 +39,18 @@
           <?php 
           }
           ?>
+          <?php 
+            if($_SESSION['status'] == 'Admin'){
+          ?>
+          <li class="nav-item">
+            <a class="nav-link" href="lottocomplete">
+              <i class="menu-icon mdi mdi-folder-multiple text-white"></i>
+              <span class="menu-title text-white">จัดเก็บเลขลอตเตอรี่</span>
+            </a>
+          </li>
+          <?php 
+          }
+          ?>
           <!-- <li class="nav-item">
             <a class="nav-link" href="lottosearch.php">
               <i class="menu-icon mdi mdi-account-search"></i>

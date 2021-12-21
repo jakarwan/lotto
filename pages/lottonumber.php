@@ -133,7 +133,7 @@ CheckLogin();
                                     if ($count > 0) {
                                       $lottoId = $result["lotto_id"];
                                       $matchDate = date('Y-m-d H:i:s');
-                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '$lottoId', '$matchDate', '$userId', '$lottoname', '$installment', 0)";
                                       $query = mysqli_query($conn, $sql);
                                       // echo strlen($_POST["lottonumber"]);
                                       echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
@@ -194,7 +194,9 @@ CheckLogin();
                                             $a .= $data;
                                             echo $a;
                                             // echo $data;
-                                            echo '<script type="text/javascript">Swal.fire("Error!","มีรายการที่บันทึกไม่สำเร็จ","warning")</script>';
+                                            if (preg_replace('/\s+/', '', $data)) {
+                                              echo '<script type="text/javascript">toastr.error("บันทึกข้อมูลไม่สำเร็จ ' . $data . '")</script>';
+                                            }
                                             // echo '<script type="text/javascript">alert('.strval($a).')</script>';
                                           } else {
                                             $sqlCheck = "SELECT * FROM lotto_number WHERE lotto_number='" . $data . "' AND user_id='" . $_SESSION["userId"] . "' ";
@@ -203,7 +205,7 @@ CheckLogin();
                                             $count = mysqli_num_rows($queryCheck);
                                             if ($count > 0) {
                                               $matchDate = date('Y-m-d H:i:s');
-                                              $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                              $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment', 0)";
                                               $query = mysqli_query($conn, $sql);
                                               // echo strlen($_POST["lottonumber"]);
                                               echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
@@ -242,7 +244,7 @@ CheckLogin();
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
                         $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
-                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
+                        JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' AND isActive=0 ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);
@@ -257,8 +259,8 @@ CheckLogin();
                             </div>
                           </form>
                           <?php
-                          if ($_GET) {
-                            $sql = "DELETE FROM lotto_match WHERE user_id='" . $_SESSION["userId"] . "' ";
+                          if (!empty($_GET["mode"])) {
+                            $sql = "DELETE FROM lotto_match WHERE user_id='" . $_SESSION["userId"] . "' AND isActive=0 ";
                             $conn->query($sql);
                           }
                           ?>
@@ -277,6 +279,7 @@ CheckLogin();
                                   <th class="text-white">วันที่</th>
                                   <th class="text-white">หมายเหตุ</th>
                                   <th class="text-white">ตรงกับ</th>
+                                  <th class="text-white">จัดเก็บ</th>
                                 </tr>
                               </thead>
                               <?php
@@ -297,6 +300,15 @@ CheckLogin();
                                       <td class="text-white">
                                         <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
                                       </td>
+                                      <?php
+                                      if ($_SESSION['status'] == 'Admin') {
+                                      ?>
+                                      <form action="lottonumber?save=complete" method="POST" id="submitSave">
+                                        <td><a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>';">จัดเก็บ</a></td>
+                                      </form>
+                                      <?php
+                                      }
+                                      ?>
                                     </tr>
                                   </tbody>
                               <?php
@@ -304,6 +316,17 @@ CheckLogin();
                               }
                               ?>
                             </table>
+                            <?php
+                            if (!empty($_GET["match_id"])) {
+                              // echo $_GET["save"];
+                              $sql = "UPDATE lotto_match SET isActive = 1 WHERE match_id = '" . $_GET["match_id"] . "' ";
+                              // echo $sql;
+                              $query = $conn->query($sql);
+                              if ($query) {
+                                echo "<script>window.location.href = 'lottonumber';</script>";
+                            }
+                            }
+                            ?>
                           </div>
                         </div>
 

@@ -125,7 +125,7 @@ CheckLogin();
                                       $result = mysqli_fetch_array($queryCheck);
                                       $count = mysqli_num_rows($queryCheck);
                                       if ($count > 0) {
-                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                        $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment', 0)";
                                         $query = mysqli_query($conn, $sql);
                                         echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
                                       } else {
@@ -190,7 +190,7 @@ CheckLogin();
                                     if ($count > 0) {
                                       // $lottoId = $result["lotto_id"];
                                       $matchDate = date('Y-m-d H:i:s');
-                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment')";
+                                      $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment', 0)";
                                       $query = mysqli_query($conn, $sql);
                                       // echo strlen($_POST["lottonumber"]);
                                       echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
