@@ -58,7 +58,7 @@ CheckLogin();
                 <div class="col-12">
                   <div class="card bg-dark">
                     <div class="card-body">
-                      <h4 class="text-white mb-3">สแกนคิวอาร์โค้ด</h4>
+                      <h3 class="text-white mb-3">สแกนคิวอาร์โค้ด (เท่านั้น)</h3>
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
@@ -94,11 +94,11 @@ CheckLogin();
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-6">
-                                  <label for="lottonumber" class="mt-4 text-white">เลขล็อตเตอรี่</label>
+                                  <label for="lottonumber" class="mt-4 text-white">สำหรับสแกน QR CODE (ทีละ 1 ตัว)</label>
                                   <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" onkeypress="submitForm()" autofocus>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-7">
-                                  <label for="lottonumber" class="mt-4 text-danger">** สำหรับสแกน QR CODE</label>
+                                  <label for="lottonumber" class="mt-4 text-danger">** สำหรับสแกน QR CODE (หลายตัว)</label>
                                   <textarea class="form-control" id="lottonumall" name="lottonumall" rows="10"></textarea>
                                 </div>
                                 <?php

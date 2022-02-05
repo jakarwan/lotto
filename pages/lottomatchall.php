@@ -15,6 +15,9 @@ CheckLogin();
     <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
     <!-- endinject -->
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="../vendors/icheck/skins/all.css">
@@ -26,8 +29,9 @@ CheckLogin();
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
+    <script language="JavaScript">
         function ClickCheckAll(vol) {
+
             var i = 1;
             for (i = 1; i <= document.frmMain.hdnCount.value; i++) {
                 if (vol.checked == true) {
@@ -37,6 +41,14 @@ CheckLogin();
                 }
             }
         }
+
+        // function onDelete() {
+        //     if (confirm('Do you want to delete ?') == true) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
     </script>
 
 
@@ -77,11 +89,11 @@ CheckLogin();
                                                     <div class="mt-4 col-12 col-sm-6 col-md-9">
                                                         <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
                                                     </div>
-                                                    
-                                                        <div class="col-12 m-4">
-                                                            <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
-                                                        </div>
-                                            
+
+                                                    <div class="col-12 m-4">
+                                                        <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                    </div>
+
                                                     <!-- <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
                                                         <div class="col-12 col-sm-6 col-md-3 float-end text-end">
                                                             <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
@@ -99,8 +111,8 @@ CheckLogin();
 
                                                 <!-- <hr style="background-color:white"> -->
                                                 <div class="col-lg-12 grid-margin stretch-card">
-                                                    <div class="table-responsive">
-                                                        <table class="table">
+                                                    <div class="table-responsive text-white">
+                                                        <table id="example" class="table" style="width:100%">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center"><input name="CheckAll" type="checkbox" id="CheckAll" value="Y" onclick="ClickCheckAll(this);"></th>
@@ -110,6 +122,7 @@ CheckLogin();
                                                                     <th class="text-white">วันที่</th>
                                                                     <th class="text-white">หมายเหตุ</th>
                                                                     <th class="text-white">ตรงกับ</th>
+                                                                    <th class="text-white"></th>
                                                                 </tr>
                                                             </thead>
                                                             <?php
@@ -186,36 +199,10 @@ CheckLogin();
         <!-- page-body-wrapper ends -->
     </div>
     <script>
-        // function submitDelete() {
-        //     Swal.fire({
-        //         title: 'ต้องการลบข้อมูลหรือไม่?',
-        //         text: "ต้องการลบข้อมูลล็อตเตอรี่ที่ตรงกันทั้งหมดหรือไม่!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'ใช่, ต้องการลบ!'
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             setTimeout(function() {
-        //                 window.location.href = 'lottomatchall.php?mode=delete';
-        //             }, 1000);
-        //             Swal.fire(
-        //                 'สำเร็จ!',
-        //                 'ลบข้อมูลเรียบร้อยแล้ว.',
-        //                 'success'
-        //             )
-        //         }
-        //     })
-        // .then((response) => {
-        //     setTimeout(function() {
-        //         window.location.href = 'lottomatchall.php';
-        //     }, 1000);
-        // })
-        // }
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
     </script>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     <script src="../vendors/js/vendor.bundle.base.js"></script>
     <script src="../vendors/js/vendor.bundle.addons.js"></script>
     <!-- endinject -->
@@ -226,7 +213,6 @@ CheckLogin();
     <script src="../js/misc.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <!-- End custom js for this page-->
 </body>
 
 </html>

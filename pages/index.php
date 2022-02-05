@@ -68,6 +68,7 @@ CheckLogin();
       $lottoCountNow = mysqli_fetch_assoc($resultLottoNow);
 
       $sqlLottoMatch = "SELECT count(lotto_id) as lottomatch FROM lotto_match WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'";
+      // echo $sqlLottoMatch;
       $resultLottoMatch = $conn->query($sqlLottoMatch);
       $lottoCountMatch = mysqli_fetch_assoc($resultLottoMatch);
       ?>

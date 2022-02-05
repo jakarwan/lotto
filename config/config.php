@@ -1,17 +1,19 @@
 <?php
 // session_start();
+// $servername = "localhost";
+// $username = "lnwtatk_ezlotto";
+// $password = "MZWwd0EB";
+// $dbname = "lnwtatk_ezlotto";
+date_default_timezone_set("Asia/Bangkok");
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "lotto";
-date_default_timezone_set("Asia/Bangkok");
-// $servername = "localhost";
-// $username = "takitsa_lotto";
-// $password = "11223344";
-// $dbname = "takitsa_lotto";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn->set_charset('utf8');
+header('Content-Type: text/html; charset=UTF-8');
 
 // Check connection
 if (!$conn) {

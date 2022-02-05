@@ -58,7 +58,7 @@ CheckLogin();
                 <div class="col-12">
                   <div class="card bg-dark">
                     <div class="card-body">
-                      <h4 class="text-white mb-3">เพิ่มเลขล็อตเตอรี่</h4>
+                      <h3 class="text-white mb-3">คีย์ลอตเตอรี่</h3>
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
@@ -84,11 +84,13 @@ CheckLogin();
                                 <div class="col-7 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php if (!empty($_COOKIE['datelotto'])) {
+                                                                                                                                                                                                          echo $_COOKIE['datelotto'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-3">
                                   <label for="installment" class="text-white">หมายเหตุ</label>
                                   <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-xl" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
+                                                                                                                                                                                                          echo $_COOKIE['lottoname'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12">
@@ -145,7 +147,7 @@ CheckLogin();
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       } else {
                                         // echo 'false date';
-                                        $datetoday = date('Y-m-d');
+                                        $datetoday = date('Y-m-d H:i:s');
                                         $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$datetoday', '$userId')";
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       }
@@ -247,11 +249,15 @@ CheckLogin();
                         JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' AND isActive=0 ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
                         $query = $conn->query($sql);
-                        $rowCount = mysqli_num_rows($query);
+                        if ($query) {
+                          $rowCount = mysqli_num_rows($query);
+                        }
                         ?>
                         <div class="row">
                           <div class="mt-4 col-12 col-sm-6 col-md-9">
-                            <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php echo $rowCount; ?></span>
+                            <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php if ($query) {
+                                                                                                                  echo $rowCount;
+                                                                                                                } ?></span>
                           </div>
                           <form action="lottonumber?mode=delete" method="POST" id="submitDel">
                             <div class="col-12 col-sm-6 col-md-3 float-end text-end">
@@ -268,9 +274,9 @@ CheckLogin();
                         </div>
 
                         <!-- <hr style="background-color:white"> -->
-                        <div class="col-lg-12 grid-margin stretch-card">
-                          <div class="table-responsive">
-                            <table class="table">
+                        <div class="col-lg-12 grid-margin stretch-card mt-4">
+                          <div class="table-responsive text-white">
+                            <table id="example" class="table" style="width:100%">
                               <thead>
                                 <tr>
                                   <th class="text-white">ลำดับ</th>
@@ -303,9 +309,9 @@ CheckLogin();
                                       <?php
                                       if ($_SESSION['status'] == 'Admin') {
                                       ?>
-                                      <form action="lottonumber?save=complete" method="POST" id="submitSave">
-                                        <td><a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>';">จัดเก็บ</a></td>
-                                      </form>
+                                        <form action="lottonumber?save=complete" method="POST" id="submitSave">
+                                          <td><a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>';">จัดเก็บ</a></td>
+                                        </form>
                                       <?php
                                       }
                                       ?>
@@ -324,7 +330,7 @@ CheckLogin();
                               $query = $conn->query($sql);
                               if ($query) {
                                 echo "<script>window.location.href = 'lottonumber';</script>";
-                            }
+                              }
                             }
                             ?>
                           </div>
@@ -371,6 +377,19 @@ CheckLogin();
       document.cookie = 'lottoname' + "=" + $('#lottoname').val() + ";" + expires + ";path=/";
     })
 
+    $(document).ready(function() {
+      $('#example').DataTable();
+    });
+
+    $(window).scroll(function() {
+      sessionStorage.scrollTop = $(this).scrollTop();
+    });
+    $(document).ready(function() {
+      if (sessionStorage.scrollTop != "undefined") {
+        $(window).scrollTop(sessionStorage.scrollTop);
+      }
+    });
+
     // $(document).ready(function() {
     //   $('.delete-row').click(function() {
     //     $.post('lottonumber.php?mode=delete', {
@@ -380,6 +399,10 @@ CheckLogin();
     //     });
     //   });
     // });
+
+    // function scroll() {
+    //   window.scrollTo(0, 0);
+    // }
 
     function submitDelete() {
       Swal.fire({
@@ -407,6 +430,25 @@ CheckLogin();
         }, 1000);
       })
     }
+    // function scroll() {
+    // window.onbeforeunload = function() {
+    //   var scrollPos;
+    //   if (typeof window.pageYOffset != 'undefined') {
+    //     scrollPos = window.pageYOffset;
+    //   } else if (typeof document.compatMode != 'undefined' && document.compatMode != 'BackCompat') {
+    //     scrollPos = document.documentElement.scrollTop;
+    //   } else if (typeof document.body != 'undefined') {
+    //     scrollPos = document.body.scrollTop;
+    //   }
+    //   document.cookie = "scrollTop=" + scrollPos;
+    // }
+    // window.onload = function() {
+    //   if (document.cookie.match(/scrollTop=([^;]+)(;|$)/) != null) {
+    //     var arr = document.cookie.match(/scrollTop=([^;]+)(;|$)/);
+    //     document.documentElement.scrollTop = parseInt(arr[1]);
+    //     document.body.scrollTop = parseInt(arr[1]);
+    //   }
+    // }
     // }
 
     function submitForm() {
