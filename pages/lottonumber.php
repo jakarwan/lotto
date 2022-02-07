@@ -15,6 +15,9 @@ CheckLogin();
   <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="../vendors/css/vendor.bundle.addons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+
   <!-- endinject -->
   <!-- plugin css for this page -->
   <link rel="stylesheet" href="../vendors/icheck/skins/all.css">
@@ -26,9 +29,10 @@ CheckLogin();
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
 
 </head>
 <style>
@@ -285,42 +289,51 @@ CheckLogin();
                                   <th class="text-white">วันที่</th>
                                   <th class="text-white">หมายเหตุ</th>
                                   <th class="text-white">ตรงกับ</th>
-                                  <th class="text-white">จัดเก็บ</th>
+                                  <?php
+                                  if ($_SESSION['status'] == 'Admin') {
+                                  ?>
+                                    <th class="text-white">จัดเก็บ</th>
+                                  <?php
+                                  }
+                                  ?>
                                 </tr>
                               </thead>
-                              <?php
-                              // $rowCount = mysqli_num_rows($query);
-                              if ($query->num_rows > 0) {
-                                $i = 1;
-                                while ($row = $query->fetch_assoc()) {
-                              ?>
-                                  <tbody>
+                              <tbody>
+                                <?php
+                                if ($query->num_rows > 0) {
+                                  $i = 1;
+                                  while ($row = $query->fetch_assoc()) {
+                                ?>
                                     <tr>
                                       <td class="text-white"><?php echo $i++; ?></td>
                                       <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
                                       <td class="text-white"><?php echo $row["installment"]; ?></td>
                                       <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
                                       <td class="text-white">
-                                        <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
+                                        <label class="badge badge-danger"><?php echo $row["lotto_name_match"] != null ? $row["lotto_name_match"] : '-'; ?></label>
                                       </td>
                                       <td class="text-white">
-                                        <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
+                                        <label class="badge badge-primary"><?php echo $row["lotto_name"] != null ? $row["lotto_name"] : '-'; ?></label>
                                       </td>
                                       <?php
                                       if ($_SESSION['status'] == 'Admin') {
                                       ?>
-                                        <form action="lottonumber?save=complete" method="POST" id="submitSave">
-                                          <td><a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>';">จัดเก็บ</a></td>
-                                        </form>
+
+                                        <td>
+                                          <form action="lottonumber?save=complete" method="POST" id="submitSave">
+                                            <a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>';">จัดเก็บ</a>
+                                          </form>
+                                        </td>
+
                                       <?php
                                       }
                                       ?>
                                     </tr>
-                                  </tbody>
-                              <?php
+                                <?php
+                                  }
                                 }
-                              }
-                              ?>
+                                ?>
+                              </tbody>
                             </table>
                             <?php
                             if (!empty($_GET["match_id"])) {
@@ -377,9 +390,9 @@ CheckLogin();
       document.cookie = 'lottoname' + "=" + $('#lottoname').val() + ";" + expires + ";path=/";
     })
 
-    $(document).ready(function() {
-      $('#example').DataTable();
-    });
+    // $(document).ready(function() {
+    //   $('#example').DataTable();
+    // });
 
     $(window).scroll(function() {
       sessionStorage.scrollTop = $(this).scrollTop();
@@ -479,8 +492,11 @@ CheckLogin();
     //   console.log(dop);
     // }
   </script>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable();
+    });
+  </script>
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
@@ -489,6 +505,8 @@ CheckLogin();
   <!-- inject:js -->
   <script src="../js/off-canvas.js"></script>
   <script src="../js/misc.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

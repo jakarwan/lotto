@@ -125,14 +125,15 @@ CheckLogin();
                                                                     <th class="text-white"></th>
                                                                 </tr>
                                                             </thead>
-                                                            <?php
-                                                            // $rowCount = mysqli_num_rows($query);
-                                                            if ($query->num_rows > 0) {
-                                                                $i = 1;
-                                                                while ($row = $query->fetch_assoc()) {
-                                                                    // print_r($row);
-                                                            ?>
-                                                                    <tbody>
+                                                            <tbody>
+                                                                <?php
+                                                                // $rowCount = mysqli_num_rows($query);
+                                                                if ($query->num_rows > 0) {
+                                                                    $i = 1;
+                                                                    while ($row = $query->fetch_assoc()) {
+                                                                        // print_r($row);
+                                                                ?>
+
                                                                         <tr>
                                                                             <td class="text-center"><input name="checkbox[]" id="checkbox<?php echo $i; ?>" type="checkbox" value="<?php echo $row['match_id']; ?>"></td>
                                                                             <td class="text-white"><?php echo $i++; ?></td>
@@ -140,10 +141,10 @@ CheckLogin();
                                                                             <td class="text-white"><?php echo $row["installment"]; ?></td>
                                                                             <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
                                                                             <td class="text-white">
-                                                                                <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
+                                                                                <label class="badge badge-danger"><?php echo $row["lotto_name_match"] != null ? $row["lotto_name_match"] : '-'; ?></label>
                                                                             </td>
                                                                             <td class="text-white">
-                                                                                <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
+                                                                                <label class="badge badge-primary"><?php echo $row["lotto_name"] != null ? $row["lotto_name"] : '-'; ?></label>
                                                                             </td>
                                                                             <?php
                                                                             if ($_SESSION['status'] == 'Admin') {
@@ -153,12 +154,12 @@ CheckLogin();
                                                                             }
                                                                             ?>
                                                                         </tr>
-                                                                    </tbody>
-                                                            <?php
-                                                                }
-                                                            }
-                                                            ?>
 
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </tbody>
                                                             <?php
                                                             if (isset($_POST['delete']) && !empty($_POST['checkbox'])) {
 

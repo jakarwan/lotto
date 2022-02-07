@@ -98,7 +98,7 @@ CheckLogin();
                                   <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" onkeypress="submitForm()" autofocus>
                                 </div>
                                 <div class="col-12 col-sm-12 col-md-7">
-                                  <label for="lottonumber" class="mt-4 text-danger">** สำหรับสแกน QR CODE (หลายตัว)</label>
+                                  <label for="lottonumber" class="mt-4 text-white" ><code>**</code> สำหรับสแกน QR CODE (หลายตัว)</label>
                                   <textarea class="form-control" id="lottonumall" name="lottonumall" rows="10"></textarea>
                                 </div>
                                 <?php
