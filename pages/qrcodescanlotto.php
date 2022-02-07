@@ -279,10 +279,10 @@ CheckLogin();
                                       <td class="text-white"><?php echo $row["installment"]; ?></td>
                                       <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
                                       <td class="text-white">
-                                        <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
+                                        <label class="badge badge-danger"><?php echo $row["lotto_name_match"] != null ? $row["lotto_name_match"] : '-'; ?></label>
                                       </td>
                                       <td class="text-white">
-                                        <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
+                                        <label class="badge badge-primary"><?php echo $row["lotto_name"] != null ? $row["lotto_name"] : '-'; ?></label>
                                       </td>
                                     </tr>
                                   </tbody>
