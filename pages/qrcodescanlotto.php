@@ -131,13 +131,13 @@ CheckLogin();
                                       } else {
                                         if (!empty($_COOKIE['datelotto'])) {
                                           // echo 'false cookie';
-                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$matchDate', '$userId')";
+                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$matchDate', '$userId', 0)";
 
                                           echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                         } else {
                                           // echo 'false date';
                                           $datetoday = date('Y-m-d');
-                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                          $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottoallsub', '$installment', '$lottoname', '$datetoday', '$userId', 0)";
                                           echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                         }
                                         $query = mysqli_query($conn, $sql);
@@ -197,13 +197,13 @@ CheckLogin();
                                     } else {
                                       if (!empty($_COOKIE['datelotto'])) {
                                         // echo 'false cookie';
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$timestamp', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$timestamp', '$userId', 0)";
 
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       } else {
                                         // echo 'false date';
                                         $datetoday = date('Y-m-d');
-                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$datetoday', '$userId')";
+                                        $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottosub', '$installment', '$lottoname', '$datetoday', '$userId', 0)";
                                         echo '<script type="text/javascript">toastr.success("บันทึกข้อมูลสำเร็จ")</script>';
                                       }
                                       // $sql = "INSERT INTO lotto_number VALUES (NULL, '$lottonumber', '$installment', '$lottoname', '$timestamp', '$userId')";
