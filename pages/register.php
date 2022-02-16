@@ -70,7 +70,7 @@ include '../config/config.php';
         $phone = addslashes($_POST["txtTel"]);
         // $imgnull = "";
         // $status = "users";
-        $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $pass . "','" . $date . "','" . $phone . "','',0,0)";
+        $sql = "INSERT INTO users VALUES(NULL,'" . $name . "','" . $users . "','" . $pass . "','" . $date . "','" . $phone . "','',0,0,0)";
         // if (password_verify($pass, $hashed_password)) {
         if (mysqli_query($conn, $sql)) {
           // echo '<script>alert("สมัครสมาชิกเรียบร้อยแล้ว");</script>';
