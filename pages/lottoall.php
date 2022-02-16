@@ -109,7 +109,7 @@ CheckLogin();
                                                 <div class="col-12 m-4">
                                                     <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
                                                     <div class="mr-4 m-2 float-end text-end">
-                                                        <a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?mode=delete';}" type="button">ลบเลขที่ตรงกันทั้งหมด</a>
+                                                        <a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?mode=delete';}" type="button">ลบเลขทั้งหมด</a>
                                                     </div>
                                                 </div>
 
