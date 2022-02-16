@@ -105,7 +105,7 @@ CheckLogin();
                                 if ($_SESSION['status'] == 'Admin') {
                                 ?>
                                   <div class="col-12 col-sm-12 col-md-7">
-                                    <label for="lottonumber" class="mt-4 text-danger">** เลขลอตเตอรี่ (สำหรับสแกนจากรูปภาพ)</label>
+                                    <label for="lottonumber" class="mt-4 text-white"><code>**</code> เลขลอตเตอรี่ (สำหรับสแกนจากรูปภาพ)</label>
                                     <textarea class="form-control" id="lottonumall" name="lottonumall" rows="10"></textarea>
                                   </div>
                                 <?php
@@ -321,7 +321,7 @@ CheckLogin();
 
                                         <td>
                                           <form action="lottonumber?save=complete" method="POST" id="submitSave">
-                                            <a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>';">จัดเก็บ</a>
+                                            <a class="btn btn-info text-end float-end" name="submitSave" href="JavaScript:window.location='lottonumber?match_id=<?php echo $row["match_id"]; ?>&lotto_id=<?php echo $row["lotto_id"]; ?>';">จัดเก็บ</a>
                                           </form>
                                         </td>
 
@@ -341,6 +341,9 @@ CheckLogin();
                               $sql = "UPDATE lotto_match SET isActive = 1 WHERE match_id = '" . $_GET["match_id"] . "' ";
                               // echo $sql;
                               $query = $conn->query($sql);
+                              $sqlLottoall = "UPDATE lotto_number SET is_active = 1 WHERE lotto_id = '" . $_GET["lotto_id"] . "' ";
+                              echo $sqlLottoall;
+                              $queryLottoall = $conn->query($sqlLottoall);
                               if ($query) {
                                 echo "<script>window.location.href = 'lottonumber';</script>";
                               }
@@ -428,6 +431,7 @@ CheckLogin();
         confirmButtonText: 'ใช่, ต้องการลบ!'
       }).then((result) => {
         if (result.isConfirmed) {
+          // window.location.href = 'lottonumber?mode=delete';
           setTimeout(function() {
             window.location.href = 'lottonumber?mode=delete';
           }, 1000);
@@ -438,9 +442,9 @@ CheckLogin();
           )
         }
       }).then((response) => {
-        setTimeout(function() {
-          window.location.href = 'lottonumber';
-        }, 1000);
+          setTimeout(function() {
+            window.location.href = 'lottonumber';
+          }, 1000);
       })
     }
     // function scroll() {

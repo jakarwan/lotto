@@ -79,7 +79,7 @@ CheckLogin();
                                             <form class="forms-sample" action="lottoall" method="POST" id="submitDel" name="frmMain">
 
                                                 <?php
-                                                $sql = "SELECT * FROM lotto_number WHERE lotto_number.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_id DESC LIMIT 1000 ";
+                                                $sql = "SELECT * FROM lotto_number WHERE lotto_number.user_id='" . $_SESSION["userId"] . "' AND is_active=0 ORDER BY lotto_id DESC LIMIT 1000 ";
                                                 $query = $conn->query($sql);
                                                 $rowCount = mysqli_num_rows($query);
                                                 ?>
@@ -93,7 +93,7 @@ CheckLogin();
                                                         </div>
                                                     </form> -->
                                                     <?php
-                                                    if ($_GET) {
+                                                    if (!empty($_GET["lotto_id"])) {
                                                         $sql = "DELETE FROM lotto_number WHERE lotto_id='" . $_GET["lotto_id"] . "' ";
                                                         // echo $sql;
                                                         $conn->query($sql);
@@ -108,7 +108,21 @@ CheckLogin();
 
                                                 <div class="col-12 m-4">
                                                     <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                    <div class="mr-4 m-2 float-end text-end">
+                                                        <a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?mode=delete';}" type="button">ลบเลขที่ตรงกันทั้งหมด</a>
+                                                    </div>
                                                 </div>
+
+                                                <?php
+                                                if (!empty($_GET["mode"])) {
+                                                    $sql = "DELETE FROM lotto_number WHERE user_id='" . $_SESSION["userId"] . "' ";
+                                                    // echo $sql;
+                                                    $conn->query($sql);
+                                                    if ($query) {
+                                                        echo "<meta http-equiv=\"refresh\" content=\"0;URL=lottoall\">";
+                                                    }
+                                                }
+                                                ?>
 
                                                 <?php
                                                 if (!empty($_POST["lottosearch"])) {
@@ -151,9 +165,9 @@ CheckLogin();
                                                                             <td class="text-white">
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                                                             </td>
-                                                                            
-                                                                                <td><a class="btn btn-danger text-start" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
-                                                                            
+
+                                                                            <td><a class="btn btn-danger text-start" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
+
                                                                         </tr>
 
                                                                 <?php

@@ -51,18 +51,17 @@ CheckLogin();
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">ค้นหาล็อตเตอรี่</h4>
-                                            <form class="forms-sample" action="lottosearch.php" method="get" id="submitSearch">
+                                            <form class="forms-sample" action="lottosearch" method="get" id="submitSearch">
                                                 <div class="row">
                                                     <div class="col-12">
 
                                                         <div class="form-group">
                                                             <div class="row">
-                                                                <div class="col-5 col-sm-6 col-md-4">
+                                                                <!-- <div class="col-5 col-sm-6 col-md-4">
                                                                     <label for="installmentsearch">งวดที่</label>
                                                                     <select class="form-control form-control-xl" id="installmentsearch" name="installmentsearch">
                                                                         <option value="0">เลือก</option>
                                                                         <?php
-                                                                        // $ins = $_POST["installment"];
                                                                         for ($i = 1; $i < 25; $i++) {
                                                                             $_SESSION["installment"] = $i;
                                                                         ?>
@@ -72,11 +71,11 @@ CheckLogin();
                                                                         }
                                                                         ?>
                                                                     </select>
-                                                                </div>
-                                                                <div class="col-7 col-sm-6 col-md-4">
+                                                                </div> -->
+                                                                <!-- <div class="col-7 col-sm-6 col-md-4">
                                                                     <label for="installment">วันที่</label>
                                                                     <input <?= (!empty($_COOKIE["datelottosearch"]) ? ($_COOKIE["datelottosearch"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelottosearch" name="datelottosearch" value="<?php echo $_COOKIE['datelottosearch'] ?>">
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="col-12">
                                                                     <label class="mt-4">เลขล็อตเตอรี่</label>
                                                                     <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottosearch" name="lottosearch" placeholder="เลขล็อตเตอรี่" onkeypress="submitSearch()" autofocus>
@@ -92,19 +91,28 @@ CheckLogin();
                                                 $lottosearch = null;
                                                 if (!empty($_GET["lottosearch"])) {
                                                     $lottosearch = $_GET["lottosearch"];
-                                                    $datesearch = $_GET["datelottosearch"];
-                                                    $installmentsearch = $_GET["installmentsearch"];
-                                                    if ($_GET["installmentsearch"] != 0 and $_GET["datelottosearch"] == null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND installment='" . $installmentsearch . "' ";
-                                                    } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND date='" . $datesearch . "' AND installment='" . $installmentsearch . "' ";
-                                                    } else if ($_GET["datelottosearch"] != null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND date='" . $datesearch . "' ";
+                                                    // $datesearch = $_GET["datelottosearch"];
+                                                    // $installmentsearch = $_GET["installmentsearch"];
+                                                    if ($_GET["lottosearch"] != null) {
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number LIKE '%$lottosearch%' ";
+                                                        // echo $sql;
+                                                        $result = $conn->query($sql);
+                                                        
+                                                        $row = mysqli_fetch_array($result);
+                                                        // echo '<pre>';
+                                                        // var_dump($row);
+                                                        // echo '</pre>';
+                                                        $rowCount = mysqli_num_rows($result);
                                                     }
+                                                    // if ($_GET["installmentsearch"] != 0 and $_GET["datelottosearch"] == null) {
+                                                    //     $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND installment='" . $installmentsearch . "' ";
+                                                    // } else if ($_GET["installmentsearch"] && $_GET["datelottosearch"]) {
+                                                    //     $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND date='" . $datesearch . "' AND installment='" . $installmentsearch . "' ";
+                                                    // } else if ($_GET["datelottosearch"] != null) {
+                                                    //     $sql = "SELECT * FROM lotto_number WHERE lotto_number='" . $lottosearch . "' AND date='" . $datesearch . "' ";
+                                                    // }
 
-                                                    $result = $conn->query($sql);
-                                                    $row = mysqli_fetch_array($result);
-                                                    $rowCount = mysqli_num_rows($result);
+
                                                     // echo $rowcount;
                                                     // print_r($result);
                                                     // if ($rowcount > 0) {
@@ -140,7 +148,7 @@ CheckLogin();
                                                                                         <td><?php echo $row["installment"]; ?></td>
                                                                                         <td><?php echo $row["date"]; ?></td>
                                                                                         <td>
-                                                                                            <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
+                                                                                            <label class="badge badge-danger"><?php echo $row["lotto_name"] != null ? $row["lotto_name"] : '-'; ?></label>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>

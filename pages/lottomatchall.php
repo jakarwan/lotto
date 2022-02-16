@@ -91,16 +91,27 @@ CheckLogin();
                                                     </div>
 
                                                     <div class="col-12 m-4">
-                                                        <input name="delete" class="btn btn-danger" type="submit" value="ลบรายการที่เลือก">
+                                                        <input name="delete" class="btn btn-danger m-2" type="submit" value="ลบรายการที่เลือก">
+                                                        <div class="mr-4 m-2 float-end text-end">
+                                                            <a class="btn btn-danger text-end float-end" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottomatchall?mode=delete';}" type="button">ลบเลขที่ตรงกันทั้งหมด</a>
+                                                        </div>
                                                     </div>
 
-                                                    <!-- <form action="lottonumber.php?mode=delete" method="POST" id="submitDel">
-                                                        <div class="col-12 col-sm-6 col-md-3 float-end text-end">
-                                                            <button class="btn btn-danger text-end float-end" name="submitDel" onclick="submitDelete()" type="button">ลบเลขที่ตรงกันทั้งหมด</button>
-                                                        </div>
-                                                    </form> -->
+                                                    <!-- <form action="lottonumber.php?mode=delete" method="POST" id="submitDel"> -->
+
+                                                    <!-- </form> -->
                                                     <?php
-                                                    if ($_GET) {
+                                                    if (!empty($_GET["mode"])) {
+                                                        $sql = "DELETE FROM lotto_match WHERE user_id='" . $_SESSION["userId"] . "' AND isActive=0 ";
+                                                        // echo $sql;
+                                                        $conn->query($sql);
+                                                        if ($query) {
+                                                            echo "<meta http-equiv=\"refresh\" content=\"0;URL=lottomatchall\">";
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if (!empty($_GET["match_id"])) {
                                                         $sql = "DELETE FROM lotto_match WHERE match_id='" . $_GET["match_id"] . "' ";
                                                         // echo $sql;
                                                         $conn->query($sql);

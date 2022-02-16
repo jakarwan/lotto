@@ -145,7 +145,7 @@ CheckLogin();
                                                                             if ($_SESSION['status'] == 'Admin') {
                                                                             ?>
                                                                                 <!-- <form action="lottocomplete?save=complete" method="POST" id="submitSave"> -->
-                                                                                <td><a class="btn btn-warning text-end float-end" name="submitSave" href="JavaScript: window.location='lottocomplete?match_id=<?php echo $row["match_id"]; ?>';">ยกเลิกจัดเก็บ</a></td> <!-- window.location.href = 'lottocomplete'; -->
+                                                                                <td><a class="btn btn-warning text-end float-end" name="submitSave" href="JavaScript: window.location='lottocomplete?match_id=<?php echo $row["match_id"]; ?>&lotto_id=<?php echo $row["lotto_id"]; ?>';">ยกเลิกจัดเก็บ</a></td> <!-- window.location.href = 'lottocomplete'; -->
                                                                                 <!-- </form> -->
                                                                             <?php
                                                                             }
@@ -163,6 +163,9 @@ CheckLogin();
                                                                 $sql = "UPDATE lotto_match SET isActive = 0 WHERE match_id = '" . $_GET["match_id"] . "' ";
                                                                 // echo $sql;
                                                                 $query = $conn->query($sql);
+                                                                $sqlLottoall = "UPDATE lotto_number SET is_active = 0 WHERE lotto_id = '" . $_GET["lotto_id"] . "' ";
+                                                                echo $sqlLottoall;
+                                                                $queryLottoall = $conn->query($sqlLottoall);
                                                                 if ($query) {
                                                                     echo "<script>window.location.href = 'lottocomplete';</script>";
                                                                 }

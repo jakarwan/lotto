@@ -51,12 +51,18 @@
           <?php 
           }
           ?>
-          <!-- <li class="nav-item">
+          <?php 
+            if($_SESSION['status'] == 'Admin'){
+          ?>
+          <li class="nav-item">
             <a class="nav-link" href="lottosearch.php">
-              <i class="menu-icon mdi mdi-account-search"></i>
-              <span class="menu-title">ค้นหาล็อตเตอรี่</span>
+              <i class="menu-icon mdi mdi-account-search text-white"></i>
+              <span class="menu-title text-white">ค้นหาล็อตเตอรี่</span>
             </a>
-          </li> -->
+          </li>
+          <?php 
+            }
+          ?>
           <?php 
             if($_SESSION['status'] == 'Admin'){
           ?>
