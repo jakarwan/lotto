@@ -67,10 +67,17 @@ CheckLogin();
       $resultLottoNow = $conn->query($sqlLottoNow);
       $lottoCountNow = mysqli_fetch_assoc($resultLottoNow);
 
-      $sqlLottoMatch = "SELECT count(*) as lottomatch FROM lotto_match WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' AND isActive=0 ";
+      $sqlLottoMatch = "SELECT * FROM lotto_match WHERE user_id='" . $_SESSION["userId"] . "' AND isActive=0 ";
       // echo $sqlLottoMatch;
       $resultLottoMatch = $conn->query($sqlLottoMatch);
-      $lottoCountMatch = mysqli_fetch_assoc($resultLottoMatch);
+      // echo $rowCount = mysqli_num_rows($resultLottoMatch);
+      // echo $rowCount;
+      // echo $resultLottoMatch;
+      if ($resultLottoMatch) {
+        $rowCount = mysqli_num_rows($resultLottoMatch);
+        // echo $rowCount;
+      }
+      // $lottoCountMatch = mysqli_fetch_assoc($resultLottoMatch);
       ?>
       <div class="main-panel">
         <div class="content-wrapper">
@@ -97,7 +104,9 @@ CheckLogin();
                       <div class="float-right">
                         <p class="mb-0 text-right">ล็อตเตอรี่ที่ตรงกันทั้งหมด</p>
                         <div class="fluid-container">
-                          <h3 class="font-weight-medium text-right mb-0"><?php echo $lottoCountMatch["lottomatch"] ?></h3>
+                          <h3 class="font-weight-medium text-right mb-0"><?php if ($resultLottoMatch) {
+                                                                            echo $rowCount;
+                                                                          } ?></h3>
                         </div>
                       </div>
                     </div>

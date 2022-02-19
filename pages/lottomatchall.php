@@ -214,6 +214,15 @@ CheckLogin();
         $(document).ready(function() {
             $('#example').DataTable();
         });
+
+        $(window).scroll(function() {
+            sessionStorage.scrollTop = $(this).scrollTop();
+        });
+        $(document).ready(function() {
+            if (sessionStorage.scrollTop != "undefined") {
+                $(window).scrollTop(sessionStorage.scrollTop);
+            }
+        });
     </script>
     <script src="../vendors/js/vendor.bundle.base.js"></script>
     <script src="../vendors/js/vendor.bundle.addons.js"></script>

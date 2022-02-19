@@ -34,6 +34,7 @@ CheckLogin();
 
             var i = 1;
             for (i = 1; i <= document.frmMain.hdnCount.value; i++) {
+                console.log(vol.checked);
                 if (vol.checked == true) {
                     eval("document.frmMain.checkbox" + i + ".checked=true");
                 } else {
@@ -166,7 +167,7 @@ CheckLogin();
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name"]; ?></label>
                                                                             </td>
 
-                                                                            <td><a class="btn btn-danger text-start" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location.href = 'lottoall';}">ลบ</a></td>
+                                                                            <td><a class="btn btn-danger text-start" name="submitDel" href="JavaScript:if(confirm('ต้องการลบข้อมูลหรือไม่?')==true){window.location='lottoall?lotto_id=<?php echo $row["lotto_id"]; ?>'; window.location = 'lottoall';}">ลบ</a></td>
 
                                                                         </tr>
 
@@ -220,6 +221,15 @@ CheckLogin();
     <script>
         $(document).ready(function() {
             $('#example').DataTable();
+        });
+
+        $(window).scroll(function() {
+            sessionStorage.scrollTop = $(this).scrollTop();
+        });
+        $(document).ready(function() {
+            if (sessionStorage.scrollTop != "undefined") {
+                $(window).scrollTop(sessionStorage.scrollTop);
+            }
         });
     </script>
     <script src="../vendors/js/vendor.bundle.base.js"></script>

@@ -60,9 +60,9 @@ CheckLogin();
             <div class="col-md-12">
               <div class="row flex-grow">
                 <div class="col-12">
-                  <div class="card bg-dark">
+                  <div class="card">
                     <div class="card-body">
-                      <h3 class="text-white mb-3">คีย์ลอตเตอรี่</h3>
+                      <h3 class="mb-3">คีย์ลอตเตอรี่</h3>
                       <!-- <p class="card-description">
                         Basic form layout
                       </p> -->
@@ -72,7 +72,7 @@ CheckLogin();
                             <div class="form-group">
                               <div class="row">
                                 <div class="col-5 col-sm-6 col-md-2">
-                                  <label for="installment" class="text-white">งวดที่</label>
+                                  <label for="installment">งวดที่</label>
                                   <select class="form-control form-control-lg" id="installment" name="installment">
                                     <?php
                                     // $ins = $_POST["installment"];
@@ -86,26 +86,26 @@ CheckLogin();
                                   </select>
                                 </div>
                                 <div class="col-7 col-sm-6 col-md-3">
-                                  <label for="installment" class="text-white">วันที่</label>
+                                  <label for="installment">วันที่</label>
                                   <input <?= (!empty($_COOKIE["datelotto"]) ? ($_COOKIE["datelotto"]) : '')  ?> type="date" class="form-control form-control-xl" id="datelotto" name="datelotto" value="<?php if (!empty($_COOKIE['datelotto'])) {
                                                                                                                                                                                                           echo $_COOKIE['datelotto'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12 col-sm-6 col-md-3">
-                                  <label for="installment" class="text-white">หมายเหตุ</label>
+                                  <label for="installment">หมายเหตุ</label>
                                   <input <?= (!empty($_COOKIE["lottoname"]) ? ($_COOKIE["lottoname"]) : '')  ?> type="text" class="form-control form-control-xl" id="lottoname" name="lottoname" value="<?php if (!empty($_COOKIE['lottoname'])) {
                                                                                                                                                                                                           echo $_COOKIE['lottoname'];
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12">
-                                  <label for="lottonumber" class="mt-4 text-white">เลขลอตเตอรี่</label>
+                                  <label for="lottonumber" class="mt-4>เลขลอตเตอรี่</label>
                                   <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
                                 </div>
                                 <?php
                                 if ($_SESSION['status'] == 'Admin') {
                                 ?>
                                   <div class="col-12 col-sm-12 col-md-7">
-                                    <label for="lottonumber" class="mt-4 text-white"><code>**</code> เลขลอตเตอรี่ (สำหรับสแกนจากรูปภาพ)</label>
+                                    <label for="lottonumber" class="mt-4"><code>**</code> เลขลอตเตอรี่ (สำหรับสแกนจากรูปภาพ)</label>
                                     <textarea class="form-control" id="lottonumall" name="lottonumall" rows="10"></textarea>
                                   </div>
                                 <?php
@@ -169,8 +169,8 @@ CheckLogin();
                                 if ($_SESSION['status'] == 'Admin') {
                                 ?>
                                   <div class="col-12 col-sm-12 col-md-5">
-                                    <h4 class="text-white">รายการบันทึกไม่สำเร็จ</h4>
-                                    <span class="text-white">
+                                    <h4>รายการบันทึกไม่สำเร็จ</h4>
+                                    <span >
                                       <?php
                                       if (!empty($_POST["lottonumall"])) {
                                         $lottonumber = $_POST['lottonumber'];
@@ -259,7 +259,7 @@ CheckLogin();
                         ?>
                         <div class="row">
                           <div class="mt-4 col-12 col-sm-6 col-md-9">
-                            <span class="text-white">เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php if ($query) {
+                            <span>เลขตรงกันทั้งหมด </span><span class="badge badge-danger"> <?php if ($query) {
                                                                                                                   echo $rowCount;
                                                                                                                 } ?></span>
                           </div>
@@ -272,6 +272,9 @@ CheckLogin();
                           if (!empty($_GET["mode"])) {
                             $sql = "DELETE FROM lotto_match WHERE user_id='" . $_SESSION["userId"] . "' ";
                             $conn->query($sql);
+                            if($query) {
+                              echo "<meta http-equiv=\"refresh\" content=\"0;URL=lottonumber\">";
+                            }
                           }
                           ?>
 
@@ -279,20 +282,20 @@ CheckLogin();
 
                         <!-- <hr style="background-color:white"> -->
                         <div class="col-lg-12 grid-margin stretch-card mt-4">
-                          <div class="table-responsive text-white">
+                          <div class="table-responsive">
                             <table id="example" class="table" style="width:100%">
                               <thead>
                                 <tr>
-                                  <th class="text-white">ลำดับ</th>
-                                  <th class="text-white">เลขล็อตเตอรี่</th>
-                                  <th class="text-white">งวด</th>
-                                  <th class="text-white">วันที่</th>
-                                  <th class="text-white">หมายเหตุ</th>
-                                  <th class="text-white">ตรงกับ</th>
+                                  <th>ลำดับ</th>
+                                  <th>เลขล็อตเตอรี่</th>
+                                  <th>งวด</th>
+                                  <th>วันที่</th>
+                                  <th>หมายเหตุ</th>
+                                  <th>ตรงกับ</th>
                                   <?php
                                   if ($_SESSION['status'] == 'Admin') {
                                   ?>
-                                    <th class="text-white">จัดเก็บ</th>
+                                    <th>จัดเก็บ</th>
                                   <?php
                                   }
                                   ?>
@@ -305,14 +308,14 @@ CheckLogin();
                                   while ($row = $query->fetch_assoc()) {
                                 ?>
                                     <tr>
-                                      <td class="text-white"><?php echo $i++; ?></td>
-                                      <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
-                                      <td class="text-white"><?php echo $row["installment"]; ?></td>
-                                      <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
-                                      <td class="text-white">
+                                      <td><?php echo $i++; ?></td>
+                                      <td><?php echo $row["lotto_number"]; ?></td>
+                                      <td><?php echo $row["installment"]; ?></td>
+                                      <td><?php echo $row["lotto_match_date"]; ?></td>
+                                      <td>
                                         <label class="badge badge-danger"><?php echo $row["lotto_name_match"] != null ? $row["lotto_name_match"] : '-'; ?></label>
                                       </td>
-                                      <td class="text-white">
+                                      <td>
                                         <label class="badge badge-primary"><?php echo $row["lotto_name"] != null ? $row["lotto_name"] : '-'; ?></label>
                                       </td>
                                       <?php
@@ -433,7 +436,7 @@ CheckLogin();
         if (result.isConfirmed) {
           // window.location.href = 'lottonumber?mode=delete';
           setTimeout(function() {
-            window.location.href = 'lottonumber?mode=delete';
+            window.location = 'lottonumber?mode=delete';
           }, 1000);
           Swal.fire(
             'สำเร็จ!',
@@ -441,11 +444,12 @@ CheckLogin();
             'success'
           )
         }
-      }).then((response) => {
-          setTimeout(function() {
-            window.location.href = 'lottonumber';
-          }, 1000);
       })
+      // .then((response) => {
+      //     setTimeout(function() {
+      //       window.location = 'lottonumber';
+      //     }, 1000);
+      // })
     }
     // function scroll() {
     // window.onbeforeunload = function() {
