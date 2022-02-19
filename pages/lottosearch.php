@@ -94,10 +94,10 @@ CheckLogin();
                                                     // $datesearch = $_GET["datelottosearch"];
                                                     // $installmentsearch = $_GET["installmentsearch"];
                                                     if ($_GET["lottosearch"] != null) {
-                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number LIKE '%$lottosearch%' ";
+                                                        $sql = "SELECT * FROM lotto_number WHERE lotto_number LIKE '$lottosearch%' AND user_id='" . $_SESSION["userId"] . "' ";
                                                         // echo $sql;
                                                         $result = $conn->query($sql);
-                                                        
+
                                                         $row = mysqli_fetch_array($result);
                                                         // echo '<pre>';
                                                         // var_dump($row);

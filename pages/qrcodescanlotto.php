@@ -223,7 +223,7 @@ CheckLogin();
                         <button type="submit" class="btn btn-success mr-2">บันทึก</button>
                         <?php
                         $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
-                        INNER JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' ORDER BY lotto_match.match_id DESC ";
+                        INNER JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' AND isActive=0 ORDER BY lotto_match.match_id DESC ";
                         // WHERE lotto_match.user_id='" . $_SESSION["userId"] . "'
                         $query = $conn->query($sql);
                         $rowCount = mysqli_num_rows($query);

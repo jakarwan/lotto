@@ -63,18 +63,12 @@
           <?php 
             }
           ?>
-          <?php 
-            if($_SESSION['status'] == 'Admin'){
-          ?>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="lottodel">
               <i class="menu-icon mdi mdi-delete-variant text-white"></i>
               <span class="menu-title text-white">ลบล็อตเตอรี่</span>
             </a>
-          </li>
-          <?php 
-          }
-          ?>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="logout">
               <i class="menu-icon mdi mdi-logout text-white"></i>
