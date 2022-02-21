@@ -164,7 +164,7 @@ CheckLogin();
                                                                 // echo $sql;
                                                                 $query = $conn->query($sql);
                                                                 $sqlLottoall = "UPDATE lotto_number SET is_active = 0 WHERE lotto_id = '" . $_GET["lotto_id"] . "' ";
-                                                                echo $sqlLottoall;
+                                                                // echo $sqlLottoall;
                                                                 $queryLottoall = $conn->query($sqlLottoall);
                                                                 if ($query) {
                                                                     echo "<script>window.location.href = 'lottocomplete';</script>";

@@ -211,9 +211,9 @@ CheckLogin();
         <!-- page-body-wrapper ends -->
     </div>
     <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
+        // $(document).ready(function() {
+        //     $('#example').DataTable();
+        // });
 
         $(window).scroll(function() {
             sessionStorage.scrollTop = $(this).scrollTop();
