@@ -98,7 +98,7 @@ CheckLogin();
                                                                                                                                                                                                         } ?>">
                                 </div>
                                 <div class="col-12">
-                                  <label for="lottonumber" class="mt-4>เลขลอตเตอรี่</label>
+                                  <label for="lottonumber" class="mt-4">เลขลอตเตอรี่</label>
                                   <input type="text" class="form-control col-12 col-sm-6 col-md-4" id="lottonumber" name="lottonumber" placeholder="เลขล็อตเตอรี่" maxlength="6" onkeypress="submitForm()" autofocus>
                                 </div>
                                 <?php
@@ -341,6 +341,7 @@ CheckLogin();
                             <?php
                             if (!empty($_GET["match_id"])) {
                               // echo $_GET["save"];
+                              $updated = date('Y-m-d H:i:s');
                               $sql = "UPDATE lotto_match SET isActive = 1 WHERE match_id = '" . $_GET["match_id"] . "' ";
                               // echo $sql;
                               $query = $conn->query($sql);
@@ -500,11 +501,11 @@ CheckLogin();
     //   console.log(dop);
     // }
   </script>
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       $('#example').DataTable();
     });
-  </script>
+  </script> -->
   <script src="../vendors/js/vendor.bundle.base.js"></script>
   <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->

@@ -69,7 +69,7 @@ CheckLogin();
                                                 <?php
                                                 $sql = "SELECT lotto_number.*, lotto_match.* FROM lotto_match 
                                                 JOIN lotto_number ON lotto_match.lotto_id=lotto_number.lotto_id
-                                                WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' AND isActive=1 ORDER BY lotto_match.match_id DESC ";
+                                                WHERE lotto_match.user_id='" . $_SESSION["userId"] . "' AND isActive=1 ORDER BY lotto_match.updated_at DESC ";
                                                 $query = $conn->query($sql);
                                                 $rowCount = mysqli_num_rows($query);
                                                 ?>
@@ -108,6 +108,7 @@ CheckLogin();
                                                                     <th class="text-white">เลขล็อตเตอรี่</th>
                                                                     <th class="text-white">งวด</th>
                                                                     <th class="text-white">วันที่</th>
+                                                                    <th class="text-white">วันที่จัดเก็บ</th>
                                                                     <th class="text-white">หมายเหตุ</th>
                                                                     <th class="text-white">ตรงกับ</th>
                                                                     <!-- <th class="text-white"></th>
@@ -128,11 +129,12 @@ CheckLogin();
                                                                             <td class="text-white"><?php echo $row["lotto_number"]; ?></td>
                                                                             <td class="text-white"><?php echo $row["installment"]; ?></td>
                                                                             <td class="text-white"><?php echo $row["lotto_match_date"]; ?></td>
+                                                                            <td class="text-white"><?php echo $row["updated_at"]; ?></td>
                                                                             <td class="text-white">
                                                                                 <label class="badge badge-danger"><?php echo $row["lotto_name_match"]; ?></label>
                                                                             </td>
                                                                             <td class="text-white">
-                                                                                <label class="badge badge-primary"><?php echo $row["lotto_name"]; ?></label>
+                                                                                <label class="badge badge-primary"><?php echo $row["lotto_name"] != null ? $row["lotto_name"] : '-'; ?></label>
                                                                             </td>
                                                                             <?php
                                                                             if ($_SESSION['status'] == 'Admin') {
@@ -160,11 +162,12 @@ CheckLogin();
                                                             <?php
                                                             if (!empty($_GET["match_id"])) {
                                                                 // echo $_GET["save"];
+                                                                $updated = date('Y-m-d H:i:s');
                                                                 $sql = "UPDATE lotto_match SET isActive = 0 WHERE match_id = '" . $_GET["match_id"] . "' ";
                                                                 // echo $sql;
                                                                 $query = $conn->query($sql);
                                                                 $sqlLottoall = "UPDATE lotto_number SET is_active = 0 WHERE lotto_id = '" . $_GET["lotto_id"] . "' ";
-                                                                echo $sqlLottoall;
+                                                                // echo $sqlLottoall;
                                                                 $queryLottoall = $conn->query($sqlLottoall);
                                                                 if ($query) {
                                                                     echo "<script>window.location.href = 'lottocomplete';</script>";
