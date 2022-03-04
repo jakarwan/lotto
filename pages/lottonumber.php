@@ -212,7 +212,7 @@ CheckLogin();
                                             $count = mysqli_num_rows($queryCheck);
                                             if ($count > 0) {
                                               $matchDate = date('Y-m-d H:i:s');
-                                              $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment', 0)";
+                                              $sql = "INSERT INTO lotto_match VALUES (NULL, '" . $result["lotto_id"] . "', '$matchDate', '$userId', '$lottoname', '$installment', 0, NULL)";
                                               $query = mysqli_query($conn, $sql);
                                               // echo strlen($_POST["lottonumber"]);
                                               echo '<script type="text/javascript">Swal.fire("Match!","You clicked the button!","success")</script>';
